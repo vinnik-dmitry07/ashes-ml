@@ -1,0 +1,796 @@
+{
+  "synthetic": true,
+  "generation": 1,
+  "available": 94,
+  "spent": 6,
+  "records": [
+    {
+      "principal": "agent",
+      "event": {
+        "id": "e1",
+        "kind": "propose",
+        "proposal": "proposal1",
+        "configuration": {
+          "program": {
+            "registers": {
+              "x": {
+                "type": "nat",
+                "value": 0
+              },
+              "result": {
+                "type": "nat",
+                "value": 0
+              },
+              "error": {
+                "type": "text",
+                "value": ""
+              }
+            },
+            "inputs": [
+              "x"
+            ],
+            "handles": {
+              "call": "transform"
+            },
+            "entry": "invoke",
+            "nodes": {
+              "invoke": {
+                "op": "spawn",
+                "handle": "call",
+                "args": {
+                  "x": {
+                    "register": "x"
+                  }
+                },
+                "ok": "wait",
+                "error": "finish",
+                "error_register": "error"
+              },
+              "wait": {
+                "op": "await",
+                "handle": "call",
+                "output_register": "result",
+                "error_register": "error",
+                "ok": "finish",
+                "error": "finish",
+                "unknown": "finish"
+              },
+              "finish": {
+                "op": "halt",
+                "value": {
+                  "register": "result"
+                }
+              }
+            },
+            "output": "nat",
+            "fuel": 11
+          },
+          "bindings": {
+            "transform": "h3b57c1a8055c489f1ae85ed5940d15e6df71f7f10490e8f3b75dd9a14c8ab66a"
+          },
+          "initial": {
+            "memory": {
+              "type": "nat",
+              "value": 0
+            }
+          }
+        }
+      },
+      "result": {
+        "code": "OK",
+        "configuration": "h62f22c2982418f43a3d28681fcac7f3ecee17c87c8103b1ab7e4b55b7098203c"
+      }
+    },
+    {
+      "principal": "agent",
+      "event": {
+        "id": "e2",
+        "kind": "start_trial",
+        "trial": "trial1",
+        "proposal": "proposal1",
+        "claim": "improve"
+      },
+      "result": {
+        "code": "OK"
+      }
+    },
+    {
+      "principal": "provider",
+      "event": {
+        "id": "e3",
+        "kind": "assessment",
+        "trial": "trial1",
+        "charge": 6,
+        "outcome": {
+          "kind": "report",
+          "report": {
+            "strata": {
+              "composition": [
+                {
+                  "id": "sample0",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample1",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample2",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample3",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample4",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample5",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample6",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample7",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample8",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample9",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample10",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample11",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample12",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample13",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample14",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample15",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample16",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample17",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample18",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample19",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample20",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample21",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample22",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample23",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample24",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample25",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample26",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample27",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample28",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample29",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample30",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample31",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample32",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample33",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample34",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample35",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample36",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample37",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample38",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample39",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample40",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample41",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample42",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample43",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample44",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample45",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample46",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample47",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample48",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample49",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample50",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample51",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample52",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample53",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample54",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample55",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample56",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample57",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample58",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample59",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample60",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample61",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample62",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample63",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample64",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample65",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample66",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample67",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample68",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample69",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample70",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample71",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample72",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample73",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample74",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample75",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample76",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample77",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample78",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample79",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample80",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample81",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample82",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample83",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample84",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample85",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample86",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample87",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample88",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample89",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample90",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample91",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample92",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample93",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample94",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample95",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample96",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample97",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample98",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample99",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample100",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample101",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample102",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample103",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample104",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample105",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample106",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample107",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample108",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample109",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample110",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample111",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample112",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample113",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample114",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample115",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample116",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample117",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample118",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample119",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample120",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample121",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample122",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample123",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample124",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample125",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample126",
+                  "parent": false,
+                  "candidate": true
+                },
+                {
+                  "id": "sample127",
+                  "parent": false,
+                  "candidate": true
+                }
+              ]
+            },
+            "violations": 0
+          }
+        }
+      },
+      "result": {
+        "code": "SETTLED",
+        "verdict": {
+          "accepted": true,
+          "code": "ACCEPT",
+          "threshold": {
+            "num": "1",
+            "den": "80"
+          },
+          "tests": {
+            "composition": {
+              "n": 128,
+              "wins": 128,
+              "losses": 0,
+              "loss_p": {
+                "num": "139008452377144732764939786789661303114218850808529137991604824430036072629766435941001769154109609521811665540548899435521",
+                "den": "100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+              },
+              "gain_p": {
+                "num": "1",
+                "den": "340282366920938463463374607431768211456"
+              },
+              "passed": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "principal": "agent",
+      "event": {
+        "id": "e4",
+        "kind": "publish",
+        "trial": "trial1"
+      },
+      "result": {
+        "code": "OK",
+        "configuration": "h62f22c2982418f43a3d28681fcac7f3ecee17c87c8103b1ab7e4b55b7098203c"
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "version": "0.5",
+  "algorithm": "sha256",
+  "sha256": {
+    "core.py": "fd7854a7a8a873e1dbd85590bfc5f5ce943c446f87ce2601ab40565fb29b1a24",
+    "run.py": "48c541e9d060a665055a2954d1484071f955e2527a107a0296cff1207a270500",
+    "verify.py": "9478edddd443aa7c267c0e3be381e47cdfbed243bd7e7372ce3be7de90a0253b",
+    "SPEC.md": "6fee3910efb45266759e14b1dcf50480b524f634538caa0d67620b41831bfada",
+    "README.md": "78ca3a5a55e877c2af105aa96cfedc370250791a832065062c193ab1e4be1563",
+    "tests/test_core.py": "0cfadab33e0445ed3e61fb5c239173545d795b06136b9ab9b9f687536219901e",
+    "model/Kernel.tla": "ef9e5bad776655393397bf9ecb524dc79af9aa6dbdc8199a045eb8f762807df3",
+    "model/Kernel.cfg": "f86b2af5409994689e7da91e975391d816629ed3eaea736dfd1461602184a625",
+    "examples/manifest.json": "21b27e2b8e4945cdedba66477fecd6705ba72211b577aa45b9aad964e12fa6c1",
+    "examples/conflict.json": "d1cdeb6c1f6b41190c2358228a2d5d8887601e9cc74f428785b5dc6e34cf9c02",
+    "examples/expected.json": "bed088092c4263eb0e1f4f6ed31bdd94d9fc2289f69244ace7567d13e7753a82",
+    "verification.json": "32ce3bb66991c5ac12bf0a5becd5b09779e268abd08e71dcc24a5c01901c5209",
+    "AHSL-0.4-design.md": "dd20b2664bfb0022cb3db251f42c5c9ea3da4b0d24a4988f2eb0654b238389a8"
+  }
+}

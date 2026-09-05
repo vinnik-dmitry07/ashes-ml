@@ -1,28 +1,14 @@
 {
-  "profile": "transactional_event_core",
-  "version": "0.5",
-  "python": {
-    "unit_tests": 27,
-    "result": "passed"
-  },
-  "tlc": {
-    "tool_version": "TLC2 2.19, 08 August 2024, rev 5a47802",
-    "release": "v1.7.4",
-    "url": "https://github.com/tlaplus/tlaplus/releases/download/v1.7.4/tla2tools.jar",
-    "jar_sha256": "936a262061c914694dfd669a543be24573c45d5aa0ff20a8b96b23d01e050e88",
-    "generated_states": 69475,
-    "distinct_states": 6942,
-    "depth": 11,
-    "queue_remaining": 0,
-    "invariants": 8,
-    "result": "No error has been found.",
-    "liveness_checked": false,
-    "deadlock_check_enabled": false
-  },
-  "limitations": [
-    "Finite TLA+ abstraction with three jobs and one cell.",
-    "No machine-checked Python-to-TLA refinement proof.",
-    "No real storage, authentication, sandbox or provider verified.",
-    "No claims about learned quality or certification."
-  ]
+  "version": "0.6",
+  "kernel_tests": 27,
+  "profile_tests": 37,
+  "failures": 0,
+  "errors": 0,
+  "hashed_files": 28,
+  "synthetic_release_example": "pass",
+  "statistical_boundary_checks": "exact enumeration for n = 1..14",
+  "tlc_rerun": false,
+  "mechanized_general_proof": false,
+  "production_adapter_tested": false,
+  "live_learning_benchmark_run": false
 }

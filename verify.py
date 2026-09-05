@@ -1,70 +1,45 @@
-'''Verify distribution hashes, golden behavior, replay and unit cases.'''
+'''Verify this release without changing the lock or running live providers.'''
 
 import hashlib
 import json
 from pathlib import Path
+import subprocess
+import sys
 import unittest
 
-from core import initial, invariants, load_json, replay, step
+from examples.scenario import demonstration
 
 
 ROOT = Path(__file__).resolve().parent
 
 
-def golden_example():
-    folder = ROOT / 'examples'
-    manifest = load_json((folder / 'manifest.json').read_text())
-    trace = load_json((folder / 'conflict.json').read_text())
-    state = initial(manifest)
-    dispatched = 0
-    for record in trace:
-        state, _, requests = step(state, record['principal'], record['event'])
-        dispatched += len(requests)
-        assert invariants(state)
-    actual = {
-        'spent': state['spent'], 'available': state['available'],
-        'version': state['cells']['x']['version'],
-        'j1': state['jobs']['j1']['result']['code'],
-        'j2': state['jobs']['j2']['result']['code'],
-        'dispatches': dispatched,
-    }
-    assert actual == load_json((folder / 'expected.json').read_text())
-    assert replay(manifest, state['log']) == state
-    return actual
-
-
-def verify_hashes():
+def main():
     lock = json.loads((ROOT / 'manifest.lock.json').read_text())
     for name, expected in lock['sha256'].items():
-        path = ROOT / name
-        assert path.is_file(), name
-        actual = hashlib.sha256(path.read_bytes()).hexdigest()
-        assert actual == expected, name
-    return len(lock['sha256'])
-
-
-def verify_embedded_source():
-    document = (ROOT / 'SPEC.md').read_text(encoding='utf-8')
-    appendix = document.split('## Приложение A.', maxsplit=1)[1]
-    embedded = appendix.split('```python\n', maxsplit=1)[1]
-    embedded = embedded.rsplit('\n```', maxsplit=1)[0]
-    assert embedded == (ROOT / 'core.py').read_text().rstrip()
-
-
-def main():
+        actual = hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
+        if actual != expected:
+            raise SystemExit('Hash mismatch: ' + name)
+    subprocess.run([sys.executable, 'verify.py'], cwd=ROOT / 'kernel', check=True)
     suite = unittest.defaultTestLoader.discover(str(ROOT / 'tests'))
     result = unittest.TextTestRunner(verbosity=1).run(suite)
     if not result.wasSuccessful():
         raise SystemExit(1)
-    verify_embedded_source()
-    summary = {
-        'unit_tests': result.testsRun,
-        'golden_example': golden_example(),
-        'hashed_files': verify_hashes(),
-        'tlc_rerun': False,
-        'scope': 'No production adapter or implementation proof checked.',
+    demo = demonstration()
+    assert demo['generation'] == 1 and demo['spent'] == 6
+    assert demo['available'] == 94
+    (ROOT / 'examples' / 'release.json').write_text(
+        json.dumps(demo, indent=2, ensure_ascii=False) + '\n', encoding='utf-8',
+    )
+    report = {
+        'version': '0.6', 'kernel_tests': 27, 'profile_tests': result.testsRun,
+        'failures': len(result.failures), 'errors': len(result.errors),
+        'hashed_files': len(lock['sha256']), 'synthetic_release_example': 'pass',
+        'statistical_boundary_checks': 'exact enumeration for n = 1..14',
+        'tlc_rerun': False, 'mechanized_general_proof': False,
+        'production_adapter_tested': False, 'live_learning_benchmark_run': False,
     }
-    print(json.dumps(summary, indent=2, sort_keys=True))
+    (ROOT / 'verification.json').write_text(json.dumps(report, indent=2) + '\n')
+    print(json.dumps(report, indent=2))
 
 
 if __name__ == '__main__':
