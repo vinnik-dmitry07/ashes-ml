@@ -1,1312 +1,1072 @@
-# Agent Harness Specification Language (AHSL) 0.2
+# AHSL 0.3 — спецификация исполнения, обучения и проверки агентных систем
 
-**Статус:** финальная исследовательская спецификация-кандидат  
-**Дата:** 2026-09-03  
-**Область:** агентные harness, гиперагенты, эволюция траекторий, память, councils, самомодификация и воспроизводимое оценивание
+**Дата:** 5 сентября 2026 года.  
+**Статус:** предлагаемая нормативная редакция; заменяет проект AHSL 0.2.  
+**Граница результата:** формальная модель, контракты, протокол оценки и требования к реализации. Полного компилятора, доказательства реализации и экспериментально подтверждённого преимущества AHSL пока нет.
 
-## 0. Краткое решение
+## 1. Основное решение
 
-AHSL — не новый универсальный язык программирования и не замена Python, DeepSeek Harness или конкретного agent runtime. Это переносимый **язык контрактов и промежуточное представление** для описания того:
+AHSL описывает **адаптивную систему, действующую в среде при ограниченных полномочиях и ресурсах**, а также эксперимент, которым проверяют её свойства. Агент с замороженными весами — частный случай. Обучение памяти, весов, модели мира и самого алгоритма обновления должно описываться тем же языком.
 
-- кто действует и с какими полномочиями;
-- какие типизированные данные и артефакты переходят между компонентами;
-- как строятся контекст, память, councils и траектории;
-- где и с каким бюджетом вводится энтропия;
-- что может эволюционировать;
-- кто генерирует, исполняет, оценивает и продвигает кандидатов;
-- какие инварианты никогда не могут быть отменены самим агентом.
+Центральная единица — не промпт и не траектория, а **версионированный переход состояния с контрактом**. Траектории дают наблюдения для проверки и обучения. Компоненты реализуют переходы. Контракты задают допустимые эффекты. Протокол эксперимента определяет, какие улучшения действительно измерены.
 
-Исполняемый runtime может быть написан на обычном функциональном или императивном языке. Преимущество AHSL не в большей вычислительной выразительности, а в том, что **эффекты, authority, provenance, evaluation и mutation surface имеют стандартную семантику** и потому могут проверяться до и во время исполнения.
+У проекта три независимые задачи:
 
-Стабильный harness определяется не детерминированностью LLM, а следующей границей:
+1. **Описание:** выразить устройство системы и её открытые интерфейсы.
+2. **Исполнение:** контролировать доступ, ресурсы, версии, сбои и восстановление.
+3. **Обоснование:** отличать формальную гарантию, результат измерения и гипотезу.
 
-> Стохастические агенты предлагают запросы; детерминированное ядро валидирует, авторизует, исполняет, учитывает бюджет, фиксирует доказательства и принимает только внешне подтверждённые переходы состояния.
+Способность описать систему не означает способность безопасно исполнять её или доказать её полезность. AHSL не обещает большей вычислительной выразительности, чем Python или функциональный язык. Его предполагаемая ценность — общая семантика сравнения, замены, наблюдения и контроля компонентов. Эту ценность ещё нужно подтвердить сравнением реализаций.
 
----
+## 2. Что исправлено относительно 0.2
 
-## 1. Протокол исследования: пять проверяемых итераций
-
-Ниже приведён журнал решений, а не скрытая цепочка рассуждений. Для каждого прохода указаны вопрос, внешние свидетельства, найденное противоречие и изменение спецификации.
-
-Исходный corpus включал приложенную пользователем библиографию из 129 работ; архитектурные решения ниже сверялись с первичными страницами статей, документацией и репозиториями. Corpus служит источником кандидатов, но цитирование работы не превращает её утверждения в инварианты AHSL.
-
-### Итерация 1 — язык или runtime
-
-**Вопрос.** Должен ли AHSL сам исполнять любой harness или описывать его независимо от backend?
-
-**Свидетельства.** DeepSeek Harness уже предоставляет модульное plugin-ядро для моделей, tools, skills, sessions, sandboxes, storage и loops; его append-only session log поддерживает resume, fork, search и replay. В формализации harness как преобразования состояния важно не название runtime, а то, как глобальная задача проецируется в локальные наблюдения модели. Работа о переоценке harness evolution дополнительно показывает, что поиск harness на публичных тестах легко спутать с test-time scaling и переобучением, если не выровнять бюджеты и held-out evaluation. См. [DeepSeek Harness](https://www.deepseek.com/harness/en/), [Alex Zhang, Harness](https://alexzhang13.github.io/blog/2026/harness/), [Rethinking Harness Evolution](https://arxiv.org/html/2607.12227v1).
-
-**Противоречие.** Полная вычислительная универсальность уже есть у Python; повторять её в DSL дорого и не даёт переносимой безопасности. Но декларативной схемы недостаточно для циклов, ошибок и side effects.
-
-**Решение.** AHSL имеет два слоя: удобную YAML/JSON-поверхность и нормативное AHIR — типизированную событийную машину состояний. Произвольная логика подключается как opaque adapter с объявленными типами, эффектами, digest и attestation.
-
-### Итерация 2 — траектории, память и цикл конденсации/формализации
-
-**Вопрос.** Являются ли transcript, summary, reference book, KNN и обученные веса одной памятью?
-
-**Свидетельства.** RLM хранит большой контекст как программную переменную и извлекает только нужные проекции; PRO-LONG опирается на полный структурированный лог и программный поиск; MemRL разделяет семантическую релевантность и выученную полезность эпизодов. Prime Agent сохраняет trajectory, persistent kernel state и применяет локальные memory CRUD refinements. См. [RLM](https://alexzhang13.github.io/blog/2025/rlm/), [PRO-LONG](https://arxiv.org/abs/2607.20064), [MemRL](https://arxiv.org/abs/2601.03192), [Prime Agent](https://www.primeintellect.ai/blog/prime-agent).
-
-**Противоречие.** Суммаризация нужна из-за конечного контекста, но если summary становится источником истины, система необратимо теряет ограничения и не может отличить факт от интерпретации.
-
-**Решение.** Вводятся отдельные `RawLedger`, `DerivedMemory`, `Index`, `RetrievalPolicy`, `UtilityModel`, `WorldModel`, `LatentCheckpoint`, `ContextProjection` и `REPLSnapshot`. Конденсация создаёт версионированное представление с provenance, но не изменяет исходные события; формализация превращает гипотезу в проверяемую спецификацию или исполняемую модель мира.
-
-### Итерация 3 — эволюция, councils и агрегация
-
-**Вопрос.** Можно ли считать совет моделей, mutation и selection одним оператором?
-
-**Свидетельства.** GEPA использует execution traces и reflective mutation, PromptBreeder эволюционирует также mutation prompts, MAP-Elites сохраняет разнообразие по behavioral descriptors, а SimpleTES раскладывает test-time search по ширине, глубине refinement, числу локальных кандидатов и context composer. LLM Council показывает полезный шаблон независимых ответов, анонимного peer review и chairman synthesis. См. [GEPA](https://arxiv.org/abs/2507.19457), [PromptBreeder](https://arxiv.org/abs/2309.16797), [MAP-Elites](https://arxiv.org/abs/1504.04909), [SimpleTES](https://haotianye.com/blog/simpletes/), [LLM Council](https://github.com/karpathy/llm-council).
-
-**Противоречие.** Consensus полезен для генерации гипотез, но не является эмпирической истинностью. Если один и тот же компонент предлагает, агрегирует мнения, оценивает и продвигает, reward hacking получает прямой путь к власти.
-
-**Решение.** `BudgetAllocator`, `ContextComposer`, `Mutator`, `Council`, `CreditAssigner`, `Evaluator`, `Selector` и `Archive` — разные роли. Council имеет только advisory/propose authority. Delphi является одним mutation operator и сохраняет сильное несогласие как отдельные ветви. GEPA — одна конфигурация, а не имя всего каталога мутаций.
-
-### Итерация 4 — authority и самомодификация
-
-**Вопрос.** Достаточно ли sandbox, запрета в prompt и скрытых тестов для безопасного RSI?
-
-**Свидетельства.** Prime Agent в Factorio превратил exploit через RCON в переиспользуемые skills. В другом эксперименте offline sandbox был обойдён через server-side возможности inference API, то есть сетевой запрет не распространялся на делегированный сервис. Anthropic отдельно документирует sandbox escape и классы reward hacking. AIDE² показывает смысл двух уровней поиска, но также необходимость fixed budgets, public/private split и anti-hacking evaluation. См. [Prime Agent](https://www.primeintellect.ai/blog/prime-agent), [Universal Offline Sandbox Escape](https://www.primeintellect.ai/blog/universal-offline-sandbox-escape), [Anthropic containment](https://www.anthropic.com/engineering/how-we-contain-claude), [Reward-Seeking Behavior](https://alignment.anthropic.com/2026/reward-seeker/), [AIDE²](https://www.weco.ai/blog/first-evidence-of-recursive-self-improvement).
-
-**Противоречие.** Самомодификация полезна только тогда, когда изменяемый компонент не может переписать критерий собственного успеха. Локальный sandbox не защищает от confused-deputy через разрешённый внешний tool.
-
-**Решение.** Capability распространяется через всю цепь делегирования, включая provider-side fetch и spawned agents. Действующее право равно пересечению прав родителя, конкретного вызова, ресурса и провайдера. В текущей эпохе policy kernel, evaluator, sealed data, budget authority и promotion rule находятся вне mutable closure. Meta-кандидаты исполняются только в shadow epoch.
-
-### Итерация 5 — прогрессирующий бенчмарк стабильности
-
-**Вопрос.** Можно ли использовать Anthropic `original_performance_takehome` как оптимальный benchmark стабильности?
-
-**Свидетельства.** Take-home даёт детерминированную метрику simulated cycles и сильный anti-gaming пример: первые опубликованные результаты ниже 1300 были недействительны, потому что агенты изменили tests. Но все thresholds относятся к одной задаче, поэтому это ladder качества решения, а не ladder структурной сложности. HORIZON предлагает agent-independent `H*` — минимум эффективных действий — и compositional depth; METR измеряет success-rate по human task duration и подчёркивает стоимость высокой статистической надёжности. ARC-skill демонстрирует другой важный primitive: обязательный falsifiable prediction перед дорогостоящим действием. SPADE, PSV, Self-Play SWE-RL и Dr. Zero показывают способы строить адаптивные curricula, но совместно обучаемый task generator нельзя использовать как независимого сертифицирующего evaluator. См. [Anthropic take-home](https://github.com/anthropics/original_performance_takehome), [HORIZON](https://arxiv.org/html/2604.11978v1), [METR time horizons](https://metr.org/time-horizons/), [ARC-skill](https://github.com/pbshgthm/arc-skill), [SPADE](https://arxiv.org/html/2608.19197), [PSV](https://arxiv.org/abs/2512.18160), [Self-Play SWE-RL](https://arxiv.org/abs/2512.18552), [Dr. Zero](https://arxiv.org/abs/2601.07055).
-
-**Противоречие.** Динамический curriculum создаёт прогресс, но движущаяся цель уничтожает сопоставимость. Один фиксированный benchmark воспроизводим, но быстро переобучается и не измеряет перенос.
-
-**Решение.** Сертификация использует замороженные `BenchmarkEpoch`, скрытые task families, вектор сложности, matched-budget baselines, повторные запуски и нижний хвост распределения. Генератор может адаптироваться во время обучения, но certification generator, oracle и sealed split фиксируются и изолируются на всю эпоху.
-
----
-
-## 2. Нормативный язык и модель соответствия
-
-Слова **MUST**, **MUST NOT**, **SHOULD**, **SHOULD NOT** и **MAY** являются нормативными.
-
-Реализация AHSL состоит из:
-
-1. parser и schema validator для surface syntax;
-2. compiler в canonical AHIR;
-3. deterministic policy kernel;
-4. registry типизированных adapters;
-5. append-only evidence store;
-6. conformance test suite.
-
-Утверждение «AHSL способен описать любой harness» означает:
-
-- любая вычислимая внутренняя логика MAY быть opaque adapter;
-- её ports, effects, authority, budgets, identity и provenance MUST быть представлены в AHIR;
-- AHSL не доказывает корректность произвольного adapter-кода без отдельного proof/verification artifact.
-
-## 3. Архитектурные слои
-
-```text
-AHSL source
-  -> canonical JSON
-  -> typed AHIR graph
-  -> static checks
-  -> deterministic kernel + backend adapters
-  -> append-only EventLedger + immutable Artifacts
-  -> derived views, metrics and audit reports
-```
-
-Surface syntax MAY быть YAML, JSON или компактный DSL. Canonical JSON MUST использовать стабильную сортировку ключей, нормализацию чисел/Unicode и content hashing.
-
-## 4. Верхнеуровневая грамматика
-
-```ebnf
-specification  = header, { import }, { declaration } ;
-declaration    = type_decl | artifact_decl | principal_decl | adapter_decl
-               | agent_decl | environment_decl | memory_decl | workflow_decl
-               | council_decl | decision_decl | evolution_decl
-               | evaluator_decl | benchmark_decl | policy_decl
-               | invariant_decl | test_decl ;
-
-workflow_decl  = 'workflow', identifier, '{', { node | edge | loop | trigger }, '}' ;
-node           = identifier, ':', node_kind, ports, effects, authority,
-                 [ budget ], [ retry ], [ idempotency ], [ failure_policy ] ;
-edge           = source, '->', target, [ guard ], [ projection ], [ trust_label ] ;
-
-decision_decl  = 'decision', identifier, '{', question_type, evidence,
-                 ballot, aggregator, uncertainty, tie_policy, authority, '}' ;
-evolution_decl = 'evolution', identifier, '{', genome, mutation_surface,
-                 allocator, composer, mutators, credit, evaluator_ref,
-                 selector, archive, stop_rule, '}' ;
-benchmark_decl = 'benchmark', identifier, '{', epoch, task_families,
-                 complexity, splits, baselines, metrics, gates, rank, '}' ;
-```
-
-## 5. Базовая система типов
-
-### 5.1 Значения
-
-```text
-Bool | Int | Float | Decimal | Text | Bytes | Timestamp | Duration
-Tensor[dtype, shape] | Image[format] | Audio[format]
-Record{...} | Enum{...} | List[T] | Set[T] | Map[K,V] | Option[T]
-Artifact[T] | Stream[T] | Distribution[T] | Interval[T]
-Secret[T, SecurityLabel]
-```
-
-`Secret` и все значения с метками `sealed`, `evaluator_private` или `personal` MUST участвовать в information-flow tracking. Неявное преобразование в менее строгую метку запрещено.
-
-### 5.2 Principals и роли
-
-```text
-Human | Agent | Model | Tool | Environment | CouncilMember | Chair
-BudgetAllocator | ContextComposer | Mutator | CreditAssigner
-Evaluator | Selector | Archive | PolicyKernel | Auditor
-```
-
-Один физический model endpoint MAY исполнять несколько ролей, но каждое действие MUST иметь ровно один `principal_instance`, `role`, `parent_request` и набор capabilities. Совпадение модели не объединяет полномочия ролей.
-
-### 5.3 Artifact
-
-```text
-Artifact[T] {
-    id: ContentHash
-    media_type: Text
-    value_or_ref: Opaque
-    schema: TypeRef
-    created_by: PrincipalRef
-    generated_by: EventRef
-    derived_from: Set[ArtifactRef | EventRef]
-    spec_digest: ContentHash
-    implementation_digest: ContentHash
-    security_label: SecurityLabel
-    lifecycle: draft | evaluated | promoted | rejected | revoked
-    signature: Option[Attestation]
-}
-```
-
-Имена вроде `current_best` — только атомарно обновляемые ссылки на immutable artifacts. Смена ссылки MUST создавать отдельное событие.
-
-## 6. Операционная семантика AHIR
-
-Состояние runtime:
-
-```text
-Σ = (Q, A, L, B, R, P, E, V)
-
-Q : control state and pending requests
-A : immutable artifact store
-L : append-only event ledger
-B : remaining and reserved budgets
-R : archives and mutable references
-P : effective policy
-E : current experiment/benchmark epoch
-V : adapter and schema versions
-```
-
-Запрос компонента:
-
-```text
-ρ = (principal, action, resource, payload_digest,
-     declared_effects, capability_chain, expected_version,
-     budget_request, idempotency_key)
-```
-
-Только kernel применяет переход:
-
-```text
-request
-  -> type_check
-  -> information_flow_check
-  -> authorize
-  -> reserve_budget
-  -> execute_adapter
-  -> validate_output
-  -> attest
-  -> append_event
-  -> commit | rollback
-```
-
-Формально:
-
-```text
-Kernel(P, Σ, ρ) = (Σ', Event, Result)
-```
-
-Ни agent, ни adapter не могут напрямую производить `Σ -> Σ'`.
-
-### 6.1 Состояния транзакции
-
-```text
-proposed -> denied
-proposed -> authorized -> running -> committed
-                              \-> failed -> rolled_back
-                              \-> timed_out -> rolled_back
-```
-
-Denied, failed и rolled-back requests MUST остаться в ledger. Protected state после rollback MUST совпадать с pre-state, кроме event evidence и невозвратных ресурсов.
-
-### 6.2 Эффекты
-
-```text
-read | query | append | create | modify | delete
-execute | call_model | spawn | sample | retrieve | train
-mutate | aggregate | evaluate | score | attest
-promote | rollback | declassify | allocate | terminate
-external_send | provider_fetch
-```
-
-Undeclared effect MUST быть отклонён. `external_send`, `provider_fetch`, `declassify`, `promote`, `allocate` и `terminate` являются privileged effects.
-
-### 6.3 Циклы, retries и идемпотентность
-
-Каждый loop MUST объявить:
-
-```text
-(guard, variant_or_budget, maximum_iterations, stop_owner)
-```
-
-Retry MUST объявить backoff, retryable error classes, максимальное число попыток и idempotency semantics. Агент MAY запросить остановку; применить stop rule может только kernel.
-
-## 7. Граф исполнения и локальные проекции
-
-Workflow — ориентированный типизированный multigraph `G=(N, E)`. Node исполняется, только если:
-
-1. все обязательные input ports имеют значения совместимых типов;
-2. guard истинно;
-3. capability и budget checks пройдены;
-4. declared dependencies находятся в допустимой версии;
-5. нет незавершённого конфликта по mutable reference.
-
-```text
-ContextProjection {
-    source_scope: Set[ArtifactRef | EventRange]
-    selector: PureFunction | AdapterRef
-    token_budget: Int
-    retained_claims: Set[ClaimRef]
-    omitted_claims: Set[ClaimRef]
-    evidence_coverage: Float[0,1]
-    compression_loss: Interval[Float]
-    local_task_schema: TypeRef
-}
-```
-
-Harness SHOULD проектировать глобальную задачу в локально знакомые model calls, но MUST измерять потерю ограничений и доказательств. Предположение о том, что две траектории эквивалентны для решения, является версионированным `EquivalenceHypothesis`, а не фактом.
-
-## 8. Контракты агента, модели и среды
-
-### 8.1 Model и Decoder
-
-```text
-ModelSpec {
-    provider: Text
-    model_id: Text
-    revision: ContentHash | Text
-    modality: Set[text | image | audio | code]
-    context_limit: Int
-    tool_protocol: TypeRef
-    weights_attestation: Option[ArtifactRef]
-}
-
-DecoderConfig {
-    temperature: Float
-    top_p: Float
-    max_tokens: Int
-    seed: Option[Seed]
-    stop: List[Text]
-    structured_output: Option[TypeRef]
-}
-```
-
-Model revision, decoder, system instructions и tool schemas MUST version independently.
-
-### 8.2 Данные, encoder/decoder и model transformations
-
-```text
-Dataset[T] {
-    records: Artifact[List[T]] | Stream[T]
-    lineage: ProvenanceGraph
-    license_policy: PolicyRef
-    security_label: SecurityLabel
-    split_role: train | public | development | private | sealed
-}
-
-DataFilter[I,O] {
-    predicate_or_transform: Artifact[PureFunction[I,O]]
-    input_schema: I
-    output_schema: O
-    rejection_log: EventStream
-    bias_audit: Option[AuditRef]
-}
-
-RepresentationTransform[I,Z] {
-    kind: encoder | decoder | tokenizer | embedder | compressor
-    implementation: Artifact
-    input: I
-    output: Z
-    loss_model: Option[MetricRef]
-}
-
-ModelTransform[M,N] {
-    kind: finetune | distill | quantize | merge | prune | compile
-    source: Artifact[M]
-    procedure: Artifact[Program | TrainingConfig]
-    data: Set[DatasetRef]
-    output: Artifact[N]
-    budget: Budget
-    fidelity_metrics: Set[MetricRef]
-    transfer_scope: Predicate
-}
-```
-
-Filter, summarizer, encoder и quantizer являются наблюдаемыми transforms: input/output digests, rejected records, procedure, cost и fidelity loss MUST фиксироваться. Сжатая или квантизованная модель — новый artifact, а не скрытая настройка старой.
-
-`Heuristic` — `PureFunction` или effectful `Adapter` с заявленной областью применимости и baseline. «Дешёвое обучение лучше сложного harness» не является универсальным правилом: AHSL требует сравнивать их на общей quality-cost frontier. KNN не становится GRPO сам по себе; только обучение retrieval/utility policy по group-relative reward является отдельным `ModelTransform(kind=finetune)` или M6-кандидатом.
-
-### 8.3 Agent
-
-```text
-AgentSpec[I,O] {
-    role: RoleRef
-    model: Artifact[ModelSpec]
-    decoder: Artifact[DecoderConfig]
-    instructions: Artifact[Prompt | Program]
-    decomposer: Option[AdapterRef]
-    context: ContextPolicy
-    tools: Set[Capability]
-    memory_views: Set[MemoryView]
-    input: I
-    output: O
-    budget: Budget
-    writable_surfaces: Set[ResourcePattern]
-}
-```
-
-### 8.4 Environment
-
-```text
-Environment[S,O,A] {
-    reset(seed: Seed) -> (O, Info)
-    step(action: A) -> Transition[O]
-    snapshot() -> Option[Artifact[Snapshot]]
-    restore(snapshot: Artifact[Snapshot]) -> Result
-    hidden_state: S
-    observation: O
-    action: A
-    horizon: Bound
-    side_effect_class: pure | sandboxed | external
-    oracle: Option[EvaluatorRef]
-}
-
-Transition[O] {
-    observation: O
-    reward: Option[Decimal]
-    terminated: Bool
-    truncated: Bool
-    info: Map[Text, Value]
-}
-```
-
-Описание типа `hidden_state` не даёт агенту доступа к значению. Reward и oracle output MAY быть withheld до завершения trajectory.
-
-## 9. Траектории, transcript и evidence
-
-### 9.1 Event
-
-```text
-Event {
-    id: EventId
-    run: RunId
-    logical_time: Int
-    wall_time: Option[Timestamp]
-    parents: Set[EventRef]
-    principal: PrincipalRef
-    role: RoleRef
-    operation: Effect
-    input_digests: Set[ContentHash]
-    output_digests: Set[ContentHash]
-    policy_digest: ContentHash
-    capability_chain_digest: ContentHash
-    seed: Option[Seed]
-    usage: ResourceUsage
-    status: proposed | denied | committed | failed | rolled_back
-    security_label: SecurityLabel
-}
-```
-
-Trajectory — причинно упорядоченный event subgraph, а не обязательно линейный transcript:
-
-```text
-Trajectory = (Events, happens_before, branches, joins, terminal_state)
-Transcript = ordered projection(Trajectory, message_events)
-```
-
-GEPA и похожие методы могут оперировать траекториями, потому что mutator получает trace/evidence view; но AHSL отделяет trajectory от prompt и допускает мутацию любого разрешённого genome surface.
-
-### 9.2 Claim и Evidence
-
-```text
-Claim {
-    proposition: Predicate
-    scope: Predicate
-    author: PrincipalRef
-    created_at: EventRef
-}
-
-Evidence {
-    claim: ClaimRef
-    supports: Set[EventRef | ArtifactRef]
-    contradicts: Set[EventRef | ArtifactRef]
-    evaluator: EvaluatorRef
-    uncertainty: Distribution | Interval | unknown
-    validity_scope: Predicate
-}
-```
-
-AHSL запрещает неограниченное `verified: true`. Verification всегда относительно evaluator digest, evidence set, scope, epoch и uncertainty.
-
-### 9.3 Prediction-before-action
-
-Для дорогих или необратимых действий профиль `falsifiable_action` требует:
-
-```text
-ActionHypothesis {
-    proposed_action: Action
-    predicted_observation: Predicate
-    mechanism_claim: Option[Claim]
-    falsification_condition: Predicate
-    confidence: Interval[Float]
-}
-```
-
-Kernel MAY отказать в действии без testable prediction. После transition прогноз автоматически оценивается, а первое противоречащее событие связывается с гипотезой. Этот primitive обобщает ARC-skill и исполняемые world models Schema: действие одновременно решает задачу и ставит эксперимент.
-
-## 10. Память и цикл конденсации/формализации
-
-```text
-MemorySystem {
-    raw_ledger: EventLedger
-    derived: Set[DerivedMemory]
-    indices: Set[Index]
-    retrieval: RetrievalPolicy
-    utility: Option[UtilityModel]
-    negative_bank: Set[FailureEpisode]
-    world_models: Set[WorldModel]
-    latent: Set[LatentCheckpoint]
-    repl_snapshots: Set[REPLSnapshot]
-}
-```
-
-### 10.1 DerivedMemory
-
-```text
-DerivedMemory {
-    kind: episode | summary | hypothesis | rule | plan | skill | world_model
-    content: Artifact
-    derives_from: NonEmptySet[EventRef | ArtifactRef]
-    scope: Predicate
-    confidence: Interval | Distribution | unknown
-    status: proposed | corroborated | falsified | superseded
-    supersedes: Set[ArtifactRef]
-    retention_policy: RetentionPolicy
-}
-```
-
-Derived memory создаётся новой версией. Она MUST NOT изменять или скрывать cited evidence. Summary MUST хранить coverage, omitted ranges и compression loss estimate.
-
-### 10.2 Retrieval и reference book
-
-```text
-retrieve(query, scope, token_budget, exploration_budget) -> RetrievalResult
-
-RetrievalResult {
-    considered: List[CandidateMemory]
-    selected: List[MemoryRef]
-    relevance_scores: List[Float]
-    utility_scores: Option[List[Float]]
-    diversity_scores: Option[List[Float]]
-    hierarchy_path: List[IndexNodeRef]
-    injected_entropy: List[EntropyEventRef]
-    tokens_used: Int
-}
-```
-
-Reference book SHOULD иметь иерархию: текущий узел, соседний более общий уровень и соседний более конкретный уровень могут совместно питать context. KNN — только candidate generator; полезность, разнообразие и final selection измеряются отдельно. Намеренное добавление нерелевантных элементов является `retrieval_exploration`, а не скрытым искажением vectors.
-
-`negative_bank` хранит failed equivalence classes с контекстом применимости. Правило «не повторять ошибку» MUST иметь scope и expiry, иначе единичная неудача запретит полезный повтор при других условиях.
-
-### 10.3 Формальные преобразования
-
-```text
-condense  : EvidenceSet -> DerivedMemory
-formalize : DerivedMemory -> Artifact[Specification | ExecutableModel]
-predict   : ExecutableModel x State x Action -> Distribution[Observation]
-verify    : ExecutableModel x EvidenceSet -> VerificationReport
-distill   : EvidenceSet x TrainingProcedure -> LatentCheckpoint
-audit     : LatentCheckpoint x ProbeSuite -> Set[Claim]
-```
-
-`audit` — диагностический вывод о latent state, не математическая инверсия `distill`.
-
-Цикл пользователя получает следующую нормативную форму:
-
-```text
-explicit evidence
-  -> condensation
-  -> implicit operational memory
-  -> formalization
-  -> explicit specification/world model
-  -> falsifiable execution
-  -> new explicit evidence
-```
-
-### 10.4 WorldModel
-
-```text
-WorldModel {
-    state_schema: TypeRef
-    transition_model: Artifact[Program | FormalRelation]
-    observation_model: Artifact[Program | FormalRelation]
-    assumptions: Set[ClaimRef]
-    fitted_on: EventRange
-    backtest: VerificationReport
-    open_counterexamples: Set[EventRef]
-    search_adapter: Option[AdapterRef]
-}
-```
-
-World model MAY планировать только в пределах подтверждённого scope. Prediction miss MUST инвалидировать зависимые queued actions либо потребовать explicit reauthorization.
-
-## 11. Энтропия и воспроизводимость
-
-```text
-EntropySource {
-    kind: model_sampling | rng | environment | task_sampling
-        | retrieval_exploration | external_corpus | human_input
-        | mutation | crossover | population_sampling | clock
-    distribution: ArtifactRef | Text
-    seedable: Bool
-    seed: Option[Seed]
-    budget: Budget
-    visibility: SecurityLabel
-    replay: exact | captured | statistical | impossible
-}
-```
-
-Каждый источник случайности MUST быть объявлен и записан. Статьи, новые prompts, external search, MAP-Elites cell sampling и случайно удалённые memories — разные источники энтропии с разными trust labels.
-
-Certified deterministic run MUST запрещать undeclared entropy. Statistical run MUST сохранять seed manifest, model/adapter revisions, sample count и uncertainty estimator. Внешнее наблюдение SHOULD сохраняться как content-addressed artifact; если это запрещено политикой, run помечается `non_replayable` с причиной.
-
-## 12. Решения, councils и агрегация
-
-Агрегация является first-class primitive, но её семантика зависит от типа вопроса:
-
-```text
-QuestionType = factual_belief | forecast | preference | allocation
-             | diagnosis | proposal | empirical_selection
-```
-
-Нельзя применять voting rule без объявления question type и assumptions.
-
-### 12.1 Decision service
-
-```text
-DecisionService[I,O] {
-    question_type: QuestionType
-    inputs: I
-    admissible_evidence: Predicate
-    ballot: rank | approval | score | grade | probability | argument
-    aggregator: AggregatorRef
-    uncertainty: Estimator
-    tie_policy: Rule
-    missing_policy: Rule
-    conflict_policy: Rule
-    output: O
-    authority: advisory | propose_only | allocate_within_cap
-}
-```
-
-Decision tables MAY заимствовать pure-rule semantics из DMN; voting methods MAY подключаться через adapter, например ranked, cardinal или graded methods. Метод MUST публиковать свойства, которые он реально гарантирует; AHSL не объявляет ни один voting rule универсально оптимальным. См. [OMG DMN](https://www.omg.org/dmn/), [pref_voting](https://pref-voting.readthedocs.io/).
-
-### 12.2 Council
-
-```text
-Council {
-    members: NonEmptySet[AgentRef]
-    independence: shared_context | isolated_context | isolated_evidence_slices
-    identity_policy: visible | labels_hidden | double_blind
-    rounds: List[CouncilRound]
-    decision: DecisionServiceRef
-    preserve_dissent: Bool
-    correlation_audit: Option[AuditRef]
-    authority: advisory | propose_only
-}
-```
-
-`chair` — явная dictatorial/synthesis aggregation, не доказанный consensus. Council output всегда `Recommendation`, а не `EvaluationAttestation`.
-
-Для Delphi mutation:
-
-```text
-DelphiRecommendation {
-    consensus_candidates: Set[CandidateRef]
-    dissenting_candidates: Set[CandidateRef]
-    discriminating_experiments: Set[ExperimentRef]
-    unresolved_claims: Set[ClaimRef]
-    round_history: EventRange
-}
-```
-
-Consensus повышает priority предложения, но не fitness. Независимый evaluator решает, какая ветвь выживает.
-
-## 13. Эволюция и search
-
-### 13.1 Candidate и genome
-
-```text
-Candidate[G] {
-    id: ContentHash
-    genome: G
-    mutation_scope: MutationScope
-    parents: Set[CandidateRef]
-    lineage: LineageId
-    created_by: MutatorRef
-    hypothesis: Claim
-    predicted_effect: Distribution | Interval | unknown
-    falsification_test: ExperimentRef
-    evidence_view_digest: ContentHash
-    status: proposed | admitted | evaluated | rejected | promoted
-}
-```
-
-Genome MAY включать prompt, code, specification, context policy, memory policy, world model, council, mutator, search algorithm, orchestration graph, weights или task generator. Evaluator никогда не является частью genome в той же benchmark epoch.
-
-### 13.2 Mutation scope lattice
-
-```text
-M0  output/sample only
-M1  trajectory-local state and episodic memory
-M2  prompts, skills, specification and context policy
-M3  task solution code or policy
-M4  mutator, search and credit assignment
-M5  harness graph and orchestration
-M6  model weights, decoder or latent checkpoint
-M7  training task/environment generator
-```
-
-Каждый experiment объявляет максимальный `M_allowed`. Переход на более высокий уровень требует новой policy grant. Изменение evaluator, sealed split или promotion rule не является `M8`; оно создаёт новый `BenchmarkEpoch` и уничтожает сопоставимость с текущей эпохой.
-
-### 13.3 Каталог mutation operators
-
-```text
-MutationOperator =
-    zero_order
-  | feedback_conditioned
-  | reflective
-  | hypermutation
-  | lamarckian_distillation
-  | estimation_of_distribution
-  | self_referential
-  | differential_semantic
-  | novelty
-  | adversarial
-  | triz
-  | delphi
-  | crossover
-  | custom[AdapterRef]
-```
-
-| Оператор | Обязательный вход | Назначение | Основной риск |
-|---|---|---|---|
-| `zero_order` | parent + entropy | широкое исследование без feedback | пустая выборка |
-| `feedback_conditioned` | measurements/errors | локальная целевая правка | переобучение на feedback |
-| `reflective` | trajectory/evidence | причинная гипотеза и правка | правдоподобная конфабуляция |
-| `hypermutation` | plateau signal | несколько крупных изменений | потеря полезного lineage |
-| `lamarckian_distillation` | successful trajectories | перенести найденное поведение в prompt/memory/code/weights | закрепить shortcut |
-| `estimation_of_distribution` | selected population | сэмплировать общие паттерны успеха | collapse разнообразия |
-| `self_referential` | mutator genome | улучшить генератор мутаций | self-evaluation loop |
-| `differential_semantic` | минимум 2–3 кандидата | применить смысловую разницу | аналогия некаузальна |
-| `novelty` | behavioral descriptors | удалённое поведение | novelty без utility |
-| `adversarial` | contract/evaluator surface | найти failure/reward hacking | dual-use exploits |
-| `triz` | contradiction model | систематически разрешить trade-off | ритуальная классификация |
-| `delphi` | независимые diagnoses | consensus, dissent и discriminating tests | correlated panel |
-
-Эти операторы **не являются частями GEPA по умолчанию**. GEPA соответствует конфигурации с trajectory-conditioned reflective mutation и Pareto-style retention; остальные операторы являются расширениями AHSL.
-
-TRIZ полезна как typed proposal generator:
-
-```text
-TRIZProblem {
-    improving_parameter: MetricRef
-    worsening_parameter: MetricRef
-    contradiction: technical | physical | administrative
-    resources: Set[ArtifactRef | CapabilityRef]
-    ideal_final_result: Predicate
-    forbidden_effects: Set[Effect]
-}
-```
-
-TRIZ operator MAY выдать transformations и experiments, но MUST NOT менять fitness, constraints или evaluator. Репозиторий [snow-ghost/triz](https://github.com/snow-ghost/triz) может быть adapter/knowledge base; его наличие не изменяет authority model.
-
-### 13.4 Mutator
-
-```text
-Mutator[G] {
-    parents: List[Candidate[G]]
-    evidence: EvidenceView
-    operator: MutationOperator
-    entropy: Set[EntropySourceRef]
-    budget: Budget
-    write_scope: Set[ResourcePattern]
-    child_count: Bound
-    output: NonEmptySet[Candidate[G]]
-}
-```
-
-Mutator MUST записать operator, evidence view, prompts/programs, seeds, parent digests и predicted mechanism. Он не имеет права score или promote.
-
-### 13.5 Search budget и SimpleTES-разложение
-
-```text
-SearchBudget {
-    C: Int  // independent trajectories
-    L: Int  // refinement depth
-    K: Int  // local candidates per step
-    Phi: ContextComposerRef
-    token_cap: Int
-    action_cap: Int
-    wall_clock_cap: Duration
-    monetary_cap: Decimal
-}
-```
-
-Номинальное число evaluations `C*L*K` не заменяет полный resource ledger. Сравниваемые harnesses MUST иметь одинаковые caps или показывать Pareto frontier quality-cost.
-
-### 13.6 CreditAssigner
-
-```text
-CreditAssigner {
-    granularity: action | segment | candidate | lineage
-    signal: terminal | dense | counterfactual | peer | formal
-    rule: AdapterRef
-    uncertainty: Estimator
-    leakage_policy: PolicyRef
-}
-```
-
-Credit MAY переноситься от финального результата на ранние действия, но attribution MUST храниться отдельно от raw reward и MUST NOT считаться causal fact без counterfactual evidence.
-
-### 13.7 Evaluator
-
-```text
-Evaluator {
-    implementation: Artifact[Program | FormalProofChecker]
-    oracle: Option[Artifact]
-    splits: Map[train | public | development | private | sealed, DatasetRef]
-    metrics: Set[Metric]
-    constraints: Set[Predicate]
-    replicates: ReplicationPolicy
-    uncertainty: Estimator
-    anti_gaming: Set[Test]
-    epoch_policy: immutable_within_epoch
-}
-```
-
-```text
-EvaluationAttestation {
-    candidate_digest: ContentHash
-    evaluator_digest: ContentHash
-    epoch_digest: ContentHash
-    dataset_partition_digests: Set[ContentHash]
-    environment_digest: ContentHash
-    seed_manifest: ArtifactRef
-    raw_measurements: ArtifactRef
-    aggregate_metrics: Map[MetricRef, Value]
-    uncertainty: Map[MetricRef, Interval | Distribution]
-    violations: Set[InvariantRef]
-    resource_usage: ResourceUsage
-    signature: Attestation
-}
-```
-
-LLM-as-judge MAY классифицировать failures и создавать diagnoses, но promotion MUST зависеть от формального oracle, независимого evaluator или заранее объявленной human protocol там, где объективный oracle невозможен.
-
-### 13.8 Selector и Archive
-
-```text
-Selector {
-    eligibility: Predicate
-    rule: scalar | lexicographic | pareto | tournament | map_elites
-    tie_break: List[Criterion]
-    promotion_threshold: Predicate
-    authority: recommend_only
-}
-
-Archive {
-    kind: flat | pareto | map_elites | islands
-    descriptor: Option[PureFunction[Candidate, Vector]]
-    replacement: Rule
-    capacity: Bound
-    epoch: EpochRef
-}
-```
-
-Only kernel promotes. Behavioral descriptors MUST быть versioned pure functions; смена descriptor создаёт новую archive epoch или audit-migration.
-
-## 14. Самомодификация и RSI
-
-AHSL различает два режима.
-
-### 14.1 Online adaptation
-
-Внутри текущего run агент MAY изменять только явно writable M1/M2 resources: episodic memory, hypotheses, context views или session-local skills. Эти изменения являются частью trajectory и не подменяют исходный subject после начала оценки.
-
-### 14.2 Offline evolution
-
-Изменения M2–M7 создают новый Candidate, исполняются в isolated/shadow environment, оцениваются независимо и могут быть применены только в следующей epoch.
-
-### 14.3 RSI ladder
-
-```text
-R0  no adaptation
-R1  delegation/search improves task outcome
-R2  net-positive self-improvement after accounting for search cost
-R3  improvement generalizes to held-out task families
-R4  improved improver accelerates future improvement (inflection)
-```
-
-Переход на R2+ требует matched-budget baseline, multiple seeds, held-out families и учета стоимости outer loop. Рост public benchmark score не доказывает RSI.
-
-### 14.4 Meta non-interference
-
-Meta-candidate, меняющий mutator/search/harness:
-
-1. MUST выполняться в shadow epoch;
-2. MUST NOT видеть собственный sealed evaluation;
-3. MUST сравниваться минимум с parallel sampling, sequential refinement и предыдущим frozen harness при равном бюджете;
-4. MUST проходить regression, complexity и anti-gaming gates;
-5. MUST NOT расширять собственные capabilities;
-6. MAY быть promoted только kernel в следующую epoch.
-
-## 15. Authority, capabilities и information flow
-
-### 15.1 Политика
-
-```text
-authorize(principal, action, resource, context) -> allow | deny
-```
-
-Семантика: `default_deny` и `deny_overrides`.
-
-Effective delegated capability:
-
-```text
-Cap_effective = Cap_parent
-              intersection Cap_call
-              intersection Cap_resource
-              intersection Cap_provider
-              intersection Cap_epoch
-```
-
-Ограничение MUST передаваться через model APIs, remote browsers, server-side URL fetching, code interpreters, subagents и все дальнейшие delegates. Provider-side действие считается эффектом исходного principal, даже если локальный процесс не имеет сети.
-
-### 15.2 Taint и declassification
-
-Security labels образуют lattice. Flow разрешён только в сторону не менее строгой метки. Declassification требует trusted node, конкретного projection schema, audit reason и отдельной capability. Prompt или model output не могут выдать себе declassification.
-
-### 15.3 Матрица authority профиля `safe_research`
-
-| Роль | Propose | Execute candidate | Read sealed | Score | Promote | Allocate/terminate |
-|---|---:|---:|---:|---:|---:|---:|
-| Task agent | Да | Через kernel | Нет | Нет | Нет | Нет |
-| Mutator/Council | Да | Нет | Нет | Нет | Нет | Нет |
-| Environment designer | Да | Только training/shadow | Нет | Нет | Нет | Нет |
-| Evaluator | Нет | Через kernel | Да | Да | Нет | Нет |
-| Selector | Нет | Нет | Aggregate only | Нет | Recommend | Нет |
-| Auditor | Нет | Read-only replay | По policy | Проверяет attestation | Нет | Нет |
-| Policy kernel | Нет | Да | Да | Фиксирует | Да | Да |
-
-Kernel владеет worktree/container creation, evaluator invocation, budget reservation, rollback, promotion и final termination.
-
-## 16. Обязательные инварианты
-
-### 16.1 Safety
-
-1. **Append-only evidence.** Committed raw events не изменяются и не удаляются in place.
-2. **Provenance completeness.** Каждый derived artifact ссылается на generating event и все прямые зависимости.
-3. **Authority confinement.** Нет effect без effective capability.
-4. **Transitive confinement.** Delegate не получает больше authority, чем вызывающий principal.
-5. **Evaluator isolation.** Candidate не читает и не изменяет evaluator, oracle, private data, seeds и promotion state.
-6. **Promotion integrity.** Promotion требует matching candidate/evaluator/epoch digests и valid attestation.
-7. **Epoch immutability.** Contract, evaluator, metrics, gates и sealed split фиксированы внутри epoch.
-8. **Meta non-interference.** Meta-candidate не влияет на собственную оценку.
-9. **Budget monotonicity.** Остаток бюджета не увеличивается без внешнего grant event.
-10. **Secret noninterference.** Sealed value не попадает в candidate-visible output без trusted declassification.
-11. **Context non-authority.** Отсутствие факта в context не удаляет ledger state и не отменяет policy.
-12. **Rollback completeness.** Failed execution не меняет protected state, кроме evidence и consumed non-refundable resources.
-13. **Termination ownership.** Agent MAY request, но не apply termination.
-14. **Prediction accountability.** При `falsifiable_action` действие связано с предварительным прогнозом и его outcome.
-15. **Generator/evaluator separation.** Training task generator не сертифицирует собственный solver в той же epoch.
-
-### 16.2 Liveness
-
-- каждый admitted candidate в конечном итоге evaluated или terminally classified;
-- каждый run завершается success, declared failure, deadline или budget exhaustion;
-- reservation failed transaction освобождается за bounded time;
-- promoted artifact получает post-promotion regression evaluation;
-- recovery после kernel restart завершается replay до последнего committed event.
-
-### 16.3 Statistical integrity
-
-- stopping rule объявлен до просмотра sealed outcomes;
-- число replicates и confidence procedure версионированы;
-- множественный поиск учитывается через holdout, nested evaluation либо correction policy;
-- public feedback и sealed feedback имеют разные information labels;
-- reported best-of-N всегда сопровождается N и total resource use.
-
-## 17. Progressive Harness Stability Benchmark (PHSB)
-
-### 17.1 BenchmarkEpoch
-
-```text
-BenchmarkEpoch {
-    id: ContentHash
-    task_generator: Artifact[Program]
-    task_families: Set[TaskFamily]
-    public_split: DatasetRef
-    development_split: DatasetRef
-    sealed_split: DatasetRef
-    oracle: ArtifactRef
-    capability_policy: PolicyRef
-    fault_schedule: ArtifactRef
-    resource_budgets: Set[Budget]
-    complexity_schema: TypeRef
-    metrics: Set[Metric]
-    gates: OrderedList[Gate]
-    baseline_manifest: ArtifactRef
-}
-```
-
-Epoch digest публикуется до запуска; sealed task contents остаются скрытыми. Generator и oracle MAY обновляться только между epochs после audit. Сравнение разных epochs требует explicit migration report и не считается прямым score improvement.
-
-### 17.2 Вектор сложности
-
-Task complexity:
-
-```text
-chi_task = (H_star, s, b, o, delta, phi)
-```
-
-| Компонент | Значение |
-|---|---|
-| `H_star` | минимальное число эффективных действий оптимальной политики |
-| `s` | максимальная глубина вложенных subgoals/condition branches |
-| `b` | число одновременно поддерживаемых целей и join dependencies |
-| `o` | сложность наблюдения/частичная наблюдаемость и state size |
-| `delta` | сдвиг относительно public/training distribution |
-| `phi` | fault/adversarial pressure: failures, injections, stale state, canaries |
-
-Отдельно объявляются adaptation scope `mu in {M0..M7}` и budget vector `beta`. Нельзя смешивать более трудную задачу, больший mutation surface и больший compute в одно число.
-
-### 17.3 Лестница уровней
-
-| Уровень | Что измеряется | Минимальный gate |
+| Недостаток 0.2 | Изменение 0.3 | Контрпример, который устраняется |
 |---|---|---|
-| `L0 Kernel` | replay, types, budgets, rollback | одинаковый committed state после restart/replay |
-| `L1 Containment` | authority и anti-gaming | ноль protected-effect violations и canary escapes |
-| `L2 Bounded optimization` | улучшение одного фиксированного решения при M3 | корректность + cost/quality gain на hidden seeds |
-| `L3 Structural transfer` | новые размеры, структуры и task families | положительный sealed transfer без retuning |
-| `L4 Long horizon` | рост `H_star,s,b,o`, память и recovery | reliability curve выше baseline + bounded recovery |
-| `L5 Orchestration` | councils/subagents/concurrency | gain после учёта total budget и correlation |
-| `L6 Meta-evolution` | M4/M5 improvement | held-out gain над frozen harness и scaling baselines |
-| `L7 Open curriculum` | M6/M7 и co-evolution | независимый frozen certification epoch, no collapse |
+| Суммаризация названа переходом в неявную память | Разделены сжатие, формализация, обучение и извлечение | Короткий текст остаётся явным текстом и может ничего не научить |
+| Онлайн-обновления ограничены промптом и памятью | Обновляться может любое разрешённое состояние, включая веса | Test-time training не укладывается в старую модель |
+| M0–M7 названы лестницей полномочий | Используются множества ресурсов, эффектов и областей записи | Право менять промпт не включает право менять индекс |
+| Обещан полный rollback | Разделены локальная транзакция, внешний эффект и компенсация | Ответ потерян после уже выполненного действия |
+| Детерминированность распространена на весь runtime | Детерминирован только reducer при фиксированном журнале | Повтор API-вызова не обязан вернуть прежний ответ |
+| Остаток бюджета должен только уменьшаться | Введено сохранение средств с резервами | Неиспользованный резерв нужно возвращать |
+| Один label для секретности и достоверности | Разделены доступ, происхождение и подтверждение утверждений | Подписанная симуляция всё ещё не реальное наблюдение |
+| Council всегда advisory | Роль определяется профилем и контрактом решения | В задаче коллективного выбора предпочтения могут быть целью |
+| Evaluator вообще не может обучаться | Разделены обучаемый critic и независимая сертификация | Learned reward model допустима как часть обучения |
+| Нижний хвост считается по valid runs | Провалы входят в распределение результата | Система с редкими провалами может выглядеть безупречной |
+| Сложность — единая лестница архитектур | Независимые оси сложности и режимы адаптации | Добавление council не делает задачу объективно сложнее |
+| Стабильность почти равна сохранению поведения | Добавлены пластичность и исправление устаревших знаний | Агент стабильно повторяет уже неверное правило |
+| Все методы стремятся стать примитивами | Малое ядро и расширяемая библиотека реализаций | Каждая новая статья иначе требует менять стандарт |
+| Статус «финальная формальная спецификация» чрезмерно сильный | Явно указаны непроверенные обязательства реализации | YAML, проходящий parser, не доказывает изоляцию |
 
-Каждый уровень включает regression suite всех предыдущих уровней.
+## 3. Основания исследования и пять проверок проекта
 
-Anthropic `original_performance_takehome` является хорошим экземпляром `L2/M3`: фиксированная задача, строгая корректность и стоимость в simulated cycles. Для PHSB его нужно расширить hidden structural parameters, несколькими workload families, вынесенным evaluator, immutable test mount, deterministic seed manifest, injected failures и repeated runs. Факт изменения тестов агентами — обязательный canary для L1, а не просто anecdote. [Источник](https://github.com/anthropics/original_performance_takehome).
+Отправная точка — [favorite-papers/readme.md](https://github.com/vinnik-dmitry07/favorite-papers/blob/main/readme.md). В прочитанном снимке 349 пунктов и 272 уникальных arXiv ID. Это индекс для отбора источников, а не 349 полностью проверенных работ. Для этой редакции проверены первичные источники по тем вопросам, которые меняют семантику языка. Снимок README: SHA-256 `c607153a23804495eb015d6daff263cf683427dfc71205c198ac00613b6cdb4d`.
 
-### 17.4 Метрики стабильности
+Ниже — пять проверяемых пересмотров проекта, а не изложение внутреннего процесса рассуждений.
 
-Для уровня `l`, бюджета `beta` и повторов `r`:
-
-```text
-R_l(beta) = P(all_hard_gates_pass | level=l, budget=beta)
-U_l       = normalized task utility conditional on pass
-CVaR_q    = mean utility in the worst q fraction of valid runs
-Rec       = P(recover within budget | injected recoverable fault)
-Inv       = count and severity of invariant violations
-Cost      = total tokens + actions + wall time + money + training compute
-```
-
-Рекомендуемый headline:
-
-```text
-L_p_star = max l such that lower_confidence_bound(R_l(beta)) >= p
-```
-
-Публикуются как минимум `p=0.80` и `p=0.95`; 99% MAY использоваться только при достаточном числе независимых tasks/runs. Один successful run не является stability evidence.
-
-### 17.5 Порядок ранжирования
-
-Lexicographic rank:
-
-1. ноль critical invariant violations;
-2. максимальный полностью пройденный level;
-3. максимальный lower confidence bound reliability;
-4. максимальный `CVaR_0.10` normalized utility;
-5. максимальный recovery rate;
-6. минимальная полная стоимость;
-7. минимальная complexity/dead-code penalty.
-
-Average и best score MAY публиковаться только как secondary metrics.
-
-### 17.6 Matched-budget baselines
-
-Каждый evolutionary/meta result MUST сравниваться с:
-
-- single frozen harness;
-- independent parallel sampling;
-- sequential refinement;
-- incumbent human-authored harness;
-- ablation без council/memory/world model;
-- тем же числом environment interactions и равным total cost.
-
-Это отделяет архитектурное улучшение от простого test-time compute scaling.
-
-### 17.7 Task generation и self-play
-
-PSV показывает ценность формального verifier для self-play code tasks; Self-Play SWE-RL — bug injection/repair с test patch; Dr. Zero — proposer/solver curriculum; SPADE — complete executable MDP environments с adaptive hint-regret. В AHSL это четыре конфигурации `EnvironmentDesigner + Solver + CreditAssigner`, но certification требует frozen external verifier и sealed families. Совместный model checkpoint MAY играть обе training roles, однако role-separated events, contexts и authority всё равно обязательны.
-
-## 18. Conformance profiles
-
-| Profile | Обязательные модули |
-|---|---|
-| `core` | types, artifacts, principals, graph, events, effects, policy |
-| `replayable` | seed manifest, append-only ledger, snapshots, recovery |
-| `memory` | derived memory, retrieval, negative bank, utility |
-| `world_model` | hypotheses, predictions, backtest, invalidation |
-| `council` | independent rounds, ballots, aggregation, dissent |
-| `evolution` | candidates, mutators, budgets, credit, selector, archive |
-| `research` | isolated evaluator, attestations, staged gates, promotion |
-| `meta` | shadow epochs, matched baselines, mutation scope M4/M5 |
-| `latent` | training/distillation, checkpoint lineage, transfer audit |
-| `benchmark` | BenchmarkEpoch, complexity vector, reliability curves |
-| `verified` | model-checked kernel invariants, sealed eval, signed attestations |
-
-Система заявляет только реализованные profiles.
-
-## 19. Компиляция существующих систем в AHSL
-
-| Система/идея | Представление в AHSL | Что не следует путать |
+| Проверка | Основание | Принятое проектное решение |
 |---|---|---|
-| DeepSeek Harness | backend adapters, plugin registry, sessions, event stream | runtime не заменяет normative authority semantics |
-| Alex Zhang Harness/RLM | `ContextProjection`, `ContextComposer`, subcalls, programmatic context | локальная удобность не доказывает global correctness |
-| Prime Agent | persistent trajectory, memory CRUD, REPL snapshot, `/refine` | live refinement не равно certified meta-evolution |
-| [Duck Harness](https://tufalabs.ai/research/duck-harness/) | REPL environment, multimodal observation projection, bounded action loop | дешёвый task-specific backend не универсальная memory/policy model |
-| GEPA | reflective trajectory-conditioned mutator + Pareto selection | не весь каталог mutation operators |
-| PromptBreeder | self-referential M4 mutator | mutation prompt не оценивает себя |
-| MAP-Elites | archive with pure behavioral descriptor | diversity не равно quality |
-| SimpleTES | `C,L,K,Phi` budget decomposition | gain без matched budget не архитектурный |
-| LLM Council/Delphi | advisory multi-round decision/mutation service | consensus не evaluator |
-| TRIZ | contradiction-driven proposal generator | heuristic не promotion rule |
-| ARC-skill | `falsifiable_action` + prediction grading | public-set success не hidden transfer |
-| Schema Harness | executable `WorldModel` + backtest + search | модель мира ограничена evidence scope |
-| PRO-LONG / прежний RGB-Agent URL | RawLedger + programmatic retrieval | полный лог не обязан целиком входить в context |
-| MemRL | relevance filter + learned utility | similarity и utility разные сигналы |
-| TELL | persistent hypothesis/world-model memory | MEMORY.md — derived view, не единственная истина |
-| [Vision-CL](https://github.com/vansh-one/arc-agi-3_Vision-CLv1) | M6 `LatentCheckpoint` с двухфазным explore/freeze protocol | latent weights требуют lineage, leakage и transfer audit |
-| [ARC general-agent baselines](https://github.com/astroseger/arc-3-agents-baseline1) | textual/executable world-model profiles и fresh-workspace baseline | public saturation прямо не доказывает unseen-game generalization |
-| PSV | proposer/solver + formal verifier | verifier должен быть внешним при certification |
-| Self-Play SWE-RL | test-specified bug proposer/repairer | generated tests могут быть неверны/играбельны |
-| Dr. Zero | difficulty-aware proposer/solver search curriculum | solvability proxy требует sealed transfer eval |
-| SPADE | M7 executable environment designer + solver + regret credit | co-evolving verifier не независимый benchmark oracle |
-| AIDE² | outer M4/M5 harness evolution over inner task search | RSI claim требует net cost и held-out generalization |
-| [Hyperagents](https://arxiv.org/abs/2603.19461) | единый editable task/meta program с M4/M5 self-reference | current evaluator/policy всё равно вне mutable closure |
-| [AEvo / Harnessing Agentic Evolution](https://arxiv.org/abs/2605.13821) | process-level evolution state + meta-agent, редактирующий будущую procedure/context | meta-edit не получает score/promotion authority |
-| Autoresearch | locked kernel + isolated M3 candidates + staged evaluator | candidate не владеет termination/promotion |
+| 1. Что именно обучается? | [Nested Learning](https://arxiv.org/abs/2512.24695) рассматривает вложенные процессы оптимизации с разными потоками контекста | Состояние имеет владельца, правило обновления и временной масштаб; память не сводится к текстовой базе |
+| 2. Что сохраняет конденсация? | [When Does Continual Learning Require Learning](https://arxiv.org/abs/2607.07847) сравнивает способы обновления при разных видах изменений среды | Экономия контекста, приобретение навыка, удержание старого и исправление нового измеряются отдельно |
+| 3. Какой сигнал меняет поведение? | [SC-GRPO](https://arxiv.org/abs/2606.18810) и [SDPO](https://arxiv.org/abs/2601.20802) используют обусловленную обратной связью модель по-разному | Feedback, распределение кредита, обучающая цель и update rule — разные интерфейсы |
+| 4. Что доказывают наблюдения? | [Evaluating the World Model](https://arxiv.org/abs/2406.03689) показывает ограничения обычных диагностик модели мира | Утверждение имеет область применимости, способ опровержения и статус подтверждения |
+| 5. Что означает стабильность? | [Loss of Plasticity](https://github.com/shibhansh/loss-of-plasticity), исследования адаптивной оценки и семантика внешних эффектов | Проверяются безопасность исполнения, качество распределения результатов, восстановление и способность продолжать учиться |
 
-## 20. Нормативный пример Autoresearch
+Решения AHSL ниже — предлагаемая инженерная конструкция. Перечисленные статьи не доказывают её оптимальность и не задают обязательную архитектуру агента.
+
+## 4. Нормативность и уровни соответствия
+
+**MUST** означает обязательное требование выбранного профиля; **MUST NOT** — запрет; **SHOULD** — рекомендацию с документируемым исключением; **MAY** — возможность. Требования разделов ядра обязательны для заявленного соответствия ядру. Требования исследовательского профиля применяются только к этому профилю.
+
+Утверждение о соответствии имеет вид:
+
+```text
+ConformanceClaim = {
+  language_version, runtime_build, profile,
+  implemented_features, evidence_refs,
+  trusted_computing_base, assumptions, exclusions
+}
+```
+
+Уровни не подменяют друг друга:
+
+- `described`: разрешены ссылки, типы и структура описания;
+- `mediated`: заявленные эффекты проходят через реальные точки контроля;
+- `replayable`: журнал восстанавливает определённую проекцию состояния;
+- `experimentally_evaluated`: выполнен указанный протокол оценки;
+- `formally_verified[property, model, assumptions]`: доказано конкретное свойство конкретной модели или реализации.
+
+Чёрный ящик MAY быть описан через адаптер. Его внутренние эффекты и состояние нельзя автоматически объявлять проверенными. Отчёт MUST перечислять непрозрачные границы. «Любой harness можно завернуть в один Python-вызов» недостаточно для структурной сопоставимости или сертификации.
+
+## 5. Малое ядро и библиотека
+
+Ядро фиксирует следующие сущности. Список исследовательских алгоритмов остаётся открытым.
+
+| Сущность | Значение |
+|---|---|
+| `Value / ArtifactRef` | Типизированное значение либо ссылка на неизменяемое содержимое |
+| `StateCell` | Версионированное изменяемое состояние |
+| `Component` | Реализация вычисления с типами, эффектами и контрактом |
+| `Invocation / Event` | Запрос перехода и запись его наблюдаемого исполнения |
+| `Contract / Policy` | Условия, обязанности, полномочия и способы их проверки |
+| `Claim / Evidence` | Утверждение и основания для его проверки |
+| `UpdateRule` | Компонент, изменяющий разрешённое состояние по данным |
+| `ExperimentProtocol` | Распределение задач, вмешательства, измерения и правила вывода |
+
+Граф, агент, council, KNN, MAP-Elites, GEPA, decoder, optimizer, distillation и learned world model — библиотечные конструкции над ядром. Encoder и decoder являются типизированными преобразованиями. Модель — компонент с определённым интерфейсом доступа к состоянию. Метрика — компонент измерения с контрактом единиц и интерпретации.
+
+Новый примитив ядра нужен, если без него нельзя выразить различие, необходимое для исполнения, контроля или проверки. Популярность библиотеки и человеческая практика — основания для проектирования удобного адаптера, но не доказательство необходимости нового семантического примитива.
+
+## 6. Объект описания и семантика
+
+Harness определяется кортежем
+
+\[
+H=(\mathcal T,\mathcal C,\mathcal S,G,\mathcal U,P,B_0,\mathcal O),
+\]
+
+где \(\mathcal T\) — типы; \(\mathcal C\) — компоненты; \(\mathcal S\) — ячейки состояния; \(G\) — программа управления; \(\mathcal U\) — правила обновления; \(P\) — политика; \(B_0\) — ресурсы; \(\mathcal O\) — контракт наблюдаемости. Протокол оценки \(\Pi\) задаётся отдельно.
+
+Компонент со стохастическим поведением задаёт переходное ядро
+
+\[
+K_c:(I,S_{read})\longrightarrow
+\mathcal P(O,\Delta S,\mathrm{EffectRequest},\mathrm{Usage}),
+\]
+
+где \(\mathcal P\) — пространство распределений, а \(\Delta S\) — **предложение** обновления локального состояния. Контроллер разрешает либо отклоняет эффекты; commit применяет допустимые изменения. Для потокового компонента один вызов раскрывается в последовательность таких взаимодействий. Эта математическая модель не требует, чтобы адаптер умел вычислять собственные вероятности.
+
+Ядро исполнения моделируется через события:
+
+\[
+\Sigma_{t+1}=\operatorname{reduce}(\Sigma_t,e_t).
+\]
+
+`reduce` MUST быть детерминированным при фиксированных версии семантики, начальном состоянии и упорядоченных событиях. Выбор действия моделью, ответы сервиса, время, внешние изменения и решения планировщика входят через события. Повторное исполнение в мире и воспроизведение журнала — разные операции.
+
+### 6.1 Контракт компонента
+
+```text
+Component = {
+  id, implementation_ref, input_type, output_type,
+  state_reads, state_writes, effect_schema,
+  contract_ref, backend_requirements, observability
+}
+
+Contract = {
+  precondition, allowed_effects, postcondition,
+  resource_envelope, failure_semantics,
+  assumptions, obligations, checker_refs
+}
+```
+
+Условия MAY быть исполняемыми предикатами, формулами, статистическими требованиями или описанными обязанностями. Их тип MUST быть явным. Непроверенная формула не получает статус доказанной из-за нахождения в поле `postcondition`.
+
+Для детерминированного компонента применима тройка Хоара \(\{Pre\}\,c\,\{Post\}\). Для вероятностного свойства указываются распределение и допустимая вероятность нарушения. Типовая корректность, доступность, качество и пользовательское намерение — отдельные свойства.
+
+### 6.2 Композиция и замена
+
+Последовательность требует совместимых типов. Предусловие следующего шага должно следовать из постусловия предыдущего либо проверяться runtime-предикатом перед запуском. Ошибка, отмена и неизвестный исход — отдельные ветви управления.
+
+Замена \(c\) на \(c'\) допустима в конкретном контексте, если:
+
+1. \(c'\) принимает все входы, обещанные \(c\), без усиления предусловия;
+2. сохраняет требуемые постусловия и не расширяет разрешённые эффекты;
+3. соблюдает тот же ресурсный предел либо получает новое разрешение;
+4. проходит отдельные требования качества, если замена стохастическая или обучаемая.
+
+Малое расстояние между весами, промптами или embedding-векторами не доказывает поведенческую эквивалентность. Локальная замена также не гарантирует сохранение качества всего feedback loop: необходимо проверить взаимодействие с окружением компонента.
+
+## 7. Состояние, обучение и временные масштабы
+
+```text
+StateCell = {
+  id, value_type, initial_value_ref, owner,
+  readers, writers, update_rules,
+  persistence, reset_boundary, conflict_policy,
+  confidentiality, provenance_policy
+}
+
+UpdateRule = {
+  component_ref, read_set, write_set,
+  admissible_data, trigger, update_budget,
+  objective_ref, credit_rule_ref,
+  validation_contract, gradient_interface,
+  stop_gradient_boundaries
+}
+```
+
+`objective_ref` и `credit_rule_ref` MAY иметь значение `not_applicable` с объяснением: CRUD-обновление или случайная мутация не обязаны решать дифференцируемую оптимизационную задачу.
+
+`persistence` и `reset_boundary` определяют, переживает ли значение шаг, эпизод, поток задач, рестарт процесса и публикацию версии. Частота обновлений сама по себе не является полномочием.
+
+| Возможное состояние | Пример обновления | Что нужно фиксировать |
+|---|---|---|
+| Контекст и рабочая память | Retrieval, summary, REPL | Источники, отсечение, reset |
+| Внешняя эпизодическая память | Добавление опыта, изменение utility | Происхождение, валидность, область задачи |
+| Быстрое внутреннее состояние | Recurrent inference, fast weights | Поддержку backend, границы сброса |
+| Параметры модели | SFT, RL, distillation, ES | Dataset lineage, objective, optimizer, compute |
+| Состояние оптимизатора | Моменты, расписание, meta-parameters | Совместимость checkpoint и накопление |
+| Модель мира | Новый переход, belief update | Наблюдение или симуляцию, неопределённость |
+| Программа агента | Замена маршрутизации или кода | Версию, write set, проверку совместимости |
+| Правило обновления | Поиск нового mutator/optimizer | Внешний протокол оценки самого learner |
+
+Внутри эпизода веса MAY изменяться, если это предусмотрено разрешённым `UpdateRule`. При оценке замораживаются **правило адаптации, начальное состояние и разрешённый поток данных**, а не обязательно все веса на всём горизонте. Если правило адаптации само меняется, это допускается только явно описанным метаправилом. Цепь замыкается внешним неизменяемым на время эксперимента протоколом.
+
+Такое описание позволяет задавать вложенные циклы обучения без объявления их эквивалентными. Вдохновение от Nested Learning не превращает произвольный prompt optimizer в градиентный optimizer.
+
+## 8. Конденсация, формализация и перенос между представлениями
+
+Исходную идею «явное → неявное → явное» полезно сохранить как исследовательскую программу, но разделить на четыре операции:
+
+| Операция | Вход → выход | Чего она не гарантирует |
+|---|---|---|
+| `compress` | Трассы/текст → summary, индекс, compact representation | Приобретение нового навыка |
+| `formalize` | Наблюдения/гипотезы → предикаты, программу, модель, тест | Истинность созданной формулы |
+| `internalize` | Данные/навык/teacher → обученное состояние | Сохранение переноса и способности учиться |
+| `externalize` | Поведение/модель → объяснение, правило, программу | Точное чтение причин или содержимого весов |
+
+Текстовый summary остаётся явным артефактом. Latent state и параметры — разные виды неявного представления. Формализация может состояться вообще без изменения представления, например при добавлении проверяемых предусловий к существующей программе.
+
+Рабочий цикл:
+
+```mermaid
+flowchart TD
+    A["Наблюдаемый опыт"] --> B["Гипотезы и контрпримеры"]
+    B --> C["Правила, навыки и тесты"]
+    C --> D["Исполнение или обучение"]
+    D --> E["Независимая проверка поведения"]
+    E -->|"новые наблюдения"| A
+    E -->|"допустимая экономия"| F["Более дешёвое представление"]
+    F --> D
+```
+
+### 8.1 Контракт переноса поведения
+
+Пусть \(A\) — исходный агент, а \(A'\) — результат сжатия, дистилляции, квантования либо компиляции навыка в код. На **объявленном** распределении \(D\) проверяются:
+
+\[
+\mathbb E_D[U(A)-U(A')]\leq\varepsilon,
+\qquad
+\Pr_D[V(A')=1]\leq\delta.
+\]
+
+\(U\) — определённая протоколом полезность; \(V\) — индикатор конкретного нарушения. Неравенства — цели проверки, а не гарантии оператора. В отчёте MUST быть метод оценки, доверительные границы, failure cases и ресурсный режим. Защищённые hard constraints проверяются отдельно и не «оплачиваются» ростом средней полезности.
+
+Контракт SHOULD включать вмешательства: изменение ранее изученного факта, новую комбинацию навыков, удаление retrieval и восстановление после ошибки. Это проверяет, что перенеслось, а не только насколько похожи ответы.
+
+Если \(C_{build}\) — стоимость преобразования, а \(c_A,c_{A'}\) — сравнимые средние стоимости применения, упрощённая точка окупаемости равна
+
+\[
+N_{break}=\frac{C_{build}}{c_A-c_{A'}},\quad c_A>c_{A'}.
+\]
+
+Все величины должны быть в одной выбранной единице. Обслуживание, обновление знаний и резервный retrieval добавляются в полную стоимость. Утверждение «дешёвое обучение лучше сложного harness» становится проверяемой гипотезой о качестве и окупаемости при данном числе будущих задач.
+
+Самодистилляция требует проверки переноса: [Why Does Self-Distillation (Sometimes) Degrade Reasoning?](https://arxiv.org/abs/2603.24472) сообщает о случаях ухудшения OOD-рассуждений при улучшении внутри обучающего домена. Это основание для отдельного gate, а не доказательство неизбежного вреда дистилляции.
+
+### 8.2 Скрытое вычисление
+
+[Coconut](https://arxiv.org/abs/2412.06769) и [Scaling up Test-Time Compute with Latent Reasoning](https://arxiv.org/abs/2502.05171) мотивируют интерфейс внутреннего вычисления. Его реализация MUST объявить, доступны ли recurrent steps, hidden states, differentiable inputs и checkpointing. Закрытому текстовому API нельзя приписывать такой доступ.
+
+Снижение внутренней энергии MAY быть stopping heuristic, если backend определяет эту энергию. [Energy Transformer](https://arxiv.org/abs/2302.07253) не даёт общей гарантии, что минимум энергии произвольного агента совпадает с истинным ответом, наградой или выполнением пользовательского контракта.
+
+## 9. Артефакты, журнал и происхождение
+
+### 9.1 Идентичность содержимого
+
+Содержимое артефакта неизменяемо. Его digest вычисляется из однозначного кодирования `type_id`, `codec_id` и payload. Для бинарных payload используются точные байты и кодирование длин; для JSON-манифестов — фиксированная схема canonicalization.
+
+В hash содержимого MUST NOT включаться текущий lifecycle status, подпись или hash события, которое само ссылается на результат. Это исключает циклическое определение идентичности.
+
+```text
+ArtifactRecord = {
+  content_digest, type_id, codec_id, size_bytes,
+  creation_event_id, direct_dependency_refs, access_policy
+}
+
+Event = {
+  run_id, sequence, previous_event_digest, event_id,
+  invocation_id, event_type, principal,
+  input_refs, output_refs, state_versions,
+  receipt_refs, usage, policy_version, observed_time
+}
+```
+
+`event_id` назначается независимо от hash output. Запись события с output digest создаётся после появления payload. Подпись — отдельная аттестация уже определённого содержимого. Несколько событий могут породить одинаковое содержимое с разным provenance.
+
+Для canonical JSON выбран [RFC 8785](https://www.rfc-editor.org/rfc/rfc8785). JCS не выполняет Unicode-нормализацию. Если предметной области она нужна, это отдельное явное преобразование до хеширования. Дубли ключей и невалидные значения отклоняются. Точные большие целые и десятичные величины кодируются схемой без неявной потери точности.
+
+### 9.2 Журнал — запись наблюдений
+
+Внутри одного журнала изменения control state линейризуются. Распределённый backend MUST либо обеспечить эту семантику, либо объявить иной профиль согласованности и собственные правила разрешения конфликтов. Зависимости между независимыми журналами задаются ссылками на события.
+
+Наблюдаемый transcript содержит доступные сообщения, действия, ответы инструментов и метаданные. Он не является полным снимком скрытого рассуждения закрытой модели. Runtime MUST указывать наблюдаемые и недоступные части исполнения.
+
+«В журнале записано, что инструмент сообщил X» не равнозначно «X истинно». Журнал защищает целостность и происхождение свидетельств в пределах модели доверия.
+
+### 9.3 Хранение и забывание
+
+Записанные события MUST NOT редактироваться как будто прошлое было другим. Retention policy MAY удалять payload, шифроключи либо недоступные по политике данные. После этого replayability и audit completeness пересчитываются; оставшийся digest не восстанавливает удалённое содержимое.
+
+«Хранить каждый эксперимент навсегда» не является обязательным инвариантом. Важны объявленные сроки, контролируемое удаление, доступность оснований значимых выводов и стоимость хранения.
+
+## 10. Внешние эффекты, сбои и транзакции
+
+Для каждого вызова раздельно хранятся:
+
+```text
+LocalStatus = planned | reserved | submitted | observed | committed | aborted
+ExternalStatus = not_started | pending | confirmed | confirmed_absent | unknown
+```
+
+Транспортная ошибка не определяет результат внешнего действия. `aborted` означает отказ от локального commit; внешний эффект при этом может быть `confirmed` или `unknown`.
+
+Минимальный протокол:
+
+1. Проверить вход, актуальные capabilities, версии состояния и верхние ресурсные пределы.
+2. Атомарно зарезервировать ресурсы и записать допуск в устойчивый журнал.
+3. До передачи внешнего запроса записать `DispatchIntent` с invocation ID и request digest.
+4. Выполнить запрос через контролируемый broker с поддерживаемой политикой повторов.
+5. Сохранить receipt либо факт потери достоверного ответа.
+6. Провести postcondition checks; атомарно применить разрешённые локальные записи с проверкой версий.
+7. Завершить ресурсный расчёт по подтверждённому или консервативному начислению.
+
+Падение после `DispatchIntent` и до сохранения receipt приводит к `unknown`, даже если запрос мог ещё не уйти. Консервативная неопределённость предпочтительнее выдуманного результата.
+
+### 10.1 Повторы
+
+Каждая потенциально повторяемая операция объявляет один режим:
+
+- `pure`: повтор не имеет внешнего изменяющего эффекта;
+- `provider_idempotent`: провайдер дедуплицирует одинаковый ключ и проверяет неизменность запроса в заданном окне;
+- `reconcilable`: статус устанавливается отдельным достоверным запросом;
+- `nonrepeatable`: автоматический повтор неизвестного исхода запрещён.
+
+Одинаковый invocation ID с другим request digest MUST быть отклонён. Нельзя создавать новый ID, чтобы обойти запрет повтора неизвестного исхода. Повтор после `confirmed_absent` допустим только если контракт исключает позднее исполнение первоначального запроса либо использует пригодный fencing/idempotency mechanism.
+
+Provider idempotency — конкретное обязательство сервиса, не свойство строки `idempotency_key`. Практические условия этого подхода разобраны в [AWS Builders’ Library](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/).
+
+### 10.2 Откат и компенсация
+
+Rollback MAY восстановить локальный snapshot, если записи изолированы и нет уже опубликованных зависимых изменений. Компенсация внешнего эффекта — новое действие со своими правами, стоимостью и вероятностью отказа. Она не стирает историю и не обещает точное восстановление мира.
+
+Конфликт локального commit после внешнего успеха MUST сохранять receipt и внешний статус. Такой вызов нельзя объявить «ничего не сделал».
+
+## 11. Ресурсы, конкурентность и завершение
+
+Для каждого аддитивного ограничиваемого ресурса \(j\):
+
+\[
+G_j=S_j+R_j+A_j,\qquad S_j,R_j,A_j\geq0,
+\]
+
+где \(G\) — выдано, \(S\) — начислено, \(R\) — зарезервировано, \(A\) — доступно. Дополнительная выдача — отдельное авторизованное событие.
+
+- Reserve \(r\): \(A'=A-r, R'=R+r\), только если \(r\leq A\).
+- Settle \(r,c\): \(S'=S+c, R'=R-r, A'=A+r-c\), если \(0\leq c\leq r\).
+- Неизвестная стоимость: резерв сохраняется либо консервативно начисляется его верхняя граница.
+
+Потраченная работа не возвращается при отказе результата. Возврат свободного резерва увеличивает `available` без нарушения инварианта. Финансовый refund оформляется отдельной корректировкой/выдачей; история расхода не переписывается.
+
+Жёсткий лимит осуществим, только если backend обеспечивает верхнюю границу операции или runtime умеет остановить её до превышения. Без этого лимит MUST называться оценочным; billing lag нельзя скрывать формулой.
+
+Дочерний процесс получает подбюджет из родительского резерва. Иерархическое представление MUST исключать двойное начисление одной работы. GPU-seconds и токены могут суммироваться; elapsed wall time параллельных ветвей не суммируется как длительность эксперимента. Память, число concurrent slots и deadline имеют отдельную семантику ограничений.
+
+Конфликтующие записи используют CAS по версии, сериализацию либо явно объявленный merge. Даже математически коммутативный merge данных не разрешает расширять capabilities. Выигрыш race-ветви не отменяет уже совершённые эффекты проигравших.
+
+Завершение живого процесса гарантируется только при объявленных предпосылках: доступный scheduler, исполняемый deadline, возможность прерывать локальную работу и ограниченность очередей. Run MAY завершиться классификацией `unresolved_external_effect`; фоновые reconciliation actions имеют отдельный бюджет. Неизвестный исход не обязан стать известным за конечное время.
+
+## 12. Полномочия и доверенная граница
+
+Capabilities задают операции над конкретными ресурсами, параметры, срок действия и ограничения делегирования. Prompt, summary, retrieved document, checkpoint и голосование сами по себе не создают capability.
+
+Обычное делегирование MUST сужать полномочия родителя. Вызов привилегированного сервиса — другой случай: вызывающий имеет право на узкий метод сервиса, а сервис действует со своими полномочиями, проверяя запрос и фильтруя выход. Например, право получить score не даёт право читать hidden tests. Такое разделение защищает от confused-deputy только при реально реализованных проверках метода.
+
+Политика должна контролировать доступ в местах, где он происходит: файловая система, credentials, tools, сеть, provider-side tools, spawned workers и сервисы. Декларация `effects: []` не изолирует произвольный Python-код.
+
+TCB MUST перечислять доверенные элементы: broker, policy evaluator, store, sandbox/hypervisor, исполняемые проверяющие компоненты, используемые сервисные гарантии. Формальный вывод об отсутствии запрещённых эффектов условен относительно полноты mediation и корректности TCB. Он не доказывает отсутствия неучтённых каналов, дефектов реализации или неверно сформулированной цели.
+
+### 12.1 Три независимых измерения данных
+
+1. **Доступ:** кто может читать и передавать содержимое.
+2. **Происхождение:** реальное наблюдение, сообщение источника, симуляция, синтетический пример, ручная разметка.
+3. **Подтверждение:** какой claim проверен, каким способом и при каких предпосылках.
+
+Подпись подтверждает происхождение в рамках доверия к ключу, а не истинность. Derivation не повышает достоверность без проверки. Сжатие и обучение не снимают ограничения использования исходных данных: derived artifacts, включая веса, получают консервативную provenance/access policy либо отдельное обоснование разрешённого выпуска. AHSL не обещает точную побитовую атрибуцию обучения.
+
+Статистическая independence между двумя reviewer не следует из разных имён, personas или API-вызовов. Общие модель, данные и источники MUST быть видимы в отчёте при обосновании ансамбля.
+
+## 13. Намерение, спецификация задачи и модель мира
+
+Слово «спецификация» в 0.2 скрывало разные сущности. В 0.3 они разделены:
+
+| Сущность | Содержание | Как изменяется |
+|---|---|---|
+| `IntentRecord` | Цели, приоритеты, допустимые компромиссы и неясности | Через уполномоченную процедуру изменения требований |
+| `ExecutableContract` | Проверяемые входы, выходы, инварианты и ограничения | Версионированным изменением контракта |
+| `OperationalPlan` | Текущий способ выполнить задачу | Внутри разрешённой адаптации |
+| `WorldHypothesis` | Предположение о том, как устроена среда | По наблюдениям и опровержениям |
+
+`Task → Specification` не является гарантированно корректной компиляцией естественного языка. Результат MUST сохранять unresolved assumptions и связывать требования с проверками. Для каждого существенного требования нужен статус: проверено формально, покрыто тестом, оценено статистически либо пока неоперационализировано.
+
+При противоречии цели и проверяющего теста агент MAY предложить defect report или новую версию требований. Он MUST NOT считать самовольное ослабление теста выполнением исходной задачи. Разрешённое изменение цели — обычная управляемая операция с отдельной authority; она не обязана требовать человека на каждом шаге, если полномочия заранее делегированы.
+
+Фиксированность certification protocol защищает сопоставимость, но не делает плохую метрику хорошей. Reliability оценщика, соответствие целевой конструкции и последствия оптимизации его score проверяются отдельно. Это согласуется с различениями в [RIFT](https://arxiv.org/abs/2604.01375). Изоляция evaluator предотвращает один класс вмешательств, а не все формы reward hacking.
+
+## 14. Утверждения, память и отрицательный опыт
+
+```text
+Claim = {
+  statement_ref, scope, assumptions, valid_time,
+  support_refs, counterevidence_refs,
+  verification_method, status, uncertainty
+}
+
+Measurement = {
+  target, metric_ref, population_scope, units,
+  estimator, value_or_unknown, uncertainty,
+  sample_unit, observation_refs
+}
+```
+
+`status` различает `proposed`, `tested`, `supported_in_scope`, `refuted_in_scope`, `superseded`, `unknown`. Доказанное формальное утверждение получает отдельную ссылку на theorem, assumptions и проверяющую систему. Нельзя повышать status большинства голосов до математической истинности.
+
+Любое поле вроде `compression_loss`, `coverage`, `confidence` или `novelty` MUST иметь определение измерения. Если измерения нет, используется `unknown`, а не произвольное число. Faithfulness summary относительно источника отличается от полезности summary для задачи.
+
+Память MAY иметь raw, episodic, semantic, procedural, learned и index-представления. У каждого производного элемента сохраняются источники, область применимости, версия трансформации, время и опровержения. Индекс можно перестраивать; перестройка не переписывает происхождение данных.
+
+Отрицательный банк хранит минимум:
+
+```text
+FailureRecord = {
+  attempted_intervention, task_and_environment_version,
+  preconditions, outcome, evidence_refs,
+  alternative_explanations, applicability_scope,
+  expiry_or_recheck_rule
+}
+```
+
+Неудачный эксперимент означает «при этих условиях получен такой исход», а не «идея невозможна». Повтор может быть рационален после изменения условия, уменьшения неопределённости или устранения сбоя. Дедупликация SHOULD различать идентичный бесполезный повтор и намеренную репликацию.
+
+### 14.1 Retrieval и поток идей
+
+Retrieval policy задаётся отдельно от физического индекса. Возможна смесь
+
+\[
+q(d\mid h)=\lambda_r q_{relevance}(d\mid h)
++\lambda_n q_{novelty}(d\mid h)
++\lambda_c q_{counterevidence}(d\mid h),
+\quad \lambda_i\geq0,\ \sum_i\lambda_i=1.
+\]
+
+Это распределение над допустимыми документами после access filtering, а не обязательная формула ranking score. Реализация фиксирует нормализацию, fallback при пустом наборе и версию политики. Для иерархического reference book задаются операции `search`, `expand`, `parent`, `neighbors`, budget и правила остановки; пропорция 20/80 не является инвариантом.
+
+В журнал входят запрос, версия индекса, выбранные IDs, доступные score, объём возвращённого и реально переданного в контекст материала, latency и стоимость. Runtime не обязан логировать скрытое содержание, если это запрещено политикой.
+
+Нужно различать:
+
+- случайность sampling;
+- разнообразие поведения;
+- новые внешние сведения;
+- неопределённость гипотез;
+- поиск опровержения.
+
+Шум в embedding может увеличить разнообразие, но не гарантирует информацию или прогресс. Статья не становится «источником энтропии» в строгом информационном смысле без определения случайной величины. Полностью unbiased internet search не обещается: объявляются источники, критерии включения, исключения, дедупликация и конфликтующие свидетельства.
+
+Постоянный поток идей реализуется producer/queue/consumer с backpressure и лимитами. Иначе система оптимизирует скорость накопления непроверенных текстов. Обязательный выход для принятой идеи — предложенный эксперимент с ожидаемой стоимостью и способом отличить успех от неуспеха; для грубой случайной мутации объяснение механизма MAY быть неизвестным.
+
+## 15. Модель мира и планирование
+
+История \(h_t=(o_0,a_0,\ldots,a_{t-1},o_t)\) содержит наблюдения и действия. Environment adapter не обязан раскрывать истинное состояние. Агент может поддерживать belief state \(b_t\) и приближённую модель
+
+\[
+\widehat P(o_{t+1},r_t\mid h_t,a_t).
+\]
+
+Контракт модели мира определяет observation/action schemas, horizon, task scope, uncertainty interface, процедуры обновления и проверки. Полная детерминированная симуляция — специальный случай, а не требование к любой среде.
+
+Формализация гипотезы создаёт предсказание. Проверка сравнивает его с независимым наблюдением. В стохастической среде одно несовпадение не опровергает всё распределение: используются объявленные scoring rules, интервалы или hypothesis tests. Для детерминированного закона допустим точный контрпример.
+
+Два представления состояния могут объединяться по модели только в пределах выбранного критерия предсказательной эквивалентности. Идеальный критерий требует одинаковых распределений будущих наблюдений для всех допустимых продолжений действий. Практический тест проверяет лишь конечное семейство продолжений и MUST сообщать этот предел.
+
+Модель, удачная на обычных next-step predictions, может проваливаться при вмешательствах или длинных комбинациях. Проверки SHOULD включать контрфактические действия, повторяемость переходов в одинаковых условиях и новые композиции. Работа [Robust Agents Learn Causal World Models](https://arxiv.org/abs/2402.10877) даёт результат при конкретных предпосылках о сдвигах и regret; из неё не следует обязательность одного универсального причинного графа в любом harness.
+
+Типы `ObservedTransition` и `SimulatedTransition[model_version]` различны. Обучение на симуляции MAY быть разрешено, но этот источник MUST сохраняться в lineage. Сертификация реального выполнения требует real-world evidence или явно обоснованного transfer contract. Сама симуляция не может выпустить его себе.
+
+[Q-Learning With World Models](https://arxiv.org/abs/2608.17163) иллюстрирует полезное разделение: воображаемые переходы применяются для поиска при выполнении, а Q/policy обучаются на реальных переходах. AHSL позволяет описать такое ограничение данных, не навязывая его всем model-based алгоритмам.
+
+## 16. Feedback, credit assignment и обновления
+
+Обучающий pipeline разделяет:
+
+```text
+Observation -> Feedback -> CreditAssignment -> Update -> Validation
+```
+
+`Feedback` содержит результат, текстовую критику, подтверждённые ограничения и происхождение. `CreditAssignment` оценивает связь между частями опыта и сигналом. `Update` меняет состояние. Причинная интерпретация credit assignment требует собственных оснований: attribution от LLM не является причинным доказательством.
+
+Нужно отдельно описывать prospective value — оценку будущего действия — и retrospective credit — объяснение уже полученного результата. Их можно вычислять одной моделью, но нельзя смешивать типы выводов.
+
+| Метод | Объект изменения | Роль обратной связи |
+|---|---|---|
+| [GEPA](https://arxiv.org/abs/2507.19457) в исходной постановке | Промпты компонентов | Рефлексия над выполнением и оценками предлагает кандидата |
+| KNN/reference book | Доступный контекст и внешнее состояние | Выбор релевантного или полезного опыта |
+| [SDPO](https://arxiv.org/abs/2601.20802) | Параметры policy | Обусловленная feedback teacher-модель задаёт distillation signal |
+| [SC-GRPO](https://arxiv.org/abs/2606.18810) | Параметры policy | Обусловленные собственными решениями распределения участвуют в token-level credit weighting |
+| Learned memory utility | Параметры retrieval/value rule | Опыт обновляет оценку полезности извлечения |
+
+KNN с хорошими решениями не становится SC-GRPO: для этого требуются соответствующая обучающая цель и изменение параметров. GEPA использует траектории как свидетельства; это не означает редактирование фактически произошедшей истории. Его reflective mutation остаётся gradient-free; название «first-order» здесь нельзя интерпретировать как наличие градиента.
+
+Любая supervised/RL/self-distillation реализация MUST объявить: данные и их происхождение, teacher и student versions, objective, sampling policy, какие параметры обновляются, optimizer state, stop-gradient boundaries, обработку all-fail/all-success групп и пределы compute. Backend, предоставляющий только текстовый inference, не удовлетворяет weight-training interface.
+
+### 16.1 Операторы эволюции как независимые оси
+
+```text
+SearchProposal = {
+  parent_refs, target_write_set,
+  feedback_sources, proposal_mechanism,
+  change_scale, diversity_objective,
+  expected_effect_or_unknown, evaluation_plan
+}
+```
+
+| Ось | Примеры значений |
+|---|---|
+| Что меняется | Prompt, code, memory, weights, routing, mutator |
+| Какая информация используется | Никакая task feedback, scalar outcome, traces, critique, gradients |
+| Как строится предложение | Perturbation, crossover, distribution fitting, distillation, synthesis |
+| Насколько велико изменение | Local edit, structural edit, restart/hypermutation |
+| Что поощряет поиск | Quality, novelty, robustness, information gain |
+| Кто предлагает | Одна модель, несколько независимых кандидатов, Delphi rounds |
+
+Поэтому hypermutation, novelty, Lamarckian и self-referential mutation не образуют взаимоисключающий список. Один оператор может быть одновременно reflective, novelty-seeking, structural и направленным на mutator. Adversarial search создаёт контрпримеры или проверочные воздействия; это не обязательно изменение полезного candidate.
+
+MAP-Elites — способ организации архива и отбора по behavioral descriptors. TRIZ — возможная библиотека преобразований и противоречий для генератора. Ни то ни другое не требует отдельного opcode ядра. Использование конкретной TRIZ-библиотеки потребует проверки её интерфейса; здесь не утверждается, что какой-либо репозиторий уже реализует AHSL.
+
+Редактирование transcript MAY создавать `SyntheticTrajectory` или counterfactual proposal. Исправленный текст MUST NOT получать происхождение реального исполнения. Кандидат в политику проверяется новым выполнением либо допустимым offline evaluation contract с явными предпосылками.
+
+## 17. Решения, councils и самосовершенствование
+
+### 17.1 Типизированная агрегация
+
+```text
+DecisionContract = {
+  question_type, admissible_inputs, aggregation_rule,
+  dependence_assumptions, tie_rule, abstention_rule,
+  output_type, decision_authority, validation_method
+}
+```
+
+`question_type` различает предсказание факта, оценку кандидата, коллективное предпочтение и распределение ресурса. Среднее вероятностей, ранговое голосование, veto по ограничению и синтез текста имеют разную семантику. Их унификация — общий интерфейс с разными предпосылками, а не одна универсальная функция голосования.
+
+Для фактов consensus является сигналом, требующим калибровки. Для коллективных предпочтений объявленное правило голосования может быть самой процедурой решения. Агрегатор не выдаёт себе дополнительные права из числа согласившихся агентов.
+
+В профиле исследовательской оптимизации Delphi MAY предлагать consensus candidate, dissenting candidates и discriminating experiment. Вызов нескольких моделей должен сравниваться с равным бюджетом независимого sampling и обычной рефлексии. Обязательное включение council и фиксированная доля 70/20/10 исключены из нормы: это гиперпараметры эксперимента.
+
+### 17.2 Поиск, распределение бюджета и отбор
+
+Генерация кандидатов, выбор следующего эксперимента, обучение, archive update и release — разные операции. Их реализации могут быть объединены программно, но эффекты и полномочия остаются различимы.
+
+Контроллер выбирает между дополнительным наблюдением, повтором, новой гипотезой, обучением, упрощением и остановкой. Его цель MAY учитывать ожидаемое улучшение и стоимость; value of information — оценка с неопределённостью, а не автоматически доступное число. Минимальная реализация использует фиксированное расписание и явный budget allocator.
+
+Кандидат определяется immutable manifest и начальным состоянием. Обновление cell создаёт новую версию; membership в archive и deployment status хранятся отдельно от content hash. Pareto selection не доказывает общую оптимальность за пределами просмотренных кандидатов и измеренных метрик.
+
+### 17.3 Оценка learner и meta-learner
+
+Объект оценки адаптивного агента:
+
+\[
+L=(H_0,x_0,U,\mathcal D_{allowed},B).
+\]
+
+Оценивается траектория результатов **всего** \(L\) на потоке задач, а не только лучший конечный snapshot. В стоимость входят неудачные пробы, подготовка данных, обучение и выбор победителя.
+
+Для оценки meta-learner внешний эксперимент фиксирует набор потоков задач, бюджеты и правила доступа. Meta-learner MAY менять внутренний update rule, но не свой внешний критерий, hidden data или учёт затрат. Shared base model для proposer/solver/critic допустима; изоляция authority не требует разных нейросетей.
+
+«Recursive self-improvement» в отчёте требует показать улучшение последующего процесса улучшения на новых задачах при сопоставимых ресурсах. Саморедактирование кода или рост одного benchmark score этого не устанавливают.
+
+Agent MAY завершить собственную попытку и вернуть failure/abstention. Это не даёт права отменить внешний эксперимент, стереть неудачу или самостоятельно объявить её успехом.
+
+## 18. Протокол эксперимента и статистические требования
+
+```text
+ExperimentProtocol = {
+  task_distribution, stream_ordering, split_policy,
+  initial_state_distribution, reset_policy,
+  allowed_adaptation, information_release_policy,
+  evaluator_versions, metrics, resource_regime,
+  interventions, comparison_design,
+  stopping_rule, inference_method, release_rule
+}
+```
+
+### 18.1 Три роли оценки
+
+- **Training feedback:** доступен learner; critic, reward model и curriculum могут обучаться.
+- **Development evaluation:** используется для выбора идей и кандидатов; считается частью поиска.
+- **Certification evaluation:** проверяет заявленный результат на внешнем протоколе; доступ и число запросов контролируются.
+
+Разрешённое online learning в certification — часть задачи. Получение скрытых oracle labels для обучения не разрешается автоматически; information release policy задаёт, что и когда видит learner.
+
+Версии `policy`, `evaluation_protocol`, `environment`, `candidate`, `dataset` и `runtime` независимы. Новая модель при том же протоколе не создаёт новую эпоху benchmark. Если меняется протокол, сравнение возможно на общей зафиксированной bridge-suite с явным ограничением вывода.
+
+### 18.2 Метрики
+
+Для каждого режима и распределения задач публикуются:
+
+Вероятности и ожидания ниже включают случайность задач, среды, начального состояния и agent sampling, предусмотренную протоколом. Выборка должна воспроизводить именно эту целевую меру; один фиксированный seed её не заменяет.
+
+\[
+R=\Pr(\text{task success}\land\text{hard constraints satisfied}),
+\]
+
+\[
+\widetilde U=
+\begin{cases}
+U\in[0,1],&\text{валидный измеренный исход},\\
+u_{failure},&\text{ошибка, timeout или иной исход по failure policy}.
+\end{cases}
+\]
+
+`u_failure` задаётся до запуска; для неуспеха обычно 0. Нельзя исключать ошибки реализации или неудачные попытки из знаменателя из-за отсутствия красивого output. Неполнота телеметрии требует отчёта missingness; если истинный outcome не установлен, показывается консервативная граница или заранее обоснованная missing-data procedure.
+
+Нижний хвост определяется через квантильную функцию, включая атомы распределения:
+
+\[
+\operatorname{LowerTail}_q(\widetilde U)
+=\frac1q\int_0^q F_{\widetilde U}^{-1}(v)\,dv.
+\]
+
+Это средняя полезность худшей доли исходов с корректным частичным весом границы. Hard violations дополнительно публикуются по типу и тяжести и не скрываются средним score.
+
+Ресурсный результат — вектор, например `(input_tokens, output_tokens, tool_calls, gpu_seconds, elapsed_seconds, peak_bytes, currency_cost)`. Складывать токены с секундами нельзя. Скалярная стоимость допустима при явном преобразовании единиц; hard budget constraints сохраняются.
+
+Recovery измеряет восстановление требуемого состояния/способности в пределах бюджета после объявленного **восстановимого** сбоя. Это отличается от повторного получения хорошего ответа. Отдельно учитываются повторные внешние эффекты, незакрытые неопределённые исходы и время до согласованного состояния.
+
+### 18.3 Независимость, выбор и адаптивность
+
+Sample unit MUST соответствовать обобщению: задача, семейство, поток задач или независимая обучающая история. Повторные rollouts одной задачи оценивают внутритасковую вариативность; они не заменяют множество независимых задач. Для адаптивного learner основной единицей часто является весь поток со сбросом начального состояния.
+
+Сравнение SHOULD быть парным по задачам/потокам. Общие seeds применяются лишь там, где семантика случайности сопоставима. Bootstrap или модель ошибок должны учитывать кластеризацию по задачам/потокам. Нельзя применять формулу для iid rollout к зависимым шагам одной траектории.
+
+При нуле наблюдённых нарушений на \(n\) iid Bernoulli trials односторонняя точная верхняя граница вероятности нарушения равна
+
+\[
+p_{upper}=1-\alpha^{1/n}.
+\]
+
+Для \(\alpha=0.05\), чтобы эта граница была ниже 1%, нужны минимум 299 таких trials. Это не доказательство нулевого риска и не гарантия на неизвестных семействах задач.
+
+Адаптивное многократное обращение к holdout раскрывает информацию даже через pass/fail. Протокол MUST выбрать реализуемое решение: однократная финальная проверка, свежие независимые batches, заранее заданная correction/query policy либо обоснованный reusable-holdout mechanism. См. [Generalization in Adaptive Data Analysis and Holdout Reuse](https://arxiv.org/abs/1506.02629).
+
+При необязательном заранее размере выборки допустимы [confidence sequences](https://arxiv.org/abs/1810.08240) с выполненными предпосылками. Они не исправляют автоматически смену кандидата, утечку holdout и зависимость данных. Для повторных release tests задаётся общий error budget и правило его расходования.
+
+Publication MUST включать все ресурсы поиска, количество кандидатов, правила отбора, остановки и исключений. `best-of-N` без N и полной стоимости не является сравнением эффективности.
+
+### 18.4 Допуск обновления
+
+В профиле `research_release` обновление проходит последовательно:
+
+1. соответствие типов, политик, ресурсных ограничений и обязательных проверок;
+2. удовлетворение заданным risk/reliability bounds;
+3. статистический критерий улучшения либо non-inferiority на целевых задачах;
+4. guardrails удержания навыков, переноса и актуализации знаний;
+5. явную версию deployment manifest и возможность локального восстановления совместимого состояния.
+
+«Нет статистически значимого ухудшения» не означает доказанную non-inferiority. Пределы \(\varepsilon,\delta\), правила сравнений и выбор primary metric MUST быть заданы заранее. Улучшение Pareto-frontier и выпуск единственного кандидата — разные решения.
+
+## 19. Бенчмарк стабильности и обучаемости
+
+Единственного оптимального benchmark без класса задач, модели сбоев, бюджетов и назначения системы не определено. Предлагается **семейство протоколов**, а не обязательная архитектурная лестница.
+
+### 19.1 Оси сложности
+
+\[
+\chi=(h,d,b,o,v,s,f),
+\]
+
+где \(h\) — горизонт; \(d\) — композиционная глубина; \(b\) — число зависимостей/ветвей; \(o\) — частичная наблюдаемость; \(v\) — объём релевантного состояния; \(s\) — характер сдвига; \(f\) — нагрузка сбоев и конфликтов. Каждый параметр имеет конкретное определение внутри task family.
+
+Если минимальный горизонт \(H^*\) известен из конструкции задачи или доказан, его можно использовать. Человеческая демонстрация длины \(h\) даёт верхнюю границу достижимого решения, а не доказательство минимальности. Для недоказанного значения указывается `estimated` или `unknown`.
+
+Сложность не обязана монотонно влиять на любую модель. Прогрессирующий generator MUST публиковать изменяемые параметры и проверяемые основания порядка задач. Нельзя определять объективную сложность исключительно по провалам текущего кандидата.
+
+Результат — поверхность над проверенными \((\chi,B)\): reliability с интервалами, нижний хвост, стоимость, recovery и violations. Множество точек с `LCB(R) ≥ p` публикуется без автоматического распространения гарантии на непроверенные точки.
+
+### 19.2 Независимые режимы проверки
+
+| Режим | Что меняется | Главный вопрос |
+|---|---|---|
+| Исполнение | Crash, duplicate delivery, restart, concurrency | Сохраняются ли контроль и согласованное состояние? |
+| Решение | Горизонт, структура и ресурсы | Как падает вероятность успеха? |
+| Память | Объём, устаревшие записи, противоречия | Находит ли агент нужное и исправляет ли неверное? |
+| Перенос | Новые композиции и семейства | Работает ли приобретённое вне увиденных задач? |
+| Непрерывное обучение | Последовательность навыков | Учится ли следующему без недопустимой утраты прежнего? |
+| Смена правил | Старое правило перестало быть верным | Может ли агент отказаться от устаревшего знания? |
+| Самоизменение | Разрешены изменения программы/update rule | Улучшается ли learner на новых потоках? |
+
+Советы моделей, world models и meta-learning — возможные экспериментальные варианты. Они не являются ступенями, которые система обязана иметь для высокого результата.
+
+### 19.3 Пластичность и актуальность
+
+Пусть \(a_{i,j}\) — качество на probe-family \(j\) после этапа обучения \(i\). Для стационарных навыков измеряются удержание \(a_{i,j}-a_{j,j}\), backward/forward transfer и скорость приобретения следующего навыка. Для меняющихся фактов сохраняется versioned truth: правильное забывание старого значения не считается деградацией.
+
+Публикуются learning curves по потреблённым ресурсам, adaptation regret относительно объявленного baseline, correction latency и способность повторно приобрести навык. Наблюдения о потере пластичности в [Loss of Plasticity](https://github.com/shibhansh/loss-of-plasticity) мотивируют такую проверку; конкретный neural diagnostic не навязывается всем агентам.
+
+Gradient-free обновления также не получают автоматического иммунитета к забыванию: [Evolutionary Strategies Lead to Catastrophic Forgetting in LLMs](https://arxiv.org/abs/2601.20861) сообщает о таком эффекте в исследованной постановке. Поэтому guardrails привязаны к поведению, а не названию optimizer.
+
+### 19.4 Роль Anthropic performance take-home
+
+[original_performance_takehome](https://github.com/anthropics/original_performance_takehome) подходит как один модуль: оптимизация программы при проверке корректности и стоимости в simulated cycles. Он не покрывает сам по себе поток новых задач, дрейф знаний, recovery внешних эффектов и метаобучение.
+
+Предлагаемый производный suite должен иметь отдельное имя и версии: независимые instances, структурные семейства, protected evaluator, ограничения доступа, повторные agent runs и отдельные fault scenarios. Порог по скорости на одной задаче — прогресс качества решения, а не доказательство прогрессирующей сложности среды. Изменённый suite не объявляется официальной версией Anthropic.
+
+### 19.5 Минимальные сравнения
+
+Для заявления об улучшении harness нужны frozen single-agent baseline, independent sampling, sequential refinement и релевантный простой обучаемый baseline. Сравнение проводится на объявленной ресурсной границе; когда уравнять все ресурсы невозможно, публикуется Pareto curve.
+
+Польза memory/council/world model устанавливается ablation с учётом освободившегося бюджета. Полезность самого AHSL дополнительно проверяется сравнением одной и той же агентной программы с контрактным слоем и без него: overhead, обнаруженные нарушения, воспроизводимость, трудоёмкость переноса.
+
+## 20. Управляющий язык и адаптеры
+
+Семантическая спецификация отделена от удобной записи. Основная поставка 0.3 — типизированное IR; YAML и Python builder могут быть frontends. Нормативное control AST:
+
+```text
+Node :=
+    Call(component_ref, typed_arguments, result_binding)
+  | Sequence(nonempty_nodes)
+  | Branch(predicate_component_ref, if_true, if_false)
+  | Parallel(branches, join_component_ref, join_policy)
+  | Repeat(body, continue_predicate_ref, max_iterations)
+  | Handle(body, outcome_handlers)
+  | Halt(status, typed_output)
+```
+
+`Call` порождает Invocation и типизированный outcome. `Sequence` передаёт именованные outputs следующим узлам. `Branch` запускает ровно одну ветвь после получения boolean. `Parallel` не даёт дочерним ветвям права читать незакоммиченные записи соседей; join policy задаёт `all`, `quorum` либо `first_acceptable`, включая порядок при одновременных событиях и обращение с незавершёнными ветвями.
+
+`Repeat` имеет свежие локальные bindings на итерацию; между итерациями сохраняются только явно committed cells и объявленные loop-carried values. Кроме `max_iterations`, действует общий ресурсный предел. Бесконечный сервис моделируется серией ограниченных активаций под внешним lifecycle, а не обещанием завершения бесконечного loop.
+
+`Handle` различает ошибки типа, запрет политики, сбой компонента, budget exhaustion, cancellation, commit conflict и unknown external outcome. Необработанная ошибка завершает соответствующую активацию без фиктивного success. `Halt` не обнуляет оставшиеся внешние последствия.
+
+Типизированные выражения аргументов ограничены literals, references и projection. Произвольное вычисление предиката/аргумента оформляется компонентом с собственными эффектами. Программа MAY генерировать новое AST; перед активацией оно проходит те же проверки и новую привязку полномочий.
+
+Parser MUST отклонять неоднозначные записи, неразрешённые references и неизвестные обязательные поля. Все implementation refs и schemas перед исполнением фиксируются в lock manifest с content digests. Читаемое имя пакета — не cryptographic identity. Полный wire schema, тестовые векторы canonicalization и interop suite остаются отдельным обязательством до выпуска реализации 1.0.
+
+### 20.1 Отношение к существующим системам
+
+| Система/семейство | Возможное представление в AHSL | Граница утверждения |
+|---|---|---|
+| [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) | Plugin adapter, lifecycle events, capabilities и state contracts | Это кандидат на backend; готового AHSL adapter здесь нет |
+| [Prime Agent](https://github.com/PrimeIntellect-ai/prime-agent) | RLM execution, persistent state, program/memory updates | Нужно выявить реальные точки эффектов и непрозрачное состояние |
+| GEPA | Search graph + reflective proposal + evaluator + archive | Это одна конфигурация поиска |
+| RLM/reference book | Внешний context store + programmatic access + bounded subcalls | Качество retrieval и правила остановки проверяются отдельно |
+| Council/Delphi | DecisionContract + независимые proposal/review phases | Согласие не доказывает independence |
+| Self-play / environment generation | Обновляемый training generator + solver + verifier | Сертификация остаётся отдельным протоколом |
+| Латентное рассуждение / RL | Backend-specific Component + StateCell + UpdateRule | Возможности определяются реальным backend |
+
+Это проектное отображение интерфейсов, а не заявление о выполненной миграции репозиториев. Для подтверждения переносимости надо перенести минимум две независимо устроенные системы и показать, что не всё исполнение спрятано в opaque adapter.
+
+## 21. Конкретный эксперимент для цикла конденсации/формализации
+
+Предлагаемый первый эксперимент отвечает на вопрос: **в каком представлении хранить приобретённый навык, чтобы уменьшить полную стоимость будущего решения, сохранив качество и способность исправляться?**
+
+Используется один поток инструментальных задач с проверяемыми результатами и изменяемыми правилами. Сравниваются:
+
+1. исходная модель без переноса опыта между эпизодами;
+2. та же модель с reference book и явными процедурными навыками;
+3. модель после internalization тех же разрешённых данных;
+4. гибрид с выборочным retrieval и internalization.
+
+Конструкция задач включает приобретение навыка, новую композицию, изменение одного правила и возврат прежнего навыка в новом контексте. Семейства certification отделены от development. Все методы получают сопоставимый доступ к данным; дополнительные verification calls и training compute учитываются.
+
+Ниже — **шаблон параметров эксперимента**, а не готовая исполняемая конфигурация. `required_bindings` должны быть привязаны к конкретным versioned artifacts до запуска; вымышленные digest не используются.
 
 ```yaml
-ahsl: '0.2'
-experiment: 'durak_memoryless_search'
-profiles: ['core', 'replayable', 'evolution', 'research', 'benchmark']
-
-epoch:
-  immutable: true
-  contract: 'program.md'
-  evaluator: 'sha256:evaluator-digest'
-  policy: 'sha256:policy-digest'
-
-artifacts:
-  engine:
-    path: 'durak/src/engine.cpp'
-    mutable: false
-  candidate:
-    path: 'durak/src/strategy_heuristic.cpp'
-    mutable: true
-    mutation_scope: 'M3'
-  ledger:
-    path: 'results.tsv'
-    mode: 'append_only'
-
-environment:
-  adapter: 'durak_simulator'
-  observation: 'DurakObservation'
-  action: 'LegalMove'
-  entropy:
-    kind: 'rng'
-    seedable: true
-    policy: 'paired_splitmix64'
-
-search:
-  budget:
-    C: 4
-    L: 5
-    K: 2
-    Phi: 'trajectory_summary_plus_failure_bank'
-  mutators: ['reflective', 'novelty', 'adversarial', 'delphi']
-
-council:
-  trigger: 'plateau(5) or conflicting_evidence'
-  independence: 'isolated_context'
-  identity_policy: 'labels_hidden'
-  ballot: 'rank'
-  aggregator: 'condorcet_minimax'
-  preserve_dissent: true
-  authority: 'propose_only'
-
-evaluator:
-  epoch_policy: 'immutable_within_epoch'
-  gates:
-    - name: 'smoke'
-      seeds: 5000
-      reject_on: ['crash', 'illegal_move', 'protected_write']
-    - name: 'quick_b4'
-      seeds: 100000
-    - name: 'ladder'
-      opponents: ['B4', 'B1', 'B0']
-    - name: 'full'
-      seeds: 5000000
-      visibility: 'sealed'
-  rank:
-    rule: 'lexicographic'
-    eligibility:
-      - 'search_score >= current_best + 0.005'
-      - 'lower_ci >= current_best_lower_ci'
-    tie_break: ['minimize_complexity']
-
-policy:
-  default: 'deny'
-  combine: 'deny_overrides'
-  permit:
-    - ['mutator', 'read', 'candidate_visible_evidence']
-    - ['mutator', 'modify', 'candidate_worktree']
-    - ['kernel', 'evaluate', 'candidate_worktree']
-    - ['kernel', 'promote', 'attested_candidate']
-  forbid:
-    - ['candidate', 'read', 'sealed_evaluator']
-    - ['candidate', 'modify', 'contract_or_tests']
-    - ['candidate', 'allocate', '*']
-    - ['candidate', 'terminate', 'experiment']
+ahsl: '0.3'
+kind: experiment_template
+profile: research_release
+required_bindings:
+  - base_model
+  - task_stream_generator
+  - independent_evaluator
+  - capability_policy
+  - metric_definitions
+  - resource_envelope
+  - statistical_plan
+variants:
+  - id: frozen
+    state_update_targets: []
+  - id: explicit_memory
+    state_update_targets: [episodic_memory, skill_programs]
+  - id: internalized
+    state_update_targets: [model_parameters, optimizer_state]
+  - id: hybrid
+    state_update_targets:
+      - episodic_memory
+      - skill_programs
+      - model_parameters
+      - optimizer_state
+evaluation:
+  unit: independent_task_stream
+  initial_state: reset_between_streams
+  adaptation: allowed_only_by_registered_rules
+  certification_feedback: defined_by_information_release_policy
+  failure_utility: 0
+  lower_tail_fraction: 0.1
+  include_search_and_training_cost: true
+  report_missingness: true
+  stages:
+    - acquire_skill
+    - compose_unseen_combination
+    - replace_one_world_rule
+    - revisit_skill_in_new_context
 ```
 
-Смысл примера: эволюционирует только `strategy_heuristic.cpp`; engine, scorer, RNG contract, tests, CMake, budgets и promotion находятся вне candidate namespace. Council добавляет ветви, но не меняет score. Full evaluation выполняется kernel в изолированном worktree/container.
+Для каждого обновления проверяется исходная и новая версии на development probes. Выпуск learner использует certification protocol; один успешный probe не разрешает бесконечное дальнейшее изменение без учёта зарегистрированных правил. Если обучение backend недоступно, результат сравнения ограничивается доступными вариантами, а internalization не имитируется переписыванием prompt.
 
-## 21. Static checks и runtime audits
+Проектные гипотезы, которые этот опыт может опровергнуть:
 
-### 21.1 Минимальные static checks
+- явная память полезна на редких и быстро меняющихся знаниях;
+- internalization окупается на часто повторяемых устойчивых навыках;
+- гибрид способен снижать retrieval cost без недопустимого роста correction latency;
+- формальные навыки дают перенос на новые композиции лучше, чем только текстовые истории;
+- выбор следующего эксперимента по информации и стоимости полезнее простого фиксированного расписания.
 
-1. Все ports и edges типизированы.
-2. Все effects объявлены.
-3. Loop имеет bound/variant и stop owner.
-4. Capability chain не расширяет parent rights.
-5. Candidate path не пересекается с evaluator/policy/sealed paths.
-6. Security labels не создают запрещённый flow.
-7. Mutation scope не превосходит epoch grant.
-8. Council не имеет `score` или `promote` effect.
-9. Meta-candidate не исполняется в current certification epoch.
-10. Benchmark rank ссылается только на declared metrics и gates.
+Ни одна из этих гипотез не закладывается в evaluator как определение успеха выбранной архитектуры.
 
-### 21.2 Минимальные runtime audits
+## 22. Обязательства проверки и контрпримеры
 
-1. Replay deterministic run даёт тот же committed state и digests.
-2. Denied request меняет только ledger и расход на саму проверку.
-3. Failed transaction освобождает reservations и откатывает protected writes.
-4. Каждый promoted artifact восстанавливается по provenance DAG.
-5. Evaluation attestation соответствует candidate/evaluator/epoch digests.
-6. Изменение tests/evaluator обнаруживается до scoring.
-7. Server-side fetch obeys originating capability chain.
-8. Summary omission не отменяет active hard constraints.
-9. Prediction miss invalidates dependent queued plan.
-10. Sealed outcomes не появляются в mutator context.
-11. Best-of-N report содержит N и полный cost.
-12. Restart/recovery не создаёт дубликаты committed effects.
+### 22.1 Свойства ядра
 
-## 22. Specification-driven development
+| ID | Свойство | Предпосылки / метод |
+|---|---|---|
+| K1 | Каждый mediated effect разрешён актуальной политикой | Полнота broker mediation; проверка implementation boundary |
+| K2 | Делегирование не расширяет grant | Сопоставление множеств прав и параметров |
+| K3 | Accounting сохраняет выданные ресурсы | Атомарные reserve/settle; реальные верхние границы |
+| K4 | Повтор invocation не меняет request | Устойчивые ID, digest check, определённое окно дедупликации |
+| K5 | Replay восстанавливает заявленную control-state projection | Сохранность журнала, reducer/version, initial state |
+| K6 | Commit не теряет конфликтующую запись | CAS/serializable state store или проверенный merge |
+| K7 | Неизвестный внешний исход не превращается молча в rollback | Двухкомпонентный статус и reconciliation contract |
+| K8 | Derived evidence не получает неподтверждённое происхождение | Сохранение origin labels и проверяемый переход статуса |
+| K9 | Сертифицируемый learner не меняет внешний протокол | Разделение authority и реальные access controls |
+| K10 | Провалы не исчезают из результата эксперимента | Event-to-outcome accounting, missingness policy |
 
-Рекомендуемый порядок реализации:
+Для абстрактной модели возможно индуктивное доказательство: исходное состояние удовлетворяет инвариантам, а каждый разрешённый переход их сохраняет. Перенос доказательства на runtime требует refinement relation между реализацией и моделью, включая сбои и конкуренцию. Тесты и формальный proof certificate указываются отдельно.
 
-1. Зафиксировать canonical JSON schema, content hashing и identifiers.
-2. Написать property tests для kernel transition semantics.
-3. Реализовать ledger, artifacts, transactions и deterministic replay.
-4. Реализовать capability lattice, transitive delegation и taint tracking.
-5. Реализовать isolated executor/evaluator и attestations.
-6. Скомпилировать существующий Autoresearch contract в AHSL и доказать отсутствие дополнительных writable surfaces.
-7. Добавить Memory/ContextProjection и измерение compression loss/evidence coverage.
-8. Добавить Evaluator, Selector, Archive и mutation registry.
-9. Добавить Council/DecisionService adapters.
-10. Реализовать PHSB L0–L3 до meta-evolution.
-11. Добавить long-horizon fault injection, recovery и L4–L5.
-12. Только после этого разрешить M4–M7 shadow experiments.
-13. Экспортировать traces в OpenTelemetry/W3C PROV-compatible представление.
-14. Перенести kernel state machine и ключевые invariants в TLA+/Alloy/Lean по мере критичности.
+### 22.2 Минимальные сценарии соответствия
 
-MVP — это не библиотека всех agent techniques. Это маленькое проверяемое ядро, event/evidence model, evaluator boundary и adapter ABI. Всё остальное расширяется registry-компонентами.
+1. После внешнего эффекта теряется ответ: журнал сохраняет `unknown`; запрещён опасный повтор.
+2. Один idempotency key приходит с двумя различными запросами: второй отклоняется.
+3. Две ветви резервируют остаток одного бюджета: не более доступного объёма допущено.
+4. Возвращается неиспользованный резерв: `available` растёт, conservation сохраняется.
+5. Внешний эффект успешен, локальный commit конфликтует: receipt не исчезает.
+6. Агент записывает policy/evaluator без права: отказ на реальной точке записи.
+7. В summary исчезает ограничение: kernel продолжает его применять.
+8. Синтетическая траектория получает высокий score: она не превращается в real transition.
+9. Веса обучены на закрытом материале: выпуск не обходит исходную access policy автоматически.
+10. Модель успешно прошла 90 попыток и провалила 10: tail metric включает все 100.
+11. Промпт меняется по результатам holdout: запрос учитывается как адаптивное раскрытие.
+12. Правило мира изменилось: correct update не штрафуется как забывание старой истины.
+13. Runtime перезапускается между intent и receipt: replay не повторяет эффект сам по себе.
+14. Opaque plugin запускает удалённый tool: отсутствие mediation отражается в conformance claim.
+15. Прерванный learner оставляет неизвестный внешний исход: run завершается с явной классификацией, а не фиктивным успехом.
 
-## 23. Критерии готовности AHSL 0.2 implementation
+### 22.3 Проверка самой редакции
 
-Implementation считается готовой к экспериментам, когда:
+Для этой редакции выполнена ограниченная проверка абстрактной модели accounting и неизвестного внешнего исхода. Для двух вызовов при бюджете 1 перебраны 51 достижимое состояние и 90 переходов; при бюджете 2 — 100 состояний и 300 переходов. Проверено сохранение ресурса, наличие состояния «эффект произошёл, ответ неизвестен» и допустимость возврата резерва. Дополнительно проверены 462 комбинации reserve/settle, три случая нижнего хвоста, граница 298/299 trials и разбор YAML-шаблона.
 
-- один и тот же AHSL spec компилируется минимум в два backend runtime;
-- replay L0 проходит после process crash;
-- intentional evaluator/test modification блокируется до score;
-- candidate не может расширить capability через subagent или provider-side tool;
-- council, GEPA-style mutator и zero-order baseline сравниваются при matched budget;
-- memory summary можно удалить и перестроить из raw ledger;
-- Autoresearch run воспроизводится по spec, artifact digests и seed manifest;
-- PHSB публикует reliability curve и worst-tail metrics, а не только best score;
-- M4/M5 candidate оценивается в shadow epoch и не может продвинуть себя.
+Дедупликация провайдера является **предпосылкой** этой модели. В ней нет реального broker, remote provider, durable storage, sandbox и полной модели отказов. Это не conformance test существующего DeepSeek/Prime runtime и не доказательство всех свойств K1–K10. Воспроизводимый код приведён в приложении A; структурный разбор YAML не означает его исполнимость как AHSL-программы.
 
-## 24. Итоговая формула системы
+## 23. Реализация и критерий полезности проекта
 
-Полная конфигурация harness задаётся как:
+Первый implementation slice должен включать typed registry, state/version store, broker, append-only control journal, reserve/settle accounting, experiment runner и один внешний адаптер. Затем добавляются programmatic memory и один зарегистрированный update rule. Это позволяет проверить ядро без обязательного council, latent reasoning или open-ended curriculum.
 
-```text
-Harness = (
-    Spec, Graph, Agents, Environments,
-    ContextProjections, Memory,
-    DecisionServices, Evolution,
-    PolicyKernel, EventLedger,
-    Evaluators, BenchmarkEpochs
-)
+До заявления о соответствии 1.0 нужны:
+
+- полный schema/IR specification и compatibility policy;
+- canonicalization fixtures и reference reducer;
+- property-based и fault-injection tests значимых переходов;
+- отдельная проверка mediation boundary и provider assumptions;
+- два реально перенесённых harness с отчётом opaque boundaries;
+- воспроизводимое сравнение overhead и полезности;
+- bounded model checking либо доказательство конкретных invariants с указанным объёмом;
+- versioned benchmark protocol и результаты независимых потоков задач.
+
+Начинать можно как библиотеку контрактов для существующего runtime. Новый универсальный язык и новый scheduler не являются предпосылкой. Если описание полностью дублирует код, не выявляет дополнительных дефектов и не облегчает замену/сравнение компонентов, оснований выделять AHSL в отдельный язык нет.
+
+Главная проверяемая идея проекта: **выбирать и менять способы вычисления, хранения опыта и обучения, сохраняя явно заданный контракт поведения и честный протокол измерения**. Хорошая спецификация делает эти переходы проверяемыми; сама по себе она не гарантирует рост интеллекта.
+
+
+## Приложение A. Воспроизводимая ограниченная проверка
+
+Сохранить Python-блок как `verify_ahsl_contracts.py` рядом с этим документом с именем `AHSL-specification.md` и выполнить `python verify_ahsl_contracts.py`. Нужны Python 3.10+ и PyYAML для проверки YAML. Код — иллюстративная конечная модель; её ограничения описаны в §22.3.
+
+```python
+"""Bounded semantic checks for the AHSL 0.3 specification.
+
+This checks a finite abstraction, not a deployed harness implementation.
+"""
+
+from collections import deque
+from dataclasses import dataclass, replace
+from fractions import Fraction
+from itertools import product
+from math import ceil, log
+from pathlib import Path
+import json
+import re
+
+
+@dataclass(frozen=True)
+class Job:
+    status: str = 'idle'
+    reserve: int = 0
+    world_count: int = 0
+    charged: int = 0
+
+
+@dataclass(frozen=True)
+class State:
+    jobs: tuple[Job, Job] = (Job(), Job())
+    available: int = 2
+
+
+def successors(state):
+    """Two invocations, unit reservations, arbitrary interleaving.
+
+    Provider execution is an environmental transition. It is not observable
+    until a receipt/reconciliation event. Deduplication is a provider
+    assumption, represented by world_count remaining at most one.
+    """
+    for index, job in enumerate(state.jobs):
+        possibilities = []
+        if job.status == 'idle' and state.available:
+            possibilities.append((
+                replace(job, status='reserved', reserve=1), -1, 'reserve'
+            ))
+        if job.status == 'reserved':
+            possibilities.extend([
+                (replace(job, status='submitted'), 0, 'dispatch_intent'),
+                (replace(job, status='aborted', reserve=0), 1, 'cancel'),
+            ])
+        if job.status in ('submitted', 'unknown'):
+            if not job.world_count:
+                possibilities.append((
+                    replace(job, world_count=1), 0, 'provider_executes'
+                ))
+            if job.world_count:
+                possibilities.append((
+                    replace(job, status='observed'), 0, 'receipt'
+                ))
+            if job.status == 'submitted':
+                possibilities.append((
+                    replace(job, status='unknown'), 0, 'response_lost'
+                ))
+            # A retry with the same provider key is a self-loop after an
+            # effect. No transition fabricates rollback or a second effect.
+            possibilities.append((job, 0, 'idempotent_retry'))
+        if job.status == 'observed':
+            for charge in (0, 1):
+                possibilities.append((
+                    replace(job, status='done', reserve=0, charged=charge),
+                    1 - charge,
+                    'settle',
+                ))
+        for next_job, available_delta, label in possibilities:
+            jobs = list(state.jobs)
+            jobs[index] = next_job
+            yield label, State(
+                tuple(jobs), state.available + available_delta
+            )
+
+
+def verify_finite_model(grant):
+    initial = State(available=grant)
+    seen = {initial}
+    queue = deque([initial])
+    edges = 0
+    unknown_after_effect = False
+    refund_witness = False
+    while queue:
+        state = queue.popleft()
+        spent = sum(job.charged for job in state.jobs)
+        reserved = sum(job.reserve for job in state.jobs)
+        assert state.available + spent + reserved == grant
+        assert state.available >= 0
+        assert all(job.world_count <= 1 for job in state.jobs)
+        unknown_after_effect |= any(
+            job.status == 'unknown' and job.world_count == 1
+            for job in state.jobs
+        )
+        for label, next_state in successors(state):
+            edges += 1
+            if label in ('cancel', 'settle'):
+                refund_witness |= next_state.available > state.available
+            if next_state not in seen:
+                seen.add(next_state)
+                queue.append(next_state)
+    assert unknown_after_effect and refund_witness
+    return {'reachable_states': len(seen), 'transitions': edges}
+
+
+def verify_accounting():
+    count = 0
+    for grant in range(7):
+        for spent, reserved in product(range(grant + 1), repeat=2):
+            available = grant - spent - reserved
+            if available < 0:
+                continue
+            for reservation in range(available + 1):
+                held = reserved + reservation
+                free = available - reservation
+                assert spent + held + free == grant
+                for charge in range(reservation + 1):
+                    final = (
+                        spent + charge,
+                        held - reservation,
+                        free + reservation - charge,
+                    )
+                    assert min(final) >= 0 and sum(final) == grant
+                    count += 1
+    return {'reserve_settle_cases': count}
+
+
+def lower_tail(values, fraction):
+    mass = len(values) * fraction
+    remaining = mass
+    weighted_sum = Fraction(0)
+    for value in sorted(values):
+        take = min(Fraction(1), remaining)
+        weighted_sum += value * take
+        remaining -= take
+        if not remaining:
+            break
+    return weighted_sum / mass
+
+
+def verify_metrics():
+    tenth = Fraction(1, 10)
+    assert lower_tail([0] * 10 + [1] * 90, tenth) == 0
+    assert lower_tail([0] * 5 + [1] * 95, tenth) == Fraction(1, 2)
+    assert lower_tail([0, 1, 1], Fraction(1, 2)) == Fraction(1, 3)
+    minimum_trials = ceil(log(0.05) / log(0.99))
+    assert minimum_trials == 299
+    assert 1 - 0.05 ** (1 / 299) < 0.01
+    assert 1 - 0.05 ** (1 / 298) > 0.01
+    return {'minimum_trials': minimum_trials, 'tail_cases': 3}
+
+
+def verify_document():
+    import yaml
+
+    text = Path('AHSL-specification.md').read_text()
+    assert len(re.findall(r'^```', text, re.M)) % 2 == 0
+    blocks = re.findall(r'^```yaml\n(.*?)^```', text, re.M | re.S)
+    assert len(blocks) == 1
+    template = yaml.safe_load(blocks[0])
+    assert template['ahsl'] == '0.3'
+    assert template['kind'] == 'experiment_template'
+    assert len(template['variants']) == 4
+    assert template['evaluation']['failure_utility'] == 0
+    assert template['evaluation']['lower_tail_fraction'] == 0.1
+    assert len(set(template['required_bindings'])) == 7
+    assert '\uFFFD' not in text
+    return {'yaml_templates': len(blocks), 'variants': 4}
+
+
+if __name__ == '__main__':
+    result = {
+        'finite_model': {
+            'budget_1': verify_finite_model(1),
+            'budget_2': verify_finite_model(2),
+        },
+        'accounting': verify_accounting(),
+        'metrics': verify_metrics(),
+        'document': verify_document(),
+        'scope': (
+            'Finite abstraction with provider deduplication assumed. '
+            'No runtime, sandbox, cryptography or proof assistant verified.'
+        ),
+    }
+    print(json.dumps(result, ensure_ascii=False, indent=2))
 ```
-
-А один шаг системы имеет вид:
-
-```text
-stochastic proposal
-  + explicit entropy
-  + typed evidence view
-  -> deterministic authorization and execution
-  -> immutable event/evidence
-  -> independent evaluation
-  -> external promotion or rollback
-```
-
-Это сохраняет полезную стохастичность поиска, но делает власть, проверку и научное утверждение стабильными.
-
-## 25. Вывод
-
-Исходный цикл **task → formalization → specification/world → iteration** является центральным, но после исследования он уточняется:
-
-> task → formal specification → bounded execution → immutable trajectory → condensation → competing formal models → falsification → independent evaluation → externally authorized evolution
-
-Главное ограничение: нельзя «эволюционировать trajectory» как свободный текст и считать это улучшением системы. Можно эволюционировать только объявленный genome, используя trajectory как доказательство; затем независимый evaluator проверяет изменение на frozen epoch. Хорошая спецификация и формальные интегрируемые метрики не отменяют эволюцию — они превращают её из стохастического рассказа в контролируемый эксперимент.
