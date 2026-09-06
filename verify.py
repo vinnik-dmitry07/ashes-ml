@@ -1,4 +1,4 @@
-'''Verify this release without changing the lock or running live providers.'''
+'''Run the pinned runtime and new finite reference-profile checks.'''
 
 import hashlib
 import json
@@ -7,7 +7,8 @@ import subprocess
 import sys
 import unittest
 
-from examples.scenario import demonstration
+from examples.conditional_plan import demonstration
+from exhaustive import check_boolean_formulas, check_graphs
 
 
 ROOT = Path(__file__).resolve().parent
@@ -19,26 +20,44 @@ def main():
         actual = hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
         if actual != expected:
             raise SystemExit('Hash mismatch: ' + name)
-    subprocess.run([sys.executable, 'verify.py'], cwd=ROOT / 'kernel', check=True)
+    subprocess.run(
+        [sys.executable, 'verify.py'], cwd=ROOT / 'runtime_0_6', check=True,
+    )
+    old = json.loads((ROOT / 'runtime_0_6' / 'verification.json').read_text())
     suite = unittest.defaultTestLoader.discover(str(ROOT / 'tests'))
     result = unittest.TextTestRunner(verbosity=1).run(suite)
     if not result.wasSuccessful():
         raise SystemExit(1)
+    graph_cases = check_graphs()
+    formula_cases = check_boolean_formulas()
     demo = demonstration()
-    assert demo['generation'] == 1 and demo['spent'] == 6
-    assert demo['available'] == 94
-    (ROOT / 'examples' / 'release.json').write_text(
-        json.dumps(demo, indent=2, ensure_ascii=False) + '\n', encoding='utf-8',
+    assert demo['goal_status'] == ['CONDITIONAL', 'CONDITIONAL', 'VERIFIED']
+    assert demo['spent'] + demo['available'] == 100
+    (ROOT / 'examples' / 'conditional-plan.json').write_text(
+        json.dumps(demo, ensure_ascii=False, indent=2) + '\n',
+        encoding='utf-8',
     )
     report = {
-        'version': '0.6', 'kernel_tests': 27, 'profile_tests': result.testsRun,
+        'version': '1.0',
+        'runtime_kernel_tests': old['kernel_tests'],
+        'runtime_profile_tests': old['profile_tests'],
+        'prospection_tests': result.testsRun,
+        'total_unit_tests': (
+            old['kernel_tests'] + old['profile_tests'] + result.testsRun
+        ),
         'failures': len(result.failures), 'errors': len(result.errors),
-        'hashed_files': len(lock['sha256']), 'synthetic_release_example': 'pass',
-        'statistical_boundary_checks': 'exact enumeration for n = 1..14',
-        'tlc_rerun': False, 'mechanized_general_proof': False,
-        'production_adapter_tested': False, 'live_learning_benchmark_run': False,
+        'graph_cases': graph_cases, 'boolean_formula_cases': formula_cases,
+        'conditional_plan_example': 'pass',
+        'runtime_profile_unchanged': True,
+        'full_x1_adapter_implemented': False,
+        'mechanized_general_proof': False,
+        'production_adapter_tested': False,
+        'live_learning_benchmark_run': False,
+        'real_world_improvement_measured': False,
     }
-    (ROOT / 'verification.json').write_text(json.dumps(report, indent=2) + '\n')
+    (ROOT / 'verification.json').write_text(
+        json.dumps(report, indent=2) + '\n', encoding='utf-8',
+    )
     print(json.dumps(report, indent=2))
 
 

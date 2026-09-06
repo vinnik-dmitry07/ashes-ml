@@ -1,0 +1,14 @@
+{
+  "version": "0.6",
+  "kernel_tests": 27,
+  "profile_tests": 37,
+  "failures": 0,
+  "errors": 0,
+  "hashed_files": 28,
+  "synthetic_release_example": "pass",
+  "statistical_boundary_checks": "exact enumeration for n = 1..14",
+  "tlc_rerun": false,
+  "mechanized_general_proof": false,
+  "production_adapter_tested": false,
+  "live_learning_benchmark_run": false
+}
