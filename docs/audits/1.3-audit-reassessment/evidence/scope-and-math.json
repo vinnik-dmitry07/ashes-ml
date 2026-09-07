@@ -11,6 +11,59 @@
     "AHSL-1.3.zip": "85928587c9c333472c9d9fa2749cdc1c55c0b874f4be7b0d0e89c3cd39c70178",
     "ahsl-1.0/SPEC.md": "03af4d1daae626b6d6ab54d299d05db521620d0bb2919705433b18cd74289a2e",
     "ahsl-1.0/verify.py": "8058dc71ad828836011ce3936d50d5468ce637962bc7f563207db24fed8c45dd",
-    "ahsl-1.3/SPEC.md": "4ba8c59ee16b65823c6f818c7dcfa2da619640b06f229e89035363e8ae5eceb6"
+    "ahsl-1.3/SPEC.md": "4ba8c59ee16b65823c6f818c7dcfa2da619640b06f229e89035363e8ae5eceb6",
+    "upload/Pasted markdown(4).md": "82fc90550929f70e49727559f086dc02c6661a0f1665ca033cc68a0a8348cc6f",
+    "audit-reassessment/honest_retention.py": "1d0c4b97fee32b244311e2b23a89221092a35901ea48a56aa6f7f8a4f3438f4a",
+    "ahsl-1.3/tests/test_threat_audit.py": "dfb7fb4b63783226e1a25df0b00cac4e7de7af2a132598883b740e263382acf5",
+    "ahsl-1.3/manifest.json": "22d69a3e5bb34944ff2168577bd74405346cd8fb2825169b8b9c43a810d11430",
+    "ahsl-1.0/runtime_0_6/artifacts.py": "c88c03453ee61fceae18a3458341ff7ab9bcdd2e8229b1884ca0ce679d718c77",
+    "ahsl-1.0/runtime_0_6/contracts.py": "16d71c4281f3525f3a27c3ae30db855690f5218b1ef1e1442c41ecbe1eb1e52a",
+    "ahsl-1.0/runtime_0_6/decisions.py": "693951d83925a2717a549ba5245e578250a06b9f998f252307bb1db30b372af5",
+    "ahsl-1.0/runtime_0_6/evidence.py": "ebdcbb1ec2a3f674adf153260ab755114cfa938ab38a53b60cb11d2407abd532",
+    "ahsl-1.0/runtime_0_6/examples/scenario.py": "907db946e76007bd3f0671c6e494d81a27458f9b181d5c86c68bbba8e0a139ed",
+    "ahsl-1.0/runtime_0_6/kernel/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ahsl-1.0/runtime_0_6/kernel/core.py": "fd7854a7a8a873e1dbd85590bfc5f5ce943c446f87ce2601ab40565fb29b1a24",
+    "ahsl-1.0/runtime_0_6/kernel/run.py": "48c541e9d060a665055a2954d1484071f955e2527a107a0296cff1207a270500",
+    "ahsl-1.0/runtime_0_6/kernel/tests/test_core.py": "0cfadab33e0445ed3e61fb5c239173545d795b06136b9ab9b9f687536219901e",
+    "ahsl-1.0/runtime_0_6/kernel/verify.py": "9478edddd443aa7c267c0e3be381e47cdfbed243bd7e7372ce3be7de90a0253b",
+    "ahsl-1.0/runtime_0_6/system.py": "142f1c2836051ad532980a03adc43bc780c03a86e7e23ce5d0f45b9ca6955f3a",
+    "ahsl-1.0/runtime_0_6/tests/test_profile.py": "adef8d644858504155ef173f60e499c172eb3e6c42bb6b16f412f32593f68894",
+    "ahsl-1.0/runtime_0_6/verify.py": "38405a7a33238a2166e7275d43f376faf8f101ecb767eec2c32b3e76ef7659b7",
+    "ahsl-1.0/runtime_0_6/workflow.py": "827f5016e20b6b28e25220f5811b740b86bdf0e111f8993107771938428f1509"
+  },
+  "latest_audit_check": {
+    "input": "upload/Pasted markdown(4).md",
+    "full_workflow_outputs_supplied": false,
+    "original_named_attack_scripts_replayed_here": false,
+    "new_counterexample": {
+      "script": "honest_retention.py",
+      "output": "honest-retention-results.json",
+      "execution_returncode": 0,
+      "actual_vm_executions": 256,
+      "parent_successes": 0,
+      "candidate_successes": 0,
+      "cases": 128,
+      "interface_violations": 0,
+      "accepted": true,
+      "protocol_codes": [
+        "OK",
+        "OK",
+        "SETTLED",
+        "OK"
+      ],
+      "claim_refuted": "Zero/zero retain necessarily lies about parent",
+      "not_claimed": "Violation of relative-retention semantics"
+    },
+    "targeted_1_3_regression": {
+      "test": "test_threat_audit.ThreatAuditTests.test_a2_zero_capability_never_passes_retain_or_a_chain",
+      "command": "PYTHONPATH=tests python3 -m unittest test_threat_audit.ThreatAuditTests.test_a2_zero_capability_never_passes_retain_or_a_chain -v",
+      "working_directory": "ahsl-1.3",
+      "returncode": 0,
+      "tests_run": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    "new_script_pep8_returncode": 0,
+    "runtime_1_3_changed": false
   }
 }

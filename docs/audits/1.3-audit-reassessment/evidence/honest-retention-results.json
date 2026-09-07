@@ -1,0 +1,1459 @@
+{
+  "profile": "AHSL 1.0 with its embedded R06",
+  "frozen_task": "output == x + 1",
+  "fixed_interface_postcondition": "output >= x",
+  "actual_vm_executions": 256,
+  "parent_successes": 0,
+  "candidate_successes": 0,
+  "cases": 128,
+  "interface_violations": 0,
+  "honest_report": {
+    "strata": {
+      "composition": [
+        {
+          "id": "sample0",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample1",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample2",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample3",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample4",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample5",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample6",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample7",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample8",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample9",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample10",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample11",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample12",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample13",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample14",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample15",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample16",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample17",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample18",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample19",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample20",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample21",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample22",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample23",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample24",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample25",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample26",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample27",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample28",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample29",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample30",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample31",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample32",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample33",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample34",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample35",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample36",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample37",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample38",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample39",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample40",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample41",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample42",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample43",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample44",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample45",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample46",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample47",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample48",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample49",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample50",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample51",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample52",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample53",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample54",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample55",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample56",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample57",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample58",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample59",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample60",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample61",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample62",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample63",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample64",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample65",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample66",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample67",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample68",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample69",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample70",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample71",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample72",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample73",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample74",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample75",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample76",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample77",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample78",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample79",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample80",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample81",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample82",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample83",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample84",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample85",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample86",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample87",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample88",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample89",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample90",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample91",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample92",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample93",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample94",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample95",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample96",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample97",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample98",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample99",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample100",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample101",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample102",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample103",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample104",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample105",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample106",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample107",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample108",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample109",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample110",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample111",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample112",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample113",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample114",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample115",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample116",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample117",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample118",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample119",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample120",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample121",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample122",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample123",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample124",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample125",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample126",
+          "parent": false,
+          "candidate": false
+        },
+        {
+          "id": "sample127",
+          "parent": false,
+          "candidate": false
+        }
+      ]
+    },
+    "violations": 0
+  },
+  "actual_outputs": [
+    {
+      "x": 0,
+      "target": 1,
+      "parent": 0,
+      "candidate": 0
+    },
+    {
+      "x": 1,
+      "target": 2,
+      "parent": 1,
+      "candidate": 1
+    },
+    {
+      "x": 2,
+      "target": 3,
+      "parent": 2,
+      "candidate": 2
+    },
+    {
+      "x": 3,
+      "target": 4,
+      "parent": 3,
+      "candidate": 3
+    },
+    {
+      "x": 4,
+      "target": 5,
+      "parent": 4,
+      "candidate": 4
+    },
+    {
+      "x": 5,
+      "target": 6,
+      "parent": 5,
+      "candidate": 5
+    },
+    {
+      "x": 6,
+      "target": 7,
+      "parent": 6,
+      "candidate": 6
+    },
+    {
+      "x": 7,
+      "target": 8,
+      "parent": 7,
+      "candidate": 7
+    },
+    {
+      "x": 8,
+      "target": 9,
+      "parent": 8,
+      "candidate": 8
+    },
+    {
+      "x": 9,
+      "target": 10,
+      "parent": 9,
+      "candidate": 9
+    },
+    {
+      "x": 10,
+      "target": 11,
+      "parent": 10,
+      "candidate": 10
+    },
+    {
+      "x": 11,
+      "target": 12,
+      "parent": 11,
+      "candidate": 11
+    },
+    {
+      "x": 12,
+      "target": 13,
+      "parent": 12,
+      "candidate": 12
+    },
+    {
+      "x": 13,
+      "target": 14,
+      "parent": 13,
+      "candidate": 13
+    },
+    {
+      "x": 14,
+      "target": 15,
+      "parent": 14,
+      "candidate": 14
+    },
+    {
+      "x": 15,
+      "target": 16,
+      "parent": 15,
+      "candidate": 15
+    },
+    {
+      "x": 16,
+      "target": 17,
+      "parent": 16,
+      "candidate": 16
+    },
+    {
+      "x": 17,
+      "target": 18,
+      "parent": 17,
+      "candidate": 17
+    },
+    {
+      "x": 18,
+      "target": 19,
+      "parent": 18,
+      "candidate": 18
+    },
+    {
+      "x": 19,
+      "target": 20,
+      "parent": 19,
+      "candidate": 19
+    },
+    {
+      "x": 20,
+      "target": 21,
+      "parent": 20,
+      "candidate": 20
+    },
+    {
+      "x": 21,
+      "target": 22,
+      "parent": 21,
+      "candidate": 21
+    },
+    {
+      "x": 22,
+      "target": 23,
+      "parent": 22,
+      "candidate": 22
+    },
+    {
+      "x": 23,
+      "target": 24,
+      "parent": 23,
+      "candidate": 23
+    },
+    {
+      "x": 24,
+      "target": 25,
+      "parent": 24,
+      "candidate": 24
+    },
+    {
+      "x": 25,
+      "target": 26,
+      "parent": 25,
+      "candidate": 25
+    },
+    {
+      "x": 26,
+      "target": 27,
+      "parent": 26,
+      "candidate": 26
+    },
+    {
+      "x": 27,
+      "target": 28,
+      "parent": 27,
+      "candidate": 27
+    },
+    {
+      "x": 28,
+      "target": 29,
+      "parent": 28,
+      "candidate": 28
+    },
+    {
+      "x": 29,
+      "target": 30,
+      "parent": 29,
+      "candidate": 29
+    },
+    {
+      "x": 30,
+      "target": 31,
+      "parent": 30,
+      "candidate": 30
+    },
+    {
+      "x": 31,
+      "target": 32,
+      "parent": 31,
+      "candidate": 31
+    },
+    {
+      "x": 32,
+      "target": 33,
+      "parent": 32,
+      "candidate": 32
+    },
+    {
+      "x": 33,
+      "target": 34,
+      "parent": 33,
+      "candidate": 33
+    },
+    {
+      "x": 34,
+      "target": 35,
+      "parent": 34,
+      "candidate": 34
+    },
+    {
+      "x": 35,
+      "target": 36,
+      "parent": 35,
+      "candidate": 35
+    },
+    {
+      "x": 36,
+      "target": 37,
+      "parent": 36,
+      "candidate": 36
+    },
+    {
+      "x": 37,
+      "target": 38,
+      "parent": 37,
+      "candidate": 37
+    },
+    {
+      "x": 38,
+      "target": 39,
+      "parent": 38,
+      "candidate": 38
+    },
+    {
+      "x": 39,
+      "target": 40,
+      "parent": 39,
+      "candidate": 39
+    },
+    {
+      "x": 40,
+      "target": 41,
+      "parent": 40,
+      "candidate": 40
+    },
+    {
+      "x": 41,
+      "target": 42,
+      "parent": 41,
+      "candidate": 41
+    },
+    {
+      "x": 42,
+      "target": 43,
+      "parent": 42,
+      "candidate": 42
+    },
+    {
+      "x": 43,
+      "target": 44,
+      "parent": 43,
+      "candidate": 43
+    },
+    {
+      "x": 44,
+      "target": 45,
+      "parent": 44,
+      "candidate": 44
+    },
+    {
+      "x": 45,
+      "target": 46,
+      "parent": 45,
+      "candidate": 45
+    },
+    {
+      "x": 46,
+      "target": 47,
+      "parent": 46,
+      "candidate": 46
+    },
+    {
+      "x": 47,
+      "target": 48,
+      "parent": 47,
+      "candidate": 47
+    },
+    {
+      "x": 48,
+      "target": 49,
+      "parent": 48,
+      "candidate": 48
+    },
+    {
+      "x": 49,
+      "target": 50,
+      "parent": 49,
+      "candidate": 49
+    },
+    {
+      "x": 50,
+      "target": 51,
+      "parent": 50,
+      "candidate": 50
+    },
+    {
+      "x": 51,
+      "target": 52,
+      "parent": 51,
+      "candidate": 51
+    },
+    {
+      "x": 52,
+      "target": 53,
+      "parent": 52,
+      "candidate": 52
+    },
+    {
+      "x": 53,
+      "target": 54,
+      "parent": 53,
+      "candidate": 53
+    },
+    {
+      "x": 54,
+      "target": 55,
+      "parent": 54,
+      "candidate": 54
+    },
+    {
+      "x": 55,
+      "target": 56,
+      "parent": 55,
+      "candidate": 55
+    },
+    {
+      "x": 56,
+      "target": 57,
+      "parent": 56,
+      "candidate": 56
+    },
+    {
+      "x": 57,
+      "target": 58,
+      "parent": 57,
+      "candidate": 57
+    },
+    {
+      "x": 58,
+      "target": 59,
+      "parent": 58,
+      "candidate": 58
+    },
+    {
+      "x": 59,
+      "target": 60,
+      "parent": 59,
+      "candidate": 59
+    },
+    {
+      "x": 60,
+      "target": 61,
+      "parent": 60,
+      "candidate": 60
+    },
+    {
+      "x": 61,
+      "target": 62,
+      "parent": 61,
+      "candidate": 61
+    },
+    {
+      "x": 62,
+      "target": 63,
+      "parent": 62,
+      "candidate": 62
+    },
+    {
+      "x": 63,
+      "target": 64,
+      "parent": 63,
+      "candidate": 63
+    },
+    {
+      "x": 64,
+      "target": 65,
+      "parent": 64,
+      "candidate": 64
+    },
+    {
+      "x": 65,
+      "target": 66,
+      "parent": 65,
+      "candidate": 65
+    },
+    {
+      "x": 66,
+      "target": 67,
+      "parent": 66,
+      "candidate": 66
+    },
+    {
+      "x": 67,
+      "target": 68,
+      "parent": 67,
+      "candidate": 67
+    },
+    {
+      "x": 68,
+      "target": 69,
+      "parent": 68,
+      "candidate": 68
+    },
+    {
+      "x": 69,
+      "target": 70,
+      "parent": 69,
+      "candidate": 69
+    },
+    {
+      "x": 70,
+      "target": 71,
+      "parent": 70,
+      "candidate": 70
+    },
+    {
+      "x": 71,
+      "target": 72,
+      "parent": 71,
+      "candidate": 71
+    },
+    {
+      "x": 72,
+      "target": 73,
+      "parent": 72,
+      "candidate": 72
+    },
+    {
+      "x": 73,
+      "target": 74,
+      "parent": 73,
+      "candidate": 73
+    },
+    {
+      "x": 74,
+      "target": 75,
+      "parent": 74,
+      "candidate": 74
+    },
+    {
+      "x": 75,
+      "target": 76,
+      "parent": 75,
+      "candidate": 75
+    },
+    {
+      "x": 76,
+      "target": 77,
+      "parent": 76,
+      "candidate": 76
+    },
+    {
+      "x": 77,
+      "target": 78,
+      "parent": 77,
+      "candidate": 77
+    },
+    {
+      "x": 78,
+      "target": 79,
+      "parent": 78,
+      "candidate": 78
+    },
+    {
+      "x": 79,
+      "target": 80,
+      "parent": 79,
+      "candidate": 79
+    },
+    {
+      "x": 80,
+      "target": 81,
+      "parent": 80,
+      "candidate": 80
+    },
+    {
+      "x": 81,
+      "target": 82,
+      "parent": 81,
+      "candidate": 81
+    },
+    {
+      "x": 82,
+      "target": 83,
+      "parent": 82,
+      "candidate": 82
+    },
+    {
+      "x": 83,
+      "target": 84,
+      "parent": 83,
+      "candidate": 83
+    },
+    {
+      "x": 84,
+      "target": 85,
+      "parent": 84,
+      "candidate": 84
+    },
+    {
+      "x": 85,
+      "target": 86,
+      "parent": 85,
+      "candidate": 85
+    },
+    {
+      "x": 86,
+      "target": 87,
+      "parent": 86,
+      "candidate": 86
+    },
+    {
+      "x": 87,
+      "target": 88,
+      "parent": 87,
+      "candidate": 87
+    },
+    {
+      "x": 88,
+      "target": 89,
+      "parent": 88,
+      "candidate": 88
+    },
+    {
+      "x": 89,
+      "target": 90,
+      "parent": 89,
+      "candidate": 89
+    },
+    {
+      "x": 90,
+      "target": 91,
+      "parent": 90,
+      "candidate": 90
+    },
+    {
+      "x": 91,
+      "target": 92,
+      "parent": 91,
+      "candidate": 91
+    },
+    {
+      "x": 92,
+      "target": 93,
+      "parent": 92,
+      "candidate": 92
+    },
+    {
+      "x": 93,
+      "target": 94,
+      "parent": 93,
+      "candidate": 93
+    },
+    {
+      "x": 94,
+      "target": 95,
+      "parent": 94,
+      "candidate": 94
+    },
+    {
+      "x": 95,
+      "target": 96,
+      "parent": 95,
+      "candidate": 95
+    },
+    {
+      "x": 96,
+      "target": 97,
+      "parent": 96,
+      "candidate": 96
+    },
+    {
+      "x": 97,
+      "target": 98,
+      "parent": 97,
+      "candidate": 97
+    },
+    {
+      "x": 98,
+      "target": 99,
+      "parent": 98,
+      "candidate": 98
+    },
+    {
+      "x": 99,
+      "target": 100,
+      "parent": 99,
+      "candidate": 99
+    },
+    {
+      "x": 100,
+      "target": 101,
+      "parent": 100,
+      "candidate": 100
+    },
+    {
+      "x": 101,
+      "target": 102,
+      "parent": 101,
+      "candidate": 101
+    },
+    {
+      "x": 102,
+      "target": 103,
+      "parent": 102,
+      "candidate": 102
+    },
+    {
+      "x": 103,
+      "target": 104,
+      "parent": 103,
+      "candidate": 103
+    },
+    {
+      "x": 104,
+      "target": 105,
+      "parent": 104,
+      "candidate": 104
+    },
+    {
+      "x": 105,
+      "target": 106,
+      "parent": 105,
+      "candidate": 105
+    },
+    {
+      "x": 106,
+      "target": 107,
+      "parent": 106,
+      "candidate": 106
+    },
+    {
+      "x": 107,
+      "target": 108,
+      "parent": 107,
+      "candidate": 107
+    },
+    {
+      "x": 108,
+      "target": 109,
+      "parent": 108,
+      "candidate": 108
+    },
+    {
+      "x": 109,
+      "target": 110,
+      "parent": 109,
+      "candidate": 109
+    },
+    {
+      "x": 110,
+      "target": 111,
+      "parent": 110,
+      "candidate": 110
+    },
+    {
+      "x": 111,
+      "target": 112,
+      "parent": 111,
+      "candidate": 111
+    },
+    {
+      "x": 112,
+      "target": 113,
+      "parent": 112,
+      "candidate": 112
+    },
+    {
+      "x": 113,
+      "target": 114,
+      "parent": 113,
+      "candidate": 113
+    },
+    {
+      "x": 114,
+      "target": 115,
+      "parent": 114,
+      "candidate": 114
+    },
+    {
+      "x": 115,
+      "target": 116,
+      "parent": 115,
+      "candidate": 115
+    },
+    {
+      "x": 116,
+      "target": 117,
+      "parent": 116,
+      "candidate": 116
+    },
+    {
+      "x": 117,
+      "target": 118,
+      "parent": 117,
+      "candidate": 117
+    },
+    {
+      "x": 118,
+      "target": 119,
+      "parent": 118,
+      "candidate": 118
+    },
+    {
+      "x": 119,
+      "target": 120,
+      "parent": 119,
+      "candidate": 119
+    },
+    {
+      "x": 120,
+      "target": 121,
+      "parent": 120,
+      "candidate": 120
+    },
+    {
+      "x": 121,
+      "target": 122,
+      "parent": 121,
+      "candidate": 121
+    },
+    {
+      "x": 122,
+      "target": 123,
+      "parent": 122,
+      "candidate": 122
+    },
+    {
+      "x": 123,
+      "target": 124,
+      "parent": 123,
+      "candidate": 123
+    },
+    {
+      "x": 124,
+      "target": 125,
+      "parent": 124,
+      "candidate": 124
+    },
+    {
+      "x": 125,
+      "target": 126,
+      "parent": 125,
+      "candidate": 125
+    },
+    {
+      "x": 126,
+      "target": 127,
+      "parent": 126,
+      "candidate": 126
+    },
+    {
+      "x": 127,
+      "target": 128,
+      "parent": 127,
+      "candidate": 127
+    }
+  ],
+  "verdict": {
+    "accepted": true,
+    "code": "ACCEPT",
+    "threshold": {
+      "num": "1",
+      "den": "40"
+    },
+    "tests": {
+      "composition": {
+        "n": 128,
+        "wins": 0,
+        "losses": 0,
+        "loss_p": {
+          "num": "139008452377144732764939786789661303114218850808529137991604824430036072629766435941001769154109609521811665540548899435521",
+          "den": "100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "gain_p": {
+          "num": "1",
+          "den": "1"
+        },
+        "passed": true
+      }
+    }
+  },
+  "protocol_codes": [
+    "OK",
+    "OK",
+    "SETTLED",
+    "OK"
+  ],
+  "generation_after_publish": 1,
+  "scope": "Controlled fixed task, not a stochastic benchmark or a claim of violating the R06 relative-retention specification."
+}
