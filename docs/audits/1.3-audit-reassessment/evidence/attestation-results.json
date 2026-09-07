@@ -1,0 +1,46 @@
+{
+  "old_locks_initially_valid": [
+    true,
+    true,
+    true
+  ],
+  "old_execution": {
+    "exit": 0,
+    "stdout": "{\n  \"golden_example\": {\n    \"available\": 0,\n    \"dispatches\": 2,\n    \"j1\": \"SUCCESS\",\n    \"j2\": \"CONFLICT\",\n    \"spent\": 2,\n    \"version\": 1\n  },\n  \"hashed_files\": 13,\n  \"scope\": \"No production adapter or implementation proof checked.\",\n  \"tlc_rerun\": false,\n  \"unit_tests\": 27\n}\n{\n  \"version\": \"0.6\",\n  \"kernel_tests\": 27,\n  \"profile_tests\": 37,\n  \"failures\": 0,\n  \"errors\": 0,\n  \"hashed_files\": 28,\n  \"synthetic_release_example\": \"pass\",\n  \"statistical_boundary_checks\": \"exact enumeration for n = 1..14\",\n  \"tlc_rerun\": false,\n  \"mechanized_general_proof\": false,\n  \"production_adapter_tested\": false,\n  \"live_learning_benchmark_run\": false\n}\n{\n  \"version\": \"1.0\",\n  \"runtime_kernel_tests\": 27,\n  \"runtime_profile_tests\": 37,\n  \"prospection_tests\": 19,\n  \"total_unit_tests\": 83,\n  \"failures\": 0,\n  \"errors\": 0,\n  \"graph_cases\": 4096,\n  \"boolean_formula_cases\": 48,\n  \"conditional_plan_example\": \"pass\",\n  \"runtime_profile_unchanged\": true,\n  \"full_x1_adapter_implemented\": false,\n  \"mechanized_general_proof\": false,\n  \"production_adapter_tested\": false,\n  \"live_learning_benchmark_run\": false,\n  \"real_world_improvement_measured\": false\n}\n",
+    "stderr": "...........................\n----------------------------------------------------------------------\nRan 27 tests in 0.025s\n\nOK\n.....................................\n----------------------------------------------------------------------\nRan 37 tests in 0.220s\n\nOK\n...................\n----------------------------------------------------------------------\nRan 19 tests in 0.009s\n\nOK\n"
+  },
+  "old_mutation": {
+    "change": "sample bound 512 -> 4096; both local locks rebuilt",
+    "total_unit_tests": 83,
+    "runtime_profile_unchanged": true,
+    "failures": 0,
+    "errors": 0
+  },
+  "current_clean": {
+    "profile": "AHSL-1.3",
+    "status": "EXECUTABLE_REFERENCE",
+    "tests_run": 67,
+    "failures": 0,
+    "errors": 0,
+    "manifest_sha256": "22d69a3e5bb34944ff2168577bd74405346cd8fb2825169b8b9c43a810d11430",
+    "files_checked": 28,
+    "wire_fuzz": {
+      "requests": 2000,
+      "outcomes": {
+        "REFERENCE": 26,
+        "SCHEMA": 998,
+        "BUDGET": 976
+      }
+    }
+  },
+  "current_changed_source": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "Manifest differs: changed, missing, or unlisted source\n"
+  },
+  "current_changed_source_and_lock": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": "External manifest anchor mismatch\n"
+  }
+}

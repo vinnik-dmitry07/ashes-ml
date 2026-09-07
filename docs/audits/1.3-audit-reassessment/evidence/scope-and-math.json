@@ -1,0 +1,16 @@
+{
+  "pass_k_not_complement": {
+    "p": "4/5",
+    "k": 2,
+    "pass_at_k": "24/25",
+    "pass_power_k": "16/25",
+    "complement_pass_at_k": "1/25"
+  },
+  "artifacts": {
+    "upload/Pasted markdown(2).md": "a3670f3f33dcfb1fa2ba80dda88e803dbae2f25f39256a8c0ef7e8d683e73d50",
+    "AHSL-1.3.zip": "85928587c9c333472c9d9fa2749cdc1c55c0b874f4be7b0d0e89c3cd39c70178",
+    "ahsl-1.0/SPEC.md": "03af4d1daae626b6d6ab54d299d05db521620d0bb2919705433b18cd74289a2e",
+    "ahsl-1.0/verify.py": "8058dc71ad828836011ce3936d50d5468ce637962bc7f563207db24fed8c45dd",
+    "ahsl-1.3/SPEC.md": "4ba8c59ee16b65823c6f818c7dcfa2da619640b06f229e89035363e8ae5eceb6"
+  }
+}
