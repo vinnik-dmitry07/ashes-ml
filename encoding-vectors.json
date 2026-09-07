@@ -1,0 +1,36 @@
+[
+  {
+    "bytes_hex": "6e756c6c",
+    "id": "cff739da3c504ce939d0b85d6b713205c8a563e4ae85674dc4fcfe250da01892",
+    "value": null
+  },
+  {
+    "bytes_hex": "74727565",
+    "id": "9a1dcf5939a3991c8ea46ed3d0c184d771e02b89856fb5ca68169d2834eb6f25",
+    "value": true
+  },
+  {
+    "bytes_hex": "2d39323233333732303336383534373735383037",
+    "id": "c18ea50adb5ac781e680db0003b362f787368123b792177526e32ed148b260cb",
+    "value": -9223372036854775807
+  },
+  {
+    "bytes_hex": "2271756f74655c225c5c22",
+    "id": "b6b2cc3a0f4d90ec95801c66ba91645e617739a0ed9644dbf18fd0aad4d9a801",
+    "value": "quote\"\\"
+  },
+  {
+    "bytes_hex": "7b2261223a7b2264656e223a332c226e756d223a2d327d2c2262223a5b312c325d7d",
+    "id": "175c8a517a45f6d9eb65466a4633dcbc2de154a37905e5daedc1440ee6d8f55c",
+    "value": {
+      "a": {
+        "den": 3,
+        "num": -2
+      },
+      "b": [
+        1,
+        2
+      ]
+    }
+  }
+]

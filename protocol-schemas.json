@@ -1,0 +1,273 @@
+{
+  "ActionIntent": {
+    "action": "Text",
+    "prediction": "Prediction",
+    "state": "Ref"
+  },
+  "Assignment": {
+    "candidate": "Ref",
+    "environment": "Ref",
+    "generation": "Nat",
+    "level": "Nat",
+    "manifest": "Ref",
+    "repetition": "Nat",
+    "sequence": "Nat"
+  },
+  "Envelope": {
+    "receipt": "Receipt",
+    "tag": "Ref"
+  },
+  "Environment": {
+    "actions": [
+      "Text"
+    ],
+    "effects": "Text",
+    "goal": "Text",
+    "level_max": "Nat",
+    "level_min": "Nat",
+    "profile": "Text",
+    "version": "Nat"
+  },
+  "EvaluationPlan": {
+    "assignments": [
+      [
+        "Ref"
+      ]
+    ],
+    "candidate": "Ref",
+    "environment": "Ref",
+    "generation": "Nat",
+    "index": "Nat",
+    "levels": [
+      "Nat"
+    ],
+    "manifest": "Ref",
+    "mode": "Text",
+    "parent": "Ref"
+  },
+  "Genesis": "State",
+  "GroundState": {
+    "key": "Bool",
+    "opened": [
+      "Nat"
+    ],
+    "overlay": "Bool",
+    "position": "Nat"
+  },
+  "Job": {
+    "charge": "Nat",
+    "fence": "Bool",
+    "phase": "Text",
+    "receipt": {
+      "nullable": "Ref"
+    },
+    "upper": "Nat"
+  },
+  "KnowledgeAssertion": {
+    "arguments": [
+      "Text"
+    ],
+    "polarity": "Bool",
+    "predicate": "Text",
+    "scope": "Ref"
+  },
+  "KnowledgeEntry": {
+    "arguments": [
+      "Text"
+    ],
+    "evidence": [
+      "Ref"
+    ],
+    "features": [
+      "Text"
+    ],
+    "polarity": "Bool",
+    "predicate": "Text",
+    "scope": "Ref",
+    "status": "Text",
+    "text": "Text",
+    "tokens": [
+      "Text"
+    ]
+  },
+  "LocalPolicy": {
+    "environment": "Ref",
+    "kind": "Text",
+    "sources": [
+      "Ref"
+    ],
+    "table": {
+      "map": "Text"
+    }
+  },
+  "LogRecord": {
+    "after": "Ref",
+    "before": "Ref",
+    "event": "Event",
+    "previous": "Ref",
+    "principal": "Text"
+  },
+  "Observation": {
+    "key": "Bool",
+    "level": "Nat",
+    "opened": [
+      "Nat"
+    ],
+    "position": "Nat",
+    "visible_success": "Bool"
+  },
+  "OperationalClaim": {
+    "ground_success": "Bool",
+    "prediction_hits": "Nat",
+    "steps": "Nat",
+    "trace": "Ref"
+  },
+  "PolicyObservation": {
+    "environment": "Ref",
+    "key": "Bool",
+    "level": "Nat",
+    "opened": [
+      "Nat"
+    ],
+    "position": "Nat"
+  },
+  "ProofCertificate": {
+    "environment": "Ref",
+    "goal": "Formula",
+    "kind": "Text",
+    "profile": "Text",
+    "term": "Term",
+    "visits": "Nat"
+  },
+  "ProofLibrary": {
+    "map": {
+      "goal": "Formula",
+      "term": "Term"
+    }
+  },
+  "Receipt": {
+    "binding": "Assignment",
+    "trace": "Trace"
+  },
+  "ReleaseDecision": {
+    "accept": "Bool",
+    "generation": "Nat",
+    "kind": "Text",
+    "pairs": [
+      [
+        "Bool"
+      ]
+    ],
+    "plan": "Ref",
+    "receipts": [
+      "Ref"
+    ],
+    "scope": [
+      "Nat"
+    ]
+  },
+  "SessionSnapshot": {
+    "active_plan": {
+      "nullable": "Ref"
+    },
+    "dataset": {
+      "map": {
+        "certificate": "TrainingAdmission",
+        "trace": "Trace"
+      }
+    },
+    "ledger": {
+      "genesis": "State",
+      "head": "Ref",
+      "log": [
+        "LogRecord"
+      ],
+      "state": "State"
+    },
+    "levels": [
+      "Nat"
+    ],
+    "plans": {
+      "map": "EvaluationPlan"
+    },
+    "programs": {
+      "map": "Program"
+    },
+    "requests_used": "Nat",
+    "runner": {
+      "fenced": [
+        "Ref"
+      ],
+      "issued": {
+        "map": "Assignment"
+      },
+      "manifest": "Ref",
+      "receipts": {
+        "map": "Envelope"
+      },
+      "sequence": "Nat"
+    },
+    "training_used": [
+      "Ref"
+    ],
+    "used": [
+      "Ref"
+    ],
+    "version": "Text"
+  },
+  "State": {
+    "active": "Ref",
+    "free": "Nat",
+    "generation": "Nat",
+    "jobs": {
+      "map": "Job"
+    },
+    "open_runs": "Nat",
+    "sequence": "Nat",
+    "spent": "Nat",
+    "total": "Nat"
+  },
+  "StepRecord": {
+    "after": "GroundState",
+    "before": "GroundState",
+    "commit": "Ref",
+    "index": "Nat",
+    "intent": "ActionIntent",
+    "observation": "Observation",
+    "prediction_hit": "Bool",
+    "previous": "Ref"
+  },
+  "Trace": {
+    "assignment": "Ref",
+    "candidate": "Ref",
+    "environment": "Ref",
+    "error": {
+      "nullable": "Text"
+    },
+    "final": "GroundState",
+    "generation": "Nat",
+    "level": "Nat",
+    "reward": "Bool",
+    "steps": [
+      "StepRecord"
+    ],
+    "termination": "Text"
+  },
+  "TraceStart": {
+    "assignment": "Ref",
+    "environment": "Ref"
+  },
+  "TrainingAdmission": {
+    "assignment": "Ref",
+    "environment": "Ref",
+    "kind": "Text",
+    "manifest": "Ref",
+    "mechanism": "Text",
+    "prediction_hits": "Nat",
+    "profile": "Text",
+    "scope": {
+      "level": "Nat"
+    },
+    "trace": "Ref"
+  }
+}

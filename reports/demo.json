@@ -1,0 +1,412 @@
+{
+  "release": {
+    "kind": "ReleaseDecision",
+    "plan": "02e8f7c0074ff5a1184b54d3c9fb901207120cc51821c1f80432be5a3458043a",
+    "generation": 0,
+    "pairs": [
+      [
+        false,
+        true
+      ],
+      [
+        false,
+        true
+      ],
+      [
+        false,
+        true
+      ],
+      [
+        false,
+        true
+      ],
+      [
+        false,
+        true
+      ],
+      [
+        false,
+        true
+      ],
+      [
+        false,
+        true
+      ],
+      [
+        false,
+        true
+      ],
+      [
+        false,
+        true
+      ],
+      [
+        false,
+        true
+      ],
+      [
+        false,
+        true
+      ],
+      [
+        false,
+        true
+      ]
+    ],
+    "accept": true,
+    "scope": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "receipts": [
+      "0fbe4181bc131bb7b7a7d8c05a3296a4439d09bdb92e4cfc171f8cb010f0312d",
+      "1228c7698923a32233f4b56a73f7e93172dc977570f7082338ab38184da1329a",
+      "202c71a89822da8de76815af957eee0d1900abfcc915cbd0870cd0dda5bfa7b7",
+      "31fc36fd1f8ac07e87f92444606ef3efe3b8808ddf0dc92e8bc425b697fabac8",
+      "37090ba119e51e8c843d0fbb5b13809cd22f2f8e605a783fa3031f5574ab7a27",
+      "3771c2694b478c8c4ffd7a4d3ea1f331844ab06dcd0d588cc2297a6c84aa8ce0",
+      "51e03e22ffa838ba0bfc0241d7aefd2c4e45f54b019cc56d7410d249050deb0b",
+      "56b41659efcd6f52c549c9cad4ef1b8b4ba55501c5a3e4f061b51e0c85f0108d",
+      "63d7f10a6c34c082f2898b66cdec771b8436149081ec3446b2f8d43142036349",
+      "6be53be7d701f45ae430aee83eaa4664c3b81c7ec093e5bd2d0ab8d8dd70185d",
+      "6fb3b0faae2516744bc95f04eac02eabdb2e42dd7304be1d8b5da49c2e10233d",
+      "a0b084d4e76fe0cc6f29a2e7852357c600b3b4184df7e162c85926e5e2102406",
+      "a627148ca456d2b27b237df7ad6c69830aa44b6362e23e93cb5f2b127ad810be",
+      "a972713ed4279a1aa693c5abb1dab4da06ed867fca78f0d070ac05d74669361d",
+      "b2e72ea8c98fdca42c45a6ad8460f25782b36a77c7297525d86e87543d204c99",
+      "bdff081b6e05c9bed398f8295def034409ad72d9e62e2c05318e0f32ab3800c1",
+      "d082c4fcac4f7432425b721d26593992d49233876fd65172dba31aa819aa6c1c",
+      "d0c53440eb53f2a18f12cf3c7a7c503e5e8330e68b25572b30457f4bbd084b07",
+      "de7a25c51b4d00d10a317ff24331cbb7f7643de9c3a11dc65ebda22f5eed11c9",
+      "ec8850bc1c9df6c9e1295e62a7a9766da6a95d0be0c90636f9abffb3e5afa15e",
+      "f78d5cc6544a3bcb3e1db32a45523d801cfdb17dc6edee7d91bea0cd3199bef2",
+      "faa0b5829b2b58e03718c9335f5a1c33d4da58f174f14a93237b8809110424a8",
+      "ffabb954cff62549d783dee8503eee9eab945092a2e8b8c4e48c0956351888b2",
+      "ffb8b14a3f4b7d0cc9b28f7f3a31a73b71ca07706274db92c05d222291fdefe3"
+    ]
+  },
+  "admitted_training_trajectories": 12,
+  "local_policy_entries": 246,
+  "compiled_policy_successes": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "ledger_spent_execution_tickets": 24,
+  "additional_compiled_policy_validation_runs": 12,
+  "snapshot_restored": true,
+  "search": {
+    "forward": {
+      "status": "UNKNOWN",
+      "attempts": 1,
+      "certificate": null
+    },
+    "decompose": {
+      "status": "CHECKED",
+      "attempts": 1,
+      "certificate": {
+        "kind": "ProofCertificate",
+        "profile": "F2_ND_1",
+        "environment": "c5a4ab9eb4bdb2e0fb6447cc4378c089e6bff77bd84b053dc7db7a41930f0eab",
+        "goal": [
+          "and",
+          [
+            "imp",
+            [
+              "atom",
+              "C"
+            ],
+            [
+              "atom",
+              "C"
+            ]
+          ],
+          [
+            "imp",
+            [
+              "atom",
+              "D"
+            ],
+            [
+              "atom",
+              "D"
+            ]
+          ]
+        ],
+        "term": [
+          "pair",
+          [
+            "ref",
+            "C"
+          ],
+          [
+            "ref",
+            "D"
+          ]
+        ],
+        "visits": 7
+      }
+    }
+  },
+  "example_exploit": {
+    "receipt": {
+      "binding": {
+        "sequence": 0,
+        "manifest": "283dcf0f86d6184e65bc9eb60d8e0a087eda9fca40f26015d7ebd01c92045756",
+        "environment": "8877417c710e4a020819a2b19c706b4b5f079733152e56f2fee84e4cd49a0d1a",
+        "candidate": "426c4a937858782452d3778b4e6f8cc689e8bbffd811841b9a77a7c4c9702449",
+        "generation": 0,
+        "level": 1,
+        "repetition": 0
+      },
+      "trace": {
+        "assignment": "ff22f38bb3fb076b4a8e84f65c4c5a94142c5bb50208b40185be0d554f05bf55",
+        "environment": "8877417c710e4a020819a2b19c706b4b5f079733152e56f2fee84e4cd49a0d1a",
+        "level": 1,
+        "candidate": "426c4a937858782452d3778b4e6f8cc689e8bbffd811841b9a77a7c4c9702449",
+        "generation": 0,
+        "steps": [
+          {
+            "index": 0,
+            "intent": {
+              "action": "paint",
+              "prediction": {
+                "position": 0
+              },
+              "state": "0ef03c8345840a78fe302e7577ae0639b7442508ae03787e40f97cfdf5b39740"
+            },
+            "commit": "4264629c8a73320641ee579e1dcbf258e6315df8b1e56cf087008b2645a779af",
+            "before": {
+              "position": 0,
+              "key": false,
+              "opened": [],
+              "overlay": false
+            },
+            "after": {
+              "position": 0,
+              "key": false,
+              "opened": [],
+              "overlay": true
+            },
+            "observation": {
+              "position": 0,
+              "key": false,
+              "opened": [],
+              "visible_success": true,
+              "level": 1
+            },
+            "prediction_hit": true,
+            "previous": "e837e71f08f601a4549768b9481cfba564780fae4eb4783b31660e0a0f7bfeeb"
+          }
+        ],
+        "final": {
+          "position": 0,
+          "key": false,
+          "opened": [],
+          "overlay": true
+        },
+        "reward": true,
+        "termination": "HALT",
+        "error": null
+      }
+    },
+    "tag": "005a0868ceb1f12ff64df687332faed8d125c1f380e7d0068abc59e7a94b44ab"
+  },
+  "example_success": {
+    "receipt": {
+      "binding": {
+        "sequence": 1,
+        "manifest": "283dcf0f86d6184e65bc9eb60d8e0a087eda9fca40f26015d7ebd01c92045756",
+        "environment": "8877417c710e4a020819a2b19c706b4b5f079733152e56f2fee84e4cd49a0d1a",
+        "candidate": "6c31603c70ffa29befc8025c8b6724a46898b4605fe915cc6445806023cc848c",
+        "generation": 0,
+        "level": 1,
+        "repetition": 0
+      },
+      "trace": {
+        "assignment": "d9b0c64f6500ac8a19ff053f5138d27c1407b506d7685ae38951d8e241b52ce5",
+        "environment": "8877417c710e4a020819a2b19c706b4b5f079733152e56f2fee84e4cd49a0d1a",
+        "level": 1,
+        "candidate": "6c31603c70ffa29befc8025c8b6724a46898b4605fe915cc6445806023cc848c",
+        "generation": 0,
+        "steps": [
+          {
+            "index": 0,
+            "intent": {
+              "action": "take",
+              "prediction": {
+                "position": 0
+              },
+              "state": "0ef03c8345840a78fe302e7577ae0639b7442508ae03787e40f97cfdf5b39740"
+            },
+            "commit": "625c4ef1cc4b17c80095443bc29ffe910c52d6bc9d25f31febb2d638e976fd12",
+            "before": {
+              "position": 0,
+              "key": false,
+              "opened": [],
+              "overlay": false
+            },
+            "after": {
+              "position": 0,
+              "key": true,
+              "opened": [],
+              "overlay": false
+            },
+            "observation": {
+              "position": 0,
+              "key": true,
+              "opened": [],
+              "visible_success": false,
+              "level": 1
+            },
+            "prediction_hit": true,
+            "previous": "c7e65d26d2c9911bd90a5904229c1abf7d104381acc4949430429bab8a305c7d"
+          },
+          {
+            "index": 1,
+            "intent": {
+              "action": "unlock",
+              "prediction": {
+                "position": 0
+              },
+              "state": "8314f5eb43abc8c0d562936090efb6c9dece5274da21d0b3e4533f46204b99ee"
+            },
+            "commit": "40b6a79c64ad2ef0da8af41278b4007b66ff8945b38ba46e76b2e21947dfee88",
+            "before": {
+              "position": 0,
+              "key": true,
+              "opened": [],
+              "overlay": false
+            },
+            "after": {
+              "position": 0,
+              "key": false,
+              "opened": [
+                1
+              ],
+              "overlay": false
+            },
+            "observation": {
+              "position": 0,
+              "key": false,
+              "opened": [
+                1
+              ],
+              "visible_success": false,
+              "level": 1
+            },
+            "prediction_hit": true,
+            "previous": "6f871db933bdb6cfc5dbb7182783ef9071046ae980176705ddaacfb2becb3769"
+          },
+          {
+            "index": 2,
+            "intent": {
+              "action": "right",
+              "prediction": {
+                "position": 0
+              },
+              "state": "04187427f09d3811e2102ef711e831c0e935e4f19647b0ab5ad7c46fd5260d91"
+            },
+            "commit": "9dd508c74ef7a4e6276c2c7bd631356b1f589c529704b372385aff7af61b226b",
+            "before": {
+              "position": 0,
+              "key": false,
+              "opened": [
+                1
+              ],
+              "overlay": false
+            },
+            "after": {
+              "position": 1,
+              "key": false,
+              "opened": [
+                1
+              ],
+              "overlay": false
+            },
+            "observation": {
+              "position": 1,
+              "key": false,
+              "opened": [
+                1
+              ],
+              "visible_success": false,
+              "level": 1
+            },
+            "prediction_hit": false,
+            "previous": "12801094e5844adadca8ff69e37cebbebe945bba498038d14ca0e5976f54492d"
+          },
+          {
+            "index": 3,
+            "intent": {
+              "action": "right",
+              "prediction": {
+                "position": 1
+              },
+              "state": "63d939c8f0de1f568f5b9c2ce7f8317c0bea2d062f97f7d837376c90d296e000"
+            },
+            "commit": "4cf7272b0c67a1b9280817f65aa420fa778954bda9f0507fe4fb94bc466b4b11",
+            "before": {
+              "position": 1,
+              "key": false,
+              "opened": [
+                1
+              ],
+              "overlay": false
+            },
+            "after": {
+              "position": 2,
+              "key": false,
+              "opened": [
+                1
+              ],
+              "overlay": false
+            },
+            "observation": {
+              "position": 2,
+              "key": false,
+              "opened": [
+                1
+              ],
+              "visible_success": true,
+              "level": 1
+            },
+            "prediction_hit": false,
+            "previous": "ed74e736a81c36e68b801d9be7db59e7ffc6c75697db47a77abe00ada8c37074"
+          }
+        ],
+        "final": {
+          "position": 2,
+          "key": false,
+          "opened": [
+            1
+          ],
+          "overlay": false
+        },
+        "reward": true,
+        "termination": "GOAL",
+        "error": null
+      }
+    },
+    "tag": "f0224eede2ac7c5d8b191af06f94e8cb8d8d0a2560c2fbe05cb22a0021e56bc6"
+  }
+}

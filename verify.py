@@ -1,63 +1,222 @@
-'''Run the pinned runtime and new finite reference-profile checks.'''
+'''
+Reproducible verification with dynamic counts and complete source
+closure.
+'''
 
+import argparse
+from collections import deque
+from copy import deepcopy
+from fractions import Fraction
 import hashlib
+import io
 import json
 from pathlib import Path
+import random
 import subprocess
 import sys
 import unittest
-
-from examples.conditional_plan import demonstration
-from exhaustive import check_boolean_formulas, check_graphs
 
 
 ROOT = Path(__file__).resolve().parent
 
 
+def source_files():
+    return sorted(path for path in ROOT.rglob('*')
+                  if path.is_file() and path.suffix in ('.py', '.json')
+                  and 'reports' not in path.relative_to(ROOT).parts
+                  and path.name != 'manifest.json')
+
+
+def manifest():
+    return {str(path.relative_to(ROOT)): hashlib.sha256(
+        path.read_bytes()).hexdigest() for path in source_files()}
+
+
+def model_check():
+    from ahsl.codec import Rejected, canonical, cid
+    from ahsl.kernel import initial, invariant, step
+    a, b = cid('ModelCandidate', 'A'), cid('ModelCandidate', 'B')
+
+    def project(state):
+        result = deepcopy(state)
+        del result['sequence']
+        return canonical(result)
+
+    start = initial(3, a)
+    queue = deque([(start, 0)])
+    seen = {project(start)}
+    transitions = rejected = recovered = depth_max = 0
+    while queue:
+        state, depth = queue.popleft()
+        depth_max = max(depth_max, depth)
+        invariant(state)
+        events = [('agent', {'op': 'close_run'})]
+        if state['open_runs'] == 0:
+            events.append(('agent', {'op': 'start_run'}))
+        if state['generation'] < 2:
+            for target in (a, b):
+                for principal, op in (('admitter', 'publish'),
+                                      ('supervisor', 'rollback'),
+                                      ('agent', 'publish')):
+                    events.append(
+                        (principal,
+                         {'op': op, 'candidate': target,
+                          'generation': state['generation']}))
+        for job in ('j0', 'j1'):
+            for upper in (1, 2):
+                events.append(('agent', {'op': 'reserve', 'job': job,
+                                         'upper': upper}))
+            for principal, op in (
+                ('executor', 'dispatch'),
+                ('executor', 'unknown'),
+                ('executor', 'fence'),
+                ('supervisor', 'seal'),
+                ('supervisor', 'cancel'),
+                    ('agent', 'seal')):
+                events.append((principal, {'op': op, 'job': job}))
+            for actual in (0, 1, 2):
+                events.append(('executor', {'op': 'complete', 'job': job,
+                                            'actual': actual, 'receipt': a}))
+        for principal, event in events:
+            try:
+                new, output = step(state, principal, event)
+            except Rejected:
+                rejected += 1
+                continue
+            transitions += 1
+            key = project(new)
+            if key not in seen:
+                seen.add(key)
+                queue.append((new, depth + 1))
+        # Explicit recovery path for every reachable state with unknown work.
+        if any(job['phase'] == 'UNKNOWN' for job in state['jobs'].values()):
+            current = deepcopy(state)
+            for job, item in list(current['jobs'].items()):
+                if item['phase'] == 'RESERVED':
+                    current, _ = step(
+                        current, 'supervisor', {
+                            'op': 'cancel', 'job': job})
+                elif item['phase'] in ('RUNNING', 'UNKNOWN'):
+                    current, _ = step(
+                        current, 'executor', {
+                            'op': 'fence', 'job': job})
+                    current, _ = step(
+                        current, 'supervisor', {
+                            'op': 'seal', 'job': job})
+            assert all(job['phase'] in ('DONE', 'SEALED', 'CANCELLED')
+                       for job in current['jobs'].values())
+            recovered += 1
+    return {
+        'scope': ('2 jobs, total=3, upper in {1,2}, '
+                  'generation<=2, open_runs<=1'),
+        'projection': 'erase sequence; implementation step used directly',
+        'states': len(seen),
+        'accepted_transitions': transitions,
+        'rejected_transitions': rejected,
+        'maximum_bfs_depth': depth_max,
+        'unknown_states_with_recovery_path': recovered,
+        'general_liveness_proved': False}
+
+
+def benchmark():
+    from ahsl.codec import cid
+    from ahsl.environment import Runner
+    from ahsl.examples import corridor_agent
+    runner = Runner(b'benchmark-key-not-a-production-secret',
+                    cid('Manifest', manifest()))
+    rows = []
+    for level in range(1, 13):
+        for method in ('solver', 'paint', 'fault_schedule'):
+            outcomes, costs = [], []
+            for repetition in range(5):
+                correct = method == 'solver' or (
+                    method == 'fault_schedule' and repetition != 2)
+                style = 'solver' if correct else 'paint'
+                item = corridor_agent(style)
+                assignment = runner.assign(
+                    cid('Program', item), 0, level, repetition)
+                envelope = runner.run(assignment, item)
+                result = runner.verify(envelope)
+                outcomes.append(result['ground_success'])
+                costs.append(result['steps'])
+            mean = Fraction(sum(outcomes), len(outcomes))
+            rows.append({'level': level, 'method': method,
+                         'minimum_solution_actions': 3 * level + 1,
+                         'successes': sum(outcomes), 'runs': len(outcomes),
+                         'pass_all_5': all(outcomes),
+                         'empirical_variance': str(mean * (1 - mean)),
+                         'actions': costs, 'maximum_actions': max(costs)})
+    return {
+        'kind': 'finite deterministic stress fixture',
+        'fault_schedule': ('one complete paint run among five; '
+                           'not an LLM estimate'),
+        'rows': rows}
+
+
+def adversarial_wire():
+    from ahsl.admission import Session
+    from ahsl.api import handle
+    from ahsl.codec import ERRORS, canonical, cid, decode
+    from ahsl.examples import corridor_agent
+    rng = random.Random(74123)
+    session = Session(corridor_agent('paint'),
+                      24, b'wire-test-key-not-production-keyxx',
+                      cid('Manifest', manifest()))
+    atoms = [None, 0, True, '', [], {}, ['op'], {'op': 'publish'}]
+    counts = {}
+    for _ in range(2000):
+        value = rng.choice(atoms)
+        for _ in range(rng.randrange(4)):
+            value = rng.choice(
+                [{'op': value},
+                 {'op': 'evaluate', 'plan': value},
+                 {'op': 'propose', 'program': value},
+                 [value]])
+        result = decode(handle(session, canonical(value)))
+        assert result['code'] in ERRORS | {'OK'}
+        counts[result['code']] = counts.get(result['code'], 0) + 1
+    return {'requests': sum(counts.values()), 'outcomes': counts}
+
+
 def main():
-    lock = json.loads((ROOT / 'manifest.lock.json').read_text())
-    for name, expected in lock['sha256'].items():
-        actual = hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
-        if actual != expected:
-            raise SystemExit('Hash mismatch: ' + name)
-    subprocess.run(
-        [sys.executable, 'verify.py'], cwd=ROOT / 'runtime_0_6', check=True,
-    )
-    old = json.loads((ROOT / 'runtime_0_6' / 'verification.json').read_text())
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--write-manifest', action='store_true')
+    parser.add_argument('--expected-manifest')
+    parser.add_argument('--quick', action='store_true')
+    args = parser.parse_args()
+    manifest_path = ROOT / 'manifest.json'
+    if args.write_manifest:
+        manifest_path.write_text(
+            json.dumps(
+                manifest(),
+                sort_keys=True,
+                indent=2) + '\n')
+    pinned = json.loads(manifest_path.read_text())
+    if pinned != manifest():
+        raise SystemExit(
+            'Manifest differs: changed, missing, or unlisted source')
+    digest = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+    if args.expected_manifest and args.expected_manifest != digest:
+        raise SystemExit('External manifest anchor mismatch')
+    sys.path.insert(0, str(ROOT))
     suite = unittest.defaultTestLoader.discover(str(ROOT / 'tests'))
-    result = unittest.TextTestRunner(verbosity=1).run(suite)
+    stream = io.StringIO()
+    result = unittest.TextTestRunner(stream=stream, verbosity=1).run(suite)
     if not result.wasSuccessful():
+        print(stream.getvalue())
         raise SystemExit(1)
-    graph_cases = check_graphs()
-    formula_cases = check_boolean_formulas()
-    demo = demonstration()
-    assert demo['goal_status'] == ['CONDITIONAL', 'CONDITIONAL', 'VERIFIED']
-    assert demo['spent'] + demo['available'] == 100
-    (ROOT / 'examples' / 'conditional-plan.json').write_text(
-        json.dumps(demo, ensure_ascii=False, indent=2) + '\n',
-        encoding='utf-8',
-    )
-    report = {
-        'version': '1.0',
-        'runtime_kernel_tests': old['kernel_tests'],
-        'runtime_profile_tests': old['profile_tests'],
-        'prospection_tests': result.testsRun,
-        'total_unit_tests': (
-            old['kernel_tests'] + old['profile_tests'] + result.testsRun
-        ),
-        'failures': len(result.failures), 'errors': len(result.errors),
-        'graph_cases': graph_cases, 'boolean_formula_cases': formula_cases,
-        'conditional_plan_example': 'pass',
-        'runtime_profile_unchanged': True,
-        'full_x1_adapter_implemented': False,
-        'mechanized_general_proof': False,
-        'production_adapter_tested': False,
-        'live_learning_benchmark_run': False,
-        'real_world_improvement_measured': False,
-    }
-    (ROOT / 'verification.json').write_text(
-        json.dumps(report, indent=2) + '\n', encoding='utf-8',
-    )
+    report = {'profile': 'AHSL-1.2', 'status': 'EXECUTABLE_REFERENCE',
+              'tests_run': result.testsRun, 'failures': len(result.failures),
+              'errors': len(result.errors), 'manifest_sha256': digest,
+              'files_checked': len(pinned), 'wire_fuzz': adversarial_wire()}
+    reports = ROOT / 'reports'
+    reports.mkdir(exist_ok=True)
+    if not args.quick:
+        report['bounded_implementation_exploration'] = model_check()
+        (reports / 'benchmark.json').write_text(json.dumps(benchmark(),
+                                                           indent=2) + '\n')
+    (reports / 'verification.json').write_text(json.dumps(report,
+                                                          indent=2) + '\n')
     print(json.dumps(report, indent=2))
 
 

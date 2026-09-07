@@ -1,0 +1,27 @@
+{
+  "profile": "AHSL-1.2",
+  "status": "EXECUTABLE_REFERENCE",
+  "tests_run": 55,
+  "failures": 0,
+  "errors": 0,
+  "manifest_sha256": "63c17eb5d10c891f3f8dac705e59dc608bee15b16be1aec4e4958ce846ec7755",
+  "files_checked": 24,
+  "wire_fuzz": {
+    "requests": 2000,
+    "outcomes": {
+      "REFERENCE": 26,
+      "SCHEMA": 998,
+      "BUDGET": 976
+    }
+  },
+  "bounded_implementation_exploration": {
+    "scope": "2 jobs, total=3, upper in {1,2}, generation<=2, open_runs<=1",
+    "projection": "erase sequence; implementation step used directly",
+    "states": 6480,
+    "accepted_transitions": 35352,
+    "rejected_transitions": 140256,
+    "maximum_bfs_depth": 11,
+    "unknown_states_with_recovery_path": 1680,
+    "general_liveness_proved": false
+  }
+}

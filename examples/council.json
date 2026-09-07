@@ -1,0 +1,1 @@
+{"entry":"main","functions":{"aggregate":{"body":{"args":[{"op":"lit","type":{"List":"Text"},"value":["a","b","c"]},{"op":"lit","type":{"List":{"List":"Text"}},"value":[["b","a","c"],["a","b","c"],["b","c","a"]]}],"name":"borda","op":"builtin"},"params":{},"result":"Text"},"main":{"body":{"args":[],"name":"aggregate","op":"call"},"params":{},"result":"Text"}}}
