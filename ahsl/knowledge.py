@@ -41,12 +41,28 @@ def assertion_id(item):
 def ground_fact(envelope, runner):
     result = runner.verify(envelope)
     item = {'text': 'Terminal ground-goal result from an audited execution.',
-            'tokens': ['goal', 'trajectory'], 'features': ['execution'],
+            'tokens': sorted(['ground_success', result['trace']]),
+            'features': ['verified_assertion'],
             'predicate': 'ground_success', 'arguments': [result['trace']],
             'polarity': result['ground_success'], 'status': 'FACT',
             'scope': envelope['receipt']['trace']['environment'],
             'evidence': [result['trace']]}
     return item, {result['trace']: assertion_id(item)}
+
+
+def render_assertion(item):
+    '''Render verified prose from bound fields, not from a source string.'''
+    claim = {key: item[key] for key in
+             ('scope', 'predicate', 'arguments', 'polarity')}
+    return 'Verified assertion: ' + canonical(claim).decode('ascii')
+
+
+def synthetic_trace(model, actions):
+    from .environment import ACTIONS
+    ref(model)
+    need(type(actions) is list and len(actions) <= 64)
+    need(all(type(action) is str and action in ACTIONS for action in actions))
+    return {'kind': 'SyntheticTrace', 'model': model, 'actions': list(actions)}
 
 
 def compose(entries, query, scope, byte_budget, channel, verified_refs=None):
@@ -65,6 +81,14 @@ def compose(entries, query, scope, byte_budget, channel, verified_refs=None):
         if copy['status'] == 'FACT' and (
                 copy['scope'] != scope or not verified):
             copy['status'] = 'ASSUMPTION'
+        elif copy['status'] == 'FACT':
+            copy['text'] = render_assertion(copy)
+            copy['tokens'] = sorted(
+                set([copy['predicate']] + copy['arguments']))
+            copy['features'] = ['verified_assertion']
+            copy['evidence'] = [key for key in copy['evidence']
+                                if verified_refs.get(key)
+                                == assertion_id(copy)]
         if channel == 'relevance':
             score = jaccard(query['tokens'], copy['tokens'])
         elif channel == 'analogy':

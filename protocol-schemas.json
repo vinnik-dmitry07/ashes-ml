@@ -4,12 +4,32 @@
     "prediction": "Prediction",
     "state": "Ref"
   },
+  "Assessment": {
+    "assignment": "Ref",
+    "guarantees": "Ref",
+    "kind": "Text",
+    "mission": "Ref",
+    "outcome": "OperationalClaim",
+    "principal": "Ref",
+    "source": "Ref",
+    "violations": [
+      "Text"
+    ]
+  },
+  "AssessmentEnvelope": {
+    "assessment": "Assessment",
+    "tag": "Ref"
+  },
   "Assignment": {
     "candidate": "Ref",
     "environment": "Ref",
     "generation": "Nat",
+    "guarantees": {
+      "nullable": "Ref"
+    },
     "level": "Nat",
     "manifest": "Ref",
+    "mission": "Ref",
     "repetition": "Nat",
     "sequence": "Nat"
   },
@@ -35,6 +55,7 @@
       ]
     ],
     "candidate": "Ref",
+    "candidate_guarantees": "Guarantees",
     "environment": "Ref",
     "generation": "Nat",
     "index": "Nat",
@@ -42,8 +63,14 @@
       "Nat"
     ],
     "manifest": "Ref",
+    "mission": "Ref",
     "mode": "Text",
-    "parent": "Ref"
+    "parent": "Ref",
+    "parent_guarantees": "Guarantees"
+  },
+  "ExecutionScope": {
+    "environment": "Ref",
+    "manifest": "Ref"
   },
   "Genesis": "State",
   "GroundState": {
@@ -53,6 +80,11 @@
     ],
     "overlay": "Bool",
     "position": "Nat"
+  },
+  "Guarantees": {
+    "max_actions": "Nat",
+    "max_program_bytes": "Nat",
+    "require_ground_goal": "Bool"
   },
   "Job": {
     "charge": "Nat",
@@ -107,6 +139,18 @@
     "previous": "Ref",
     "principal": "Text"
   },
+  "Mission": {
+    "absolute_success": "Text",
+    "environment": "Ref",
+    "evaluator": "Ref",
+    "floor": "Guarantees",
+    "kind": "Text",
+    "levels": [
+      "Nat"
+    ],
+    "manifest": "Ref",
+    "observer": "Ref"
+  },
   "Observation": {
     "key": "Bool",
     "level": "Nat",
@@ -151,8 +195,13 @@
   },
   "ReleaseDecision": {
     "accept": "Bool",
+    "assessments": [
+      "AssessmentEnvelope"
+    ],
     "generation": "Nat",
+    "guarantees": "Ref",
     "kind": "Text",
+    "mission": "Ref",
     "pairs": [
       [
         "Bool"
@@ -166,9 +215,24 @@
       "Nat"
     ]
   },
+  "RequestLogStart": {
+    "mission": "Ref"
+  },
+  "RequestRecord": {
+    "after": "Ref",
+    "before": "Ref",
+    "code": "Text",
+    "index": "Nat",
+    "previous": "Ref",
+    "request_hex": "Text",
+    "result": "Ref"
+  },
   "SessionSnapshot": {
     "active_plan": {
       "nullable": "Ref"
+    },
+    "contracts": {
+      "map": "Guarantees"
     },
     "dataset": {
       "map": {
@@ -176,6 +240,9 @@
         "trace": "Trace"
       }
     },
+    "decisions": [
+      "ReleaseDecision"
+    ],
     "ledger": {
       "genesis": "State",
       "head": "Ref",
@@ -187,12 +254,22 @@
     "levels": [
       "Nat"
     ],
+    "mission": "Mission",
+    "mission_id": "Ref",
     "plans": {
       "map": "EvaluationPlan"
     },
     "programs": {
       "map": "Program"
     },
+    "published_contracts": {
+      "map": "Guarantees"
+    },
+    "request_log": [
+      "RequestRecord"
+    ],
+    "request_log_bytes": "Nat",
+    "request_log_head": "Ref",
     "requests_used": "Nat",
     "runner": {
       "fenced": [
@@ -237,6 +314,13 @@
     "prediction_hit": "Bool",
     "previous": "Ref"
   },
+  "SyntheticTrace": {
+    "actions": [
+      "Text"
+    ],
+    "kind": "Text",
+    "model": "Ref"
+  },
   "Trace": {
     "assignment": "Ref",
     "candidate": "Ref",
@@ -246,6 +330,7 @@
     },
     "final": "GroundState",
     "generation": "Nat",
+    "kind": "Text",
     "level": "Nat",
     "reward": "Bool",
     "steps": [
@@ -258,16 +343,23 @@
     "environment": "Ref"
   },
   "TrainingAdmission": {
+    "assessment": "AssessmentEnvelope",
     "assignment": "Ref",
     "environment": "Ref",
+    "guarantees": "Ref",
     "kind": "Text",
     "manifest": "Ref",
     "mechanism": "Text",
+    "mission": "Ref",
     "prediction_hits": "Nat",
     "profile": "Text",
     "scope": {
       "level": "Nat"
     },
     "trace": "Ref"
+  },
+  "WireResult": {
+    "code": "Text",
+    "value": "CanonicalValue"
   }
 }

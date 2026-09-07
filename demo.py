@@ -3,21 +3,20 @@ Run the actual observation, admission, condensation and formalization
 chain.
 '''
 
-from copy import deepcopy
 import json
 from pathlib import Path
 
 from ahsl.admission import Session, formalize
 from ahsl.codec import cid
-from ahsl.environment import Runner
 from ahsl.examples import corridor_agent
 from ahsl.proofs import search
 from ahsl.schema import validate_schema
 
 
 def run(manifest):
+    root_key = b'demo-key-only-never-use-in-a-service'
     owner = Session(corridor_agent('paint'), 48,
-                    b'demo-key-only-never-use-in-a-service', manifest)
+                    root_key, manifest)
     plan = owner.prepare(corridor_agent(), list(range(1, 13)))
     receipts = owner.evaluate(plan)
     decision = owner.admit(plan, receipts)
@@ -32,18 +31,18 @@ def run(manifest):
     assert owner.ledger.state['generation'] == before
     owner.ledger.apply('agent', {'op': 'close_run'})
     compiled = formalize(local)
-    runner = Runner(b'compiled-demo-key-not-for-production', manifest)
-    successes = []
-    for level in range(1, 13):
-        assignment = runner.assign(cid('Program', compiled), 0, level, 0)
-        receipt = runner.run(assignment, compiled)
-        successes.append(runner.verify(receipt)['ground_success'])
+    compiled_plan = owner.prepare(compiled, list(range(1, 13)), mode='retain')
+    compiled_receipts = owner.evaluate(compiled_plan)
+    compiled_decision = owner.admit(compiled_plan, compiled_receipts)
+    assert compiled_decision['accept']
+    successes = [child for parent, child in compiled_decision['pairs']]
     snapshot = owner.snapshot()
-    restored = Session.restore(snapshot, owner.runner.key,
+    restored = Session.restore(snapshot, root_key,
                                cid('SessionSnapshot', snapshot))
     assert restored.snapshot() == snapshot
     for value, schema in (
         (decision, 'ReleaseDecision'),
+        (compiled_decision, 'ReleaseDecision'),
         (local, 'LocalPolicy'),
             (snapshot, 'SessionSnapshot')):
         validate_schema(value, schema)
@@ -59,8 +58,9 @@ def run(manifest):
         'release': decision, 'admitted_training_trajectories': len(admissions),
         'local_policy_entries': len(local['table']),
         'compiled_policy_successes': successes,
+        'compiled_policy_release': compiled_decision,
         'ledger_spent_execution_tickets': owner.ledger.state['spent'],
-        'additional_compiled_policy_validation_runs': len(successes),
+        'compiled_validation_runs_including_parent': len(compiled_receipts),
         'snapshot_restored': True,
         'search': {mode: search(goal, library, 1, mode)
                    for mode in ('forward', 'decompose')},

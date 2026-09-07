@@ -141,9 +141,10 @@ def audit_trace(trace):
     Recompute mechanism evidence; reward and self-declared success
     ignored.
     '''
-    fields(trace, ('assignment', 'environment', 'level', 'candidate',
+    fields(trace, ('kind', 'assignment', 'environment', 'level', 'candidate',
                    'generation', 'steps', 'final', 'reward', 'termination',
                    'error'))
+    need(trace['kind'] == 'ObservedTrace', 'TYPE')
     need(trace['environment'] == ENVIRONMENT, 'STALE')
     ref(trace['candidate'])
     ref(trace['assignment'])
@@ -193,29 +194,40 @@ def audit_trace(trace):
 class Runner:
     '''Private authority; agent receives only submit-intent capability.'''
 
-    def __init__(self, key, manifest):
+    def __init__(self, key, manifest, mission=None):
         need(type(key) is bytes and len(key) >= 32)
         ref(manifest)
         self.key = key
         self.manifest = manifest
+        self.mission = (cid('ExecutionScope', {
+            'manifest': manifest, 'environment': ENVIRONMENT,
+        }) if mission is None else ref(mission))
         self.sequence = 0
         self.issued = {}
         self.receipts = {}
         self.fenced = set()
 
+    def read_observation(self, assignment):
+        need(assignment in self.receipts, 'REFERENCE')
+        return deepcopy(self.receipts[assignment])
+
     def fence(self, assignment):
         need(assignment in self.issued, 'REFERENCE')
         self.fenced.add(assignment)
 
-    def assign(self, candidate, generation, level, repetition):
+    def assign(self, candidate, generation, level, repetition,
+               guarantees=None):
         ref(candidate)
         integer(generation, 0)
         integer(level, 1, 12)
         integer(repetition, 0)
+        if guarantees is not None:
+            ref(guarantees)
         body = {'sequence': self.sequence, 'manifest': self.manifest,
                 'environment': ENVIRONMENT, 'candidate': candidate,
                 'generation': generation, 'level': level,
-                'repetition': repetition}
+                'repetition': repetition, 'mission': self.mission,
+                'guarantees': guarantees}
         assignment = cid('Assignment', body)
         self.sequence += 1
         self.issued[assignment] = deepcopy(body)
@@ -285,7 +297,8 @@ class Runner:
             if goal(state, level):
                 termination = 'GOAL'
                 break
-        trace = {'assignment': assignment, 'environment': ENVIRONMENT,
+        trace = {'kind': 'ObservedTrace', 'assignment': assignment,
+                 'environment': ENVIRONMENT,
                  'level': level, 'candidate': binding['candidate'],
                  'generation': binding['generation'], 'steps': rows,
                  'final': state, 'reward': observe(state, level)[

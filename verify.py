@@ -10,6 +10,7 @@ from fractions import Fraction
 import hashlib
 import io
 import json
+import os
 from pathlib import Path
 import random
 import subprocess
@@ -205,7 +206,7 @@ def main():
     if not result.wasSuccessful():
         print(stream.getvalue())
         raise SystemExit(1)
-    report = {'profile': 'AHSL-1.2', 'status': 'EXECUTABLE_REFERENCE',
+    report = {'profile': 'AHSL-1.3', 'status': 'EXECUTABLE_REFERENCE',
               'tests_run': result.testsRun, 'failures': len(result.failures),
               'errors': len(result.errors), 'manifest_sha256': digest,
               'files_checked': len(pinned), 'wire_fuzz': adversarial_wire()}
@@ -215,6 +216,16 @@ def main():
         report['bounded_implementation_exploration'] = model_check()
         (reports / 'benchmark.json').write_text(json.dumps(benchmark(),
                                                            indent=2) + '\n')
+        digests = {}
+        for seed in ('0', '5', '12345'):
+            environment = dict(os.environ, PYTHONHASHSEED=seed)
+            digests[seed] = subprocess.check_output(
+                [sys.executable, str(ROOT / 'replay_fixture.py')],
+                env=environment, text=True).strip()
+        assert len(set(digests.values())) == 1
+        (reports / 'replay-determinism.json').write_text(
+            json.dumps(digests, indent=2) + '\n')
+        report['session_replay_hashseeds'] = list(digests)
     (reports / 'verification.json').write_text(json.dumps(report,
                                                           indent=2) + '\n')
     print(json.dumps(report, indent=2))

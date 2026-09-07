@@ -7,10 +7,15 @@ from copy import deepcopy
 from fractions import Fraction
 from math import comb
 
-from .codec import cid, fields, integer, need, rat, ref
+from .codec import canonical, cid, fields, integer, need, rat, ref
 from .environment import ENVIRONMENT, Runner, check_agent
 from .kernel import Ledger, replay
 from .language import check
+from .obligations import (
+    DEFAULT_GUARANTEES, check_mission, create_mission, refines,
+    validate_guarantees,
+)
+from .witness import Evaluator, derive_key, key_id
 
 
 def exact_pair_tests(rows, epsilon):
@@ -59,25 +64,43 @@ class Session:
     principal.
     '''
 
-    def __init__(self, baseline, total, key, manifest, levels=None):
+    def __init__(self, baseline, total, key, manifest, levels=None,
+                 baseline_guarantees=None):
         check_agent(baseline)
         integer(total, 1, 96)
         self.levels = list(
-            range(
-                1,
-                13)) if levels is None else deepcopy(levels)
+            range(1, 13)) if levels is None else deepcopy(levels)
         need(self.levels and self.levels == sorted(set(self.levels)))
         for level in self.levels:
             integer(level, 1, 12)
-        self.programs = {cid('Program', baseline): deepcopy(baseline)}
-        self.ledger = Ledger(total, cid('Program', baseline))
-        self.runner = Runner(key, manifest)
+        observer_key = derive_key(key, 'AHSL13-observer')
+        evaluator_key = derive_key(key, 'AHSL13-evaluator')
+        self.mission = create_mission(
+            manifest, self.levels, key_id(observer_key), key_id(evaluator_key))
+        self.mission_id = cid('Mission', self.mission)
+        base_contract = (deepcopy(DEFAULT_GUARANTEES)
+                         if baseline_guarantees is None
+                         else deepcopy(baseline_guarantees))
+        need(refines(base_contract, self.mission['floor']), 'PRECONDITION')
+        baseline_id = cid('Program', baseline)
+        self.programs = {baseline_id: deepcopy(baseline)}
+        self.published_contracts = {baseline_id: base_contract}
+        self.contracts = {cid('Guarantees', base_contract): base_contract}
+        self.ledger = Ledger(total, baseline_id)
+        self.runner = Runner(observer_key, manifest, self.mission_id)
+        self.evaluator = Evaluator(evaluator_key, self.runner.read_observation)
         self.plans = {}
         self.used = set()
         self.training_used = set()
         self.dataset = {}
         self.active_plan = None
         self.requests_used = 0
+        self.decisions = []
+        self.request_log = []
+        self.request_log_bytes = 0
+        self.request_log_head = cid('RequestLogStart', {
+            'mission': self.mission_id,
+        })
 
     def snapshot(self):
         '''
@@ -85,12 +108,18 @@ class Session:
         from the blob.
         '''
         return deepcopy({
-            'version': '1.2', 'levels': self.levels, 'programs': self.programs,
+            'version': '1.3', 'levels': self.levels, 'programs': self.programs,
             'plans': self.plans, 'used': sorted(self.used),
             'training_used': sorted(self.training_used),
             'dataset': self.dataset,
             'active_plan': self.active_plan,
             'requests_used': self.requests_used,
+            'mission': self.mission, 'mission_id': self.mission_id,
+            'published_contracts': self.published_contracts,
+            'contracts': self.contracts, 'decisions': self.decisions,
+            'request_log': self.request_log,
+            'request_log_bytes': self.request_log_bytes,
+            'request_log_head': self.request_log_head,
             'ledger': {'genesis': self.ledger.genesis,
                        'state': self.ledger.state,
                        'log': self.ledger.log, 'head': self.ledger.head},
@@ -107,20 +136,28 @@ class Session:
         need(cid('SessionSnapshot', snapshot) == expected_digest, 'INTEGRITY')
         fields(snapshot, ('version', 'levels', 'programs', 'plans', 'used',
                           'training_used', 'dataset', 'ledger', 'runner',
-                          'active_plan', 'requests_used'))
-        need(snapshot['version'] == '1.2', 'STALE')
+                          'active_plan', 'requests_used', 'mission',
+                          'mission_id', 'published_contracts', 'contracts',
+                          'decisions', 'request_log', 'request_log_bytes',
+                          'request_log_head'))
+        need(snapshot['version'] == '1.3', 'STALE')
         saved = deepcopy(snapshot)
         ledger = saved['ledger']
         baseline = saved['programs'][ledger['genesis']['active']]
         result = cls(baseline, ledger['genesis']['total'], key,
-                     saved['runner']['manifest'], saved['levels'])
+                     saved['runner']['manifest'], saved['levels'],
+                     saved['published_contracts'][ledger['genesis']['active']])
+        need(result.mission == saved['mission']
+             and result.mission_id == saved['mission_id'], 'AUTHORITY')
         restored = replay(ledger['genesis'], ledger['log'], ledger['head'])
         need(restored == ledger['state'], 'INTEGRITY')
         result.ledger.genesis = ledger['genesis']
         result.ledger.state = restored
         result.ledger.log = ledger['log']
         result.ledger.head = ledger['head']
-        for field in ('programs', 'plans', 'dataset'):
+        for field in ('programs', 'plans', 'dataset', 'published_contracts',
+                      'contracts', 'decisions', 'request_log',
+                      'request_log_bytes', 'request_log_head'):
             setattr(result, field, saved[field])
         result.used = set(saved['used'])
         result.training_used = set(saved['training_used'])
@@ -133,29 +170,51 @@ class Session:
             result.runner.verify(envelope)
         return result
 
-    def prepare(self, candidate, levels):
+    def prepare(self, candidate, levels, guarantees=None, mode='improve'):
+        check_mission(self.mission, self.mission_id)
         check_agent(candidate)
         need(len(self.plans) < 4, 'LIMIT')
         need(type(levels) is list and levels == sorted(set(levels)) and levels)
         for level in levels:
             integer(level, 1, 12)
-        need(levels == self.levels, 'PRECONDITION')
+        need(levels == self.levels == self.mission['levels'], 'PRECONDITION')
+        need(mode in ('improve', 'retain'))
         state = self.ledger.state
         need(all(job['phase'] in ('DONE', 'SEALED', 'CANCELLED')
                  for job in state['jobs'].values()), 'PHASE')
         child = cid('Program', candidate)
-        need(child != state['active'], 'PRECONDITION')
+        parent_contract = self.published_contracts[state['active']]
+        child_contract = (deepcopy(parent_contract) if guarantees is None
+                          else deepcopy(guarantees))
+        validate_guarantees(child_contract)
+        need(refines(child_contract, parent_contract)
+             and refines(child_contract, self.mission['floor']),
+             'PRECONDITION')
+        if child in self.published_contracts:
+            need(refines(child_contract, self.published_contracts[child]),
+                 'PRECONDITION')
+        need(child != state['active'] or child_contract != parent_contract,
+             'PRECONDITION')
+        need(len(canonical(candidate)) <= child_contract['max_program_bytes'],
+             'PRECONDITION')
         self.programs[child] = deepcopy(candidate)
+        for contract in (parent_contract, child_contract):
+            self.contracts[cid('Guarantees', contract)] = deepcopy(contract)
         assignments = []
+        candidates = ((state['active'], parent_contract),
+                      (child, child_contract))
         for level in levels:
-            pair = [self.runner.assign(program, state['generation'], level, 0)
-                    for program in (state['active'], child)]
+            pair = [self.runner.assign(program, state['generation'], level, 0,
+                                       cid('Guarantees', contract))
+                    for program, contract in candidates]
             assignments.append(pair)
         plan = {'index': len(self.plans) + 1, 'parent': state['active'],
                 'candidate': child, 'generation': state['generation'],
                 'manifest': self.runner.manifest, 'environment': ENVIRONMENT,
                 'levels': deepcopy(levels), 'assignments': assignments,
-                'mode': 'FINITE_SUITE_ALL_SUCCESS_WITH_GAIN'}
+                'mode': mode, 'mission': self.mission_id,
+                'parent_guarantees': deepcopy(parent_contract),
+                'candidate_guarantees': deepcopy(child_contract)}
         identifier = cid('EvaluationPlan', plan)
         self.plans[identifier] = deepcopy(plan)
         return identifier
@@ -229,21 +288,28 @@ class Session:
         return True
 
     def admit(self, plan_id, envelopes):
+        check_mission(self.mission, self.mission_id)
         need(plan_id in self.plans, 'REFERENCE')
         plan = self.plans[plan_id]
         state = self.ledger.state
         need(plan['generation'] == state['generation']
              and plan['parent'] == state['active'], 'STALE')
         need(plan['manifest'] == self.runner.manifest
-             and plan['environment'] == ENVIRONMENT, 'STALE')
+             and plan['environment'] == ENVIRONMENT
+             and plan['mission'] == self.mission_id, 'STALE')
+        need(plan['parent_guarantees'] ==
+             self.published_contracts[state['active']], 'STALE')
+        need(refines(plan['candidate_guarantees'], plan['parent_guarantees']),
+             'PRECONDITION')
         need(state['open_runs'] == 0, 'PHASE')
         need(all(job['phase'] in ('DONE', 'SEALED', 'CANCELLED')
                  for job in state['jobs'].values()), 'PHASE')
         wanted = [item for pair in plan['assignments'] for item in pair]
         need(type(envelopes) is list and len(envelopes) == len(wanted))
         results = {}
+        witnesses = {}
         for envelope in envelopes:
-            outcome = self.runner.verify(envelope)
+            self.runner.verify(envelope)
             assignment = envelope['receipt']['trace']['assignment']
             need(assignment in wanted and assignment not in results,
                  'DUPLICATE')
@@ -253,29 +319,45 @@ class Session:
             job = self.ledger.state['jobs'].get('j' + str(binding['sequence']))
             need(job is not None and job['phase'] == 'DONE'
                  and job['receipt'] == cid('Envelope', envelope), 'PHASE')
-            results[assignment] = outcome['ground_success']
+            contract = self.contracts[binding['guarantees']]
+            witness = self.evaluator.assess(
+                envelope, self.programs[binding['candidate']],
+                self.mission, contract)
+            assessment = self.evaluator.verify(witness)
+            results[assignment] = assessment['outcome']['ground_success']
+            witnesses[assignment] = witness
         need(set(results) == set(wanted), 'INTEGRITY')
         pairs = [[results[parent], results[child]]
                  for parent, child in plan['assignments']]
         # Any completed assessment consumes its exact assignments, even
         # failure.
         self.used.update(wanted)
-        accept = all(child for parent, child in pairs) and any(
-            not parent and child for parent, child in pairs)
+        absolute = all(child for parent, child in pairs)
+        retained = all(not witnesses[child]['assessment']['violations']
+                       for parent, child in plan['assignments'])
+        gain = any(not parent and child for parent, child in pairs)
+        accept = absolute and retained and (plan['mode'] == 'retain' or gain)
         certificate = {
             'kind': 'ReleaseDecision', 'plan': plan_id,
             'generation': state['generation'], 'pairs': pairs,
             'accept': accept, 'scope': list(plan['levels']),
             'receipts': sorted(cid('Envelope', item) for item in envelopes),
+            'mission': self.mission_id,
+            'guarantees': cid('Guarantees', plan['candidate_guarantees']),
+            'assessments': [witnesses[key] for key in sorted(witnesses)],
         }
         if accept:
             self.ledger.apply('admitter', {
                 'op': 'publish', 'candidate': plan['candidate'],
                 'generation': plan['generation'],
             })
+            self.published_contracts[plan['candidate']] = deepcopy(
+                plan['candidate_guarantees'])
+        self.decisions.append(deepcopy(certificate))
         return certificate
 
     def admit_training(self, envelope):
+        check_mission(self.mission, self.mission_id)
         outcome = self.runner.verify(envelope)
         trace = envelope['receipt']['trace']
         assignment = trace['assignment']
@@ -286,6 +368,13 @@ class Session:
         job = self.ledger.state['jobs'].get('j' + str(binding['sequence']))
         need(job is not None and job['phase'] == 'DONE'
              and job['receipt'] == cid('Envelope', envelope), 'PHASE')
+        contract = self.contracts[binding['guarantees']]
+        witness = self.evaluator.assess(
+            envelope, self.programs[binding['candidate']],
+            self.mission, contract)
+        assessment = self.evaluator.verify(witness)
+        need(not assessment['violations'], 'INELIGIBLE')
+        outcome = assessment['outcome']
         certificate = {
             'kind': 'TrainingAdmission', 'profile': 'G12_PATH_1',
             'environment': ENVIRONMENT, 'manifest': self.runner.manifest,
@@ -293,6 +382,9 @@ class Session:
             'mechanism': 'every transition valid and terminal ground goal',
             'scope': {'level': trace['level']},
             'prediction_hits': outcome['prediction_hits'],
+            'mission': self.mission_id,
+            'guarantees': cid('Guarantees', contract),
+            'assessment': witness,
         }
         self.training_used.add(assignment)
         self.dataset[assignment] = {'certificate': certificate,
