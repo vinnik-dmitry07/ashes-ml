@@ -1,0 +1,17 @@
+{
+  "profile": "AHSL-1.3",
+  "python": "3.12.14",
+  "manifest_sha256": "22d69a3e5bb34944ff2168577bd74405346cd8fb2825169b8b9c43a810d11430",
+  "elapsed_seconds": 4.471,
+  "case_count": 10
+}
+A5_invalid_evidence_retry holds_on_tested_cases
+proposal_and_request_flood bounded_as_documented
+inherited_parent_contract holds_on_tested_cases
+zero_success_retain holds_on_tested_cases
+synthetic_and_mission_injection holds_on_tested_cases
+forged_observation_and_fact holds_on_tested_cases
+D1_trim_alias_changes_literal defect_reproduced
+D2_valid_proposal_breaks_snapshot_encoding defect_reproduced
+improve_saturation documented_design_limitation
+external_manifest_anchor holds_given_trusted_anchor

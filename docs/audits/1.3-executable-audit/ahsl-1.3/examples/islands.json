@@ -1,0 +1,1 @@
+{"entry":"main","functions":{"main":{"body":{"args":[{"op":"lit","type":{"List":{"List":"Int"}},"value":[[4,1],[2,3],[1,1],[3,2]]}],"name":"pareto","op":"builtin"},"params":{},"result":{"List":"Int"}}}}

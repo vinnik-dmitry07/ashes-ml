@@ -1,0 +1,563 @@
+{
+  "profile": "AHSL-1.3",
+  "python": "3.12.14",
+  "manifest_sha256": "22d69a3e5bb34944ff2168577bd74405346cd8fb2825169b8b9c43a810d11430",
+  "elapsed_seconds": 4.471,
+  "case_count": 10,
+  "cases": [
+    {
+      "id": "A5_invalid_evidence_retry",
+      "classification": "holds_on_tested_cases",
+      "codes": {
+        "missing": "SCHEMA",
+        "duplicate": "DUPLICATE",
+        "unknown": "SCHEMA",
+        "wrong_type": "SCHEMA"
+      },
+      "valid_retry_accepted": true,
+      "consumed_after_valid": 24,
+      "evaluation_tickets_spent": 24
+    },
+    {
+      "id": "proposal_and_request_flood",
+      "classification": "bounded_as_documented",
+      "fifth_proposal": "LIMIT",
+      "request_1025": "BUDGET",
+      "plans": 4,
+      "programs": 2,
+      "request_log_bytes": 405409,
+      "execution_tickets_spent": 0,
+      "restored_quota": 1024
+    },
+    {
+      "id": "inherited_parent_contract",
+      "classification": "holds_on_tested_cases",
+      "weakening": "PRECONDITION",
+      "delayed_candidate_accepted": false,
+      "violations": [
+        [
+          "ACTION_BOUND"
+        ],
+        []
+      ],
+      "training": "INELIGIBLE"
+    },
+    {
+      "id": "zero_success_retain",
+      "classification": "holds_on_tested_cases",
+      "pairs": [
+        [
+          false,
+          false
+        ]
+      ],
+      "accepted": false
+    },
+    {
+      "id": "synthetic_and_mission_injection",
+      "classification": "holds_on_tested_cases",
+      "synthetic": "SCHEMA",
+      "relabelled": "SCHEMA",
+      "mission_override": "SCHEMA"
+    },
+    {
+      "id": "forged_observation_and_fact",
+      "classification": "holds_on_tested_cases",
+      "forged_receipt": "AUTHORITY",
+      "verified_display": "Verified assertion: {\"arguments\":[\"25b130959e07b7973701e31676f4e44b89b50691b82d980032106c2f9739e3af\"],\"polarity\":true,\"predicate\":\"ground_success\",\"scope\":\"69ddc41923a1d7cc00d268fa1742570d9d34a554f8386ac68159d839758419ac\"}",
+      "opposite_assertion_status": "ASSUMPTION"
+    },
+    {
+      "id": "D1_trim_alias_changes_literal",
+      "classification": "defect_reproduced",
+      "original": {
+        "result": {
+          "op": "call",
+          "name": "alias",
+          "args": []
+        },
+        "fuel_used": 1
+      },
+      "transformed": {
+        "result": {
+          "op": "call",
+          "name": "target",
+          "args": []
+        },
+        "fuel_used": 1
+      },
+      "input_program": {
+        "entry": "main",
+        "functions": {
+          "main": {
+            "params": {},
+            "result": {
+              "Record": {
+                "op": "Text",
+                "name": "Text",
+                "args": {
+                  "List": "Int"
+                }
+              }
+            },
+            "body": {
+              "op": "lit",
+              "type": {
+                "Record": {
+                  "op": "Text",
+                  "name": "Text",
+                  "args": {
+                    "List": "Int"
+                  }
+                }
+              },
+              "value": {
+                "op": "call",
+                "name": "alias",
+                "args": []
+              }
+            }
+          },
+          "alias": {
+            "params": {},
+            "result": "Int",
+            "body": {
+              "op": "call",
+              "name": "target",
+              "args": []
+            }
+          },
+          "target": {
+            "params": {},
+            "result": "Int",
+            "body": {
+              "op": "lit",
+              "type": "Int",
+              "value": 7
+            }
+          }
+        }
+      },
+      "output_program": {
+        "entry": "main",
+        "functions": {
+          "main": {
+            "params": {},
+            "result": {
+              "Record": {
+                "op": "Text",
+                "name": "Text",
+                "args": {
+                  "List": "Int"
+                }
+              }
+            },
+            "body": {
+              "op": "lit",
+              "type": {
+                "Record": {
+                  "op": "Text",
+                  "name": "Text",
+                  "args": {
+                    "List": "Int"
+                  }
+                }
+              },
+              "value": {
+                "op": "call",
+                "name": "target",
+                "args": []
+              }
+            }
+          },
+          "target": {
+            "params": {},
+            "result": "Int",
+            "body": {
+              "op": "lit",
+              "type": "Int",
+              "value": 7
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "D2_valid_proposal_breaks_snapshot_encoding",
+      "classification": "defect_reproduced",
+      "snapshot_before_digest": "5d665277dc13f7aed4351c3359e778d625e35b26d7c0cc07b2286a33e2adc675",
+      "program_depth": 31,
+      "request_depth": 32,
+      "request_bytes": 2628,
+      "propose_code": "OK",
+      "snapshot_depth": 33,
+      "snapshot_error": "LIMIT",
+      "input_program": {
+        "entry": "main",
+        "functions": {
+          "main": {
+            "params": {
+              "index": "Int",
+              "observation": {
+                "Record": {
+                  "position": "Int",
+                  "key": "Bool",
+                  "opened": {
+                    "List": "Int"
+                  },
+                  "visible_success": "Bool",
+                  "level": "Int"
+                }
+              },
+              "state": "Text"
+            },
+            "result": {
+              "Option": {
+                "Record": {
+                  "action": "Text",
+                  "prediction": {
+                    "Record": {
+                      "position": "Int"
+                    }
+                  },
+                  "state": "Text"
+                }
+              }
+            },
+            "body": {
+              "op": "let",
+              "name": "unused",
+              "value": {
+                "op": "lit",
+                "type": "Int",
+                "value": 0
+              },
+              "body": {
+                "op": "let",
+                "name": "unused",
+                "value": {
+                  "op": "lit",
+                  "type": "Int",
+                  "value": 0
+                },
+                "body": {
+                  "op": "let",
+                  "name": "unused",
+                  "value": {
+                    "op": "lit",
+                    "type": "Int",
+                    "value": 0
+                  },
+                  "body": {
+                    "op": "let",
+                    "name": "unused",
+                    "value": {
+                      "op": "lit",
+                      "type": "Int",
+                      "value": 0
+                    },
+                    "body": {
+                      "op": "let",
+                      "name": "unused",
+                      "value": {
+                        "op": "lit",
+                        "type": "Int",
+                        "value": 0
+                      },
+                      "body": {
+                        "op": "let",
+                        "name": "unused",
+                        "value": {
+                          "op": "lit",
+                          "type": "Int",
+                          "value": 0
+                        },
+                        "body": {
+                          "op": "let",
+                          "name": "unused",
+                          "value": {
+                            "op": "lit",
+                            "type": "Int",
+                            "value": 0
+                          },
+                          "body": {
+                            "op": "let",
+                            "name": "unused",
+                            "value": {
+                              "op": "lit",
+                              "type": "Int",
+                              "value": 0
+                            },
+                            "body": {
+                              "op": "let",
+                              "name": "unused",
+                              "value": {
+                                "op": "lit",
+                                "type": "Int",
+                                "value": 0
+                              },
+                              "body": {
+                                "op": "let",
+                                "name": "unused",
+                                "value": {
+                                  "op": "lit",
+                                  "type": "Int",
+                                  "value": 0
+                                },
+                                "body": {
+                                  "op": "let",
+                                  "name": "unused",
+                                  "value": {
+                                    "op": "lit",
+                                    "type": "Int",
+                                    "value": 0
+                                  },
+                                  "body": {
+                                    "op": "let",
+                                    "name": "unused",
+                                    "value": {
+                                      "op": "lit",
+                                      "type": "Int",
+                                      "value": 0
+                                    },
+                                    "body": {
+                                      "op": "let",
+                                      "name": "unused",
+                                      "value": {
+                                        "op": "lit",
+                                        "type": "Int",
+                                        "value": 0
+                                      },
+                                      "body": {
+                                        "op": "let",
+                                        "name": "unused",
+                                        "value": {
+                                          "op": "lit",
+                                          "type": "Int",
+                                          "value": 0
+                                        },
+                                        "body": {
+                                          "op": "let",
+                                          "name": "unused",
+                                          "value": {
+                                            "op": "lit",
+                                            "type": "Int",
+                                            "value": 0
+                                          },
+                                          "body": {
+                                            "op": "let",
+                                            "name": "unused",
+                                            "value": {
+                                              "op": "lit",
+                                              "type": "Int",
+                                              "value": 0
+                                            },
+                                            "body": {
+                                              "op": "some",
+                                              "value": {
+                                                "op": "record",
+                                                "fields": {
+                                                  "action": {
+                                                    "op": "if",
+                                                    "test": {
+                                                      "op": "builtin",
+                                                      "name": "lt",
+                                                      "args": [
+                                                        {
+                                                          "op": "get",
+                                                          "record": {
+                                                            "op": "var",
+                                                            "name": "observation"
+                                                          },
+                                                          "field": "position"
+                                                        },
+                                                        {
+                                                          "op": "get",
+                                                          "record": {
+                                                            "op": "var",
+                                                            "name": "observation"
+                                                          },
+                                                          "field": "level"
+                                                        }
+                                                      ]
+                                                    },
+                                                    "yes": {
+                                                      "op": "if",
+                                                      "test": {
+                                                        "op": "builtin",
+                                                        "name": "contains_int",
+                                                        "args": [
+                                                          {
+                                                            "op": "get",
+                                                            "record": {
+                                                              "op": "var",
+                                                              "name": "observation"
+                                                            },
+                                                            "field": "opened"
+                                                          },
+                                                          {
+                                                            "op": "builtin",
+                                                            "name": "add",
+                                                            "args": [
+                                                              {
+                                                                "op": "get",
+                                                                "record": {
+                                                                  "op": "var",
+                                                                  "name": "observation"
+                                                                },
+                                                                "field": "position"
+                                                              },
+                                                              {
+                                                                "op": "lit",
+                                                                "type": "Int",
+                                                                "value": 1
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      "yes": {
+                                                        "op": "lit",
+                                                        "type": "Text",
+                                                        "value": "right"
+                                                      },
+                                                      "no": {
+                                                        "op": "if",
+                                                        "test": {
+                                                          "op": "get",
+                                                          "record": {
+                                                            "op": "var",
+                                                            "name": "observation"
+                                                          },
+                                                          "field": "key"
+                                                        },
+                                                        "yes": {
+                                                          "op": "lit",
+                                                          "type": "Text",
+                                                          "value": "unlock"
+                                                        },
+                                                        "no": {
+                                                          "op": "lit",
+                                                          "type": "Text",
+                                                          "value": "take"
+                                                        }
+                                                      }
+                                                    },
+                                                    "no": {
+                                                      "op": "lit",
+                                                      "type": "Text",
+                                                      "value": "right"
+                                                    }
+                                                  },
+                                                  "prediction": {
+                                                    "op": "record",
+                                                    "fields": {
+                                                      "position": {
+                                                        "op": "get",
+                                                        "record": {
+                                                          "op": "var",
+                                                          "name": "observation"
+                                                        },
+                                                        "field": "position"
+                                                      }
+                                                    }
+                                                  },
+                                                  "state": {
+                                                    "op": "var",
+                                                    "name": "state"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "improve_saturation",
+      "classification": "documented_design_limitation",
+      "first_improve": true,
+      "second_improve": false,
+      "second_pairs": [
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ],
+        [
+          true,
+          true
+        ]
+      ],
+      "retain": true
+    },
+    {
+      "id": "external_manifest_anchor",
+      "classification": "holds_given_trusted_anchor",
+      "source_changed": {
+        "returncode": 1,
+        "message": "Manifest differs: changed, missing, or unlisted source"
+      },
+      "source_and_lock_changed": {
+        "returncode": 1,
+        "message": "External manifest anchor mismatch"
+      },
+      "note": "The supplied README hash was used, not independently authenticated."
+    }
+  ]
+}

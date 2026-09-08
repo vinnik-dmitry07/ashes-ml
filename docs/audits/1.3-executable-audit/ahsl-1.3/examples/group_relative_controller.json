@@ -1,0 +1,1 @@
+{"entry":"main","functions":{"main":{"body":{"args":[{"op":"lit","type":{"List":"Rat"},"value":[{"den":1,"num":0},{"den":1,"num":1},{"den":1,"num":1}]}],"name":"centered","op":"builtin"},"params":{},"result":{"List":"Rat"}}}}
