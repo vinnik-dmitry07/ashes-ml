@@ -1,0 +1,21 @@
+{
+  "route": {
+    "endpoint": "https://fixture.invalid/v1/chat/completions",
+    "model": "fixture-solver",
+    "expected_response_model": "fixture-solver",
+    "key_env": "AHSL_EXPERIMENT_API_KEY",
+    "input_usd_per_million": "1.0",
+    "output_usd_per_million": "2.0",
+    "input_token_bound": 8192,
+    "output_token_cap": 256,
+    "timeout_seconds": 30,
+    "temperature": 0,
+    "reasoning_effort": null,
+    "use_seed": false
+  },
+  "cases": 12,
+  "seed": 20260910,
+  "run_budget_usd": "0.05",
+  "max_calls": 64,
+  "success_value_usd": "1.0"
+}

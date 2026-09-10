@@ -1,0 +1,38 @@
+test_all_roles_share_budget (test_adapter.AdapterTests.test_all_roles_share_budget) ... ok
+test_bad_json_is_paid_without_retry (test_adapter.AdapterTests.test_bad_json_is_paid_without_retry) ... ok
+test_duplicate_json_fields_rejected (test_adapter.AdapterTests.test_duplicate_json_fields_rejected) ... ok
+test_history_is_bounded_and_fresh_is_stateless (test_adapter.AdapterTests.test_history_is_bounded_and_fresh_is_stateless) ... ok
+test_monetary_cap_blocks_before_an_extra_http_call (test_adapter.AdapterTests.test_monetary_cap_blocks_before_an_extra_http_call) ... ok
+test_output_cannot_change_route_or_add_tools (test_adapter.AdapterTests.test_output_cannot_change_route_or_add_tools) ... ok
+test_overrun_and_model_drift_fence (test_adapter.AdapterTests.test_overrun_and_model_drift_fence) ... ok
+test_requests_use_single_completion_and_output_cap (test_adapter.AdapterTests.test_requests_use_single_completion_and_output_cap) ... ok
+test_route_is_frozen_and_content_bound (test_adapter.AdapterTests.test_route_is_frozen_and_content_bound) ... ok
+test_selector_has_no_future_outcomes_or_test_labels (test_adapter.AdapterTests.test_selector_has_no_future_outcomes_or_test_labels) ... ok
+test_selector_overhead_can_turn_success_into_failure (test_adapter.AdapterTests.test_selector_overhead_can_turn_success_into_failure) ... ok
+test_timeout_and_missing_usage_burn_reservation (test_adapter.AdapterTests.test_timeout_and_missing_usage_burn_reservation) ... ok
+test_visible_reward_does_not_replace_ground_goal (test_adapter.AdapterTests.test_visible_reward_does_not_replace_ground_goal) ... ok
+test_all_done_but_source_drift_cannot_attest_completion (test_campaign.CampaignTests.test_all_done_but_source_drift_cannot_attest_completion) ... ok
+test_five_perfect_runs_do_not_certify_bottom_decile (test_campaign.CampaignTests.test_five_perfect_runs_do_not_certify_bottom_decile) ... ok
+test_interrupted_request_remains_reserved_and_never_resumed (test_campaign.CampaignTests.test_interrupted_request_remains_reserved_and_never_resumed) ... ok
+test_journal_tamper_fails_against_external_head (test_campaign.CampaignTests.test_journal_tamper_fails_against_external_head) ... ok
+test_missing_footer_is_incomplete_even_with_all_results (test_campaign.CampaignTests.test_missing_footer_is_incomplete_even_with_all_results) ... ok
+test_missing_runs_keep_denominator_and_disable_inference (test_campaign.CampaignTests.test_missing_runs_keep_denominator_and_disable_inference) ... ok
+test_planned_cases_are_paired_and_have_identical_budgets (test_campaign.CampaignTests.test_planned_cases_are_paired_and_have_identical_budgets) ... ok
+test_provider_breach_disables_all_quality_inference (test_campaign.CampaignTests.test_provider_breach_disables_all_quality_inference) ... ok
+test_real_campaign_replays_all_requests_costs_and_traces (test_campaign.CampaignTests.test_real_campaign_replays_all_requests_costs_and_traces) ... ok
+test_rehashed_false_call_role_fails_semantic_replay (test_campaign.CampaignTests.test_rehashed_false_call_role_fails_semantic_replay) ... ok
+test_rehashed_false_cost_fails_semantic_replay (test_campaign.CampaignTests.test_rehashed_false_cost_fails_semantic_replay) ... ok
+test_selector_comparisons_include_tail_uncertainty (test_campaign.CampaignTests.test_selector_comparisons_include_tail_uncertainty) ... ok
+test_source_check_detects_a_changed_runtime_file (test_campaign.CampaignTests.test_source_check_detects_a_changed_runtime_file) ... ok
+test_http_error_body_is_returned_as_one_paid_attempt (test_http.HTTPTests.test_http_error_body_is_returned_as_one_paid_attempt) ... ok
+test_oversize_response_is_bounded (test_http.HTTPTests.test_oversize_response_is_bounded) ... ok
+test_parent_timeout_does_not_retry_or_expose_exception (test_http.HTTPTests.test_parent_timeout_does_not_retry_or_expose_exception) ... ok
+test_process_transport_and_exact_request_without_key_logging (test_http.HTTPTests.test_process_transport_and_exact_request_without_key_logging) ... ok
+test_redirect_is_not_followed (test_http.HTTPTests.test_redirect_is_not_followed) ... ok
+test_worker_error_does_not_echo_secret (test_http.HTTPTests.test_worker_error_does_not_echo_secret) ... ok
+
+----------------------------------------------------------------------
+Ran 32 tests in 2.655s
+
+OK
+{"source_manifest": "c2f2e9c38a1d85e42be9bdb6b81e42d69064f8304316114e1b4ae7071a1bd919", "tests_run": 32, "success": true, "live_llm_evaluation": "NOT_RUN"}

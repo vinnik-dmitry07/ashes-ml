@@ -1,0 +1,194 @@
+{
+  "status": "COMPLETE",
+  "provider_mode": "SCRIPTED_FIXTURE_NOT_LLM",
+  "quality_evidence_from_llm": false,
+  "sampling_assumptions": "Independent cases from the pinned uniform level distribution; stationary provider; no adaptive test feedback. Pairing is by case. Shared seeds do not prove identical randomness.",
+  "intervals": "Hoeffding for means and risks; DKW for q10 and lower CVaR. Nine simultaneous comparison intervals use Bonferroni. Sampling-conditional, not deployment guarantees. No automatic publication or certificate of selector superiority.",
+  "missing_requested_runs": 0,
+  "provider_contract_violated": false,
+  "conditions": {
+    "fresh": {
+      "requested": 12,
+      "completed": 12,
+      "successes": 12,
+      "failure_rate": 0,
+      "mean_net_utility_microusd": 996640,
+      "q10_net_utility_microusd": 995240,
+      "worst_10_percent_mean_microusd": 994890.0,
+      "mean_95_interval": [
+        584987.3552576652,
+        1000000
+      ],
+      "failure_95_interval": [
+        0,
+        0.3920501378498427
+      ],
+      "q10_95_dkw_interval": [
+        -50000,
+        996080
+      ],
+      "worst_10_percent_95_dkw_interval": [
+        -50000,
+        1000000
+      ],
+      "accounted_cost_completed_runs_microusd": 40320,
+      "calls_completed_runs_including_selection_and_planning": 288,
+      "unknown_cost_calls_completed_runs": 0,
+      "mean_elapsed_ms_completed_runs": 27.666666666666668,
+      "q95_elapsed_ms_completed_runs": 43
+    },
+    "history": {
+      "requested": 12,
+      "completed": 12,
+      "successes": 12,
+      "failure_rate": 0,
+      "mean_net_utility_microusd": 996640,
+      "q10_net_utility_microusd": 995240,
+      "worst_10_percent_mean_microusd": 994890.0,
+      "mean_95_interval": [
+        584987.3552576652,
+        1000000
+      ],
+      "failure_95_interval": [
+        0,
+        0.3920501378498427
+      ],
+      "q10_95_dkw_interval": [
+        -50000,
+        996080
+      ],
+      "worst_10_percent_95_dkw_interval": [
+        -50000,
+        1000000
+      ],
+      "accounted_cost_completed_runs_microusd": 40320,
+      "calls_completed_runs_including_selection_and_planning": 288,
+      "unknown_cost_calls_completed_runs": 0,
+      "mean_elapsed_ms_completed_runs": 34.25,
+      "q95_elapsed_ms_completed_runs": 54
+    },
+    "plan": {
+      "requested": 12,
+      "completed": 12,
+      "successes": 12,
+      "failure_rate": 0,
+      "mean_net_utility_microusd": 996500,
+      "q10_net_utility_microusd": 995100,
+      "worst_10_percent_mean_microusd": 994750.0,
+      "mean_95_interval": [
+        584847.3552576652,
+        1000000
+      ],
+      "failure_95_interval": [
+        0,
+        0.3920501378498427
+      ],
+      "q10_95_dkw_interval": [
+        -50000,
+        995940
+      ],
+      "worst_10_percent_95_dkw_interval": [
+        -50000,
+        1000000
+      ],
+      "accounted_cost_completed_runs_microusd": 42000,
+      "calls_completed_runs_including_selection_and_planning": 300,
+      "unknown_cost_calls_completed_runs": 0,
+      "mean_elapsed_ms_completed_runs": 30.25,
+      "q95_elapsed_ms_completed_runs": 44
+    },
+    "selector": {
+      "requested": 12,
+      "completed": 12,
+      "successes": 12,
+      "failure_rate": 0,
+      "mean_net_utility_microusd": 996430,
+      "q10_net_utility_microusd": 995100,
+      "worst_10_percent_mean_microusd": 994633.3333333334,
+      "mean_95_interval": [
+        584777.3552576652,
+        1000000
+      ],
+      "failure_95_interval": [
+        0,
+        0.3920501378498427
+      ],
+      "q10_95_dkw_interval": [
+        -50000,
+        995800
+      ],
+      "worst_10_percent_95_dkw_interval": [
+        -50000,
+        1000000
+      ],
+      "accounted_cost_completed_runs_microusd": 42840,
+      "calls_completed_runs_including_selection_and_planning": 306,
+      "unknown_cost_calls_completed_runs": 0,
+      "mean_elapsed_ms_completed_runs": 31.666666666666668,
+      "q95_elapsed_ms_completed_runs": 48
+    }
+  },
+  "selector_minus_baseline": {
+    "fresh": {
+      "mean_gain_microusd": -210,
+      "simultaneous_mean_gain_interval": [
+        -1040196.3536503573,
+        1039776.3536503573
+      ],
+      "failure_rate_difference": 0,
+      "simultaneous_failure_difference_interval": [
+        -0.9904631939527213,
+        0.9904631939527213
+      ],
+      "worst_10_percent_gain_microusd": -256.66666666662786,
+      "simultaneous_worst_10_percent_gain_interval": [
+        -1050000,
+        1050000
+      ]
+    },
+    "history": {
+      "mean_gain_microusd": -210,
+      "simultaneous_mean_gain_interval": [
+        -1040196.3536503573,
+        1039776.3536503573
+      ],
+      "failure_rate_difference": 0,
+      "simultaneous_failure_difference_interval": [
+        -0.9904631939527213,
+        0.9904631939527213
+      ],
+      "worst_10_percent_gain_microusd": -256.66666666662786,
+      "simultaneous_worst_10_percent_gain_interval": [
+        -1050000,
+        1050000
+      ]
+    },
+    "plan": {
+      "mean_gain_microusd": -70,
+      "simultaneous_mean_gain_interval": [
+        -1040056.3536503573,
+        1039916.3536503573
+      ],
+      "failure_rate_difference": 0,
+      "simultaneous_failure_difference_interval": [
+        -0.9904631939527213,
+        0.9904631939527213
+      ],
+      "worst_10_percent_gain_microusd": -116.66666666662786,
+      "simultaneous_worst_10_percent_gain_interval": [
+        -1050000,
+        1050000
+      ]
+    }
+  },
+  "plan_id": "87d22891f40ed4e136b71ac1a93cd2a360ca8b8a7b12ea0d9d09f7f4ad510e7e",
+  "journal_head": "9406fe23e8b1038b5439b784654b00f19c7b34cd33ab2196947a774c9eb74ff5",
+  "campaign_error": null,
+  "ledger": {
+    "accounted_cost_microusd": 165480,
+    "started_calls_including_incomplete_runs": 1182,
+    "pending_calls": 0,
+    "pending_reservation_microusd": 0
+  },
+  "maximum_campaign_budget_microusd": 2400000
+}
