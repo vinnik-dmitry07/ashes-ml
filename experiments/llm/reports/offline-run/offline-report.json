@@ -1,0 +1,622 @@
+{
+  "source_manifest": "418aaa5938416d0193561679b05e3a4fea0cd795e972c3b57280c69ebd491127",
+  "trust": {
+    "mode": "LOCAL_TRUST_SCENARIO_NOT_LLM",
+    "before": {
+      "retrieval": 1,
+      "archive_cells": 1,
+      "dataset_rows": 1
+    },
+    "after": {
+      "retrieval": 0,
+      "archive_cells": 0,
+      "dependent_status": {
+        "status": "BLOCKED",
+        "blocked_by": [
+          "43e24ede0f5a8bf4abb3e775fb0b4fd55b535652d9e932c7e3ceae83e3cc6450"
+        ]
+      },
+      "duplicate_status": {
+        "status": "BLOCKED",
+        "blocked_by": [
+          "0e25f41a93e8e04ed9bc3ca625121ca16a528cafee24c79de17aff00fa37ba58"
+        ]
+      },
+      "blocked": {
+        "cached_context": "STALE",
+        "dataset": "STALE",
+        "duplicate_submission": "STALE"
+      }
+    },
+    "old_receipt_still_quarantined": "QUARANTINED",
+    "revalidated_receipt_has_new_id": true,
+    "repaired_rows_before_checker_retirement": 1,
+    "stricter_checker_rejects_paint": {
+      "status": "REJECTED",
+      "code": "POSTCONDITION",
+      "receipt": null
+    },
+    "replacement_checker_dataset_rows": 1,
+    "exported_dataset": {
+      "path": "dataset.json",
+      "id": "1221b3cb0617a98970d28ffd0b8b0c25d7c84815759d2a2a3e79c65d494f11e0",
+      "rows": 1
+    },
+    "identity": {
+      "kind": "TrustLedger",
+      "source_manifest": "418aaa5938416d0193561679b05e3a4fea0cd795e972c3b57280c69ebd491127",
+      "owner": "0b5bdeac95a004ffd23ecf2bdf7ba49bbf82e76a2fac0ff0d1a75953d867abb8",
+      "max_checks": 256,
+      "max_events": 2048,
+      "max_bytes": 16000000
+    },
+    "journal_head": "beeaac711e01092fe5c204e8da384190c5f16979b2e6fa7b8fbef2499bad858b",
+    "public_fixture_key": "public-offline-fixture-key-not-production-authority",
+    "replay": {
+      "head": "beeaac711e01092fe5c204e8da384190c5f16979b2e6fa7b8fbef2499bad858b",
+      "events": 23,
+      "state_digest": "e5b1847ea19390f73f54481e1109c1330afdce3e58ecf791642fc14163704ee9"
+    }
+  },
+  "trust_model": {
+    "configurations": 243,
+    "consumer_queries": 2916,
+    "mismatches": 0,
+    "scope": "2 distinct proof leaves, 1 bundle, 2 checkers; 3 lifecycle states per object, every combination",
+    "general_theorem": false
+  },
+  "execution": {
+    "mode": "EXHAUSTIVE_SCRIPTED_G12_NOT_LLM",
+    "episodes": 264,
+    "sampling": "all 12 levels per condition and call cap; exact finite deterministic fixture, not an IID LLM sample",
+    "budget_sweep": [
+      {
+        "max_calls": 4,
+        "conditions": {
+          "fresh": {
+            "successes": 1,
+            "runs": 12,
+            "mean_calls": 4,
+            "mean_utility_microusd": 82773.33333333333,
+            "total_cost_microusd": 6720
+          },
+          "history": {
+            "successes": 1,
+            "runs": 12,
+            "mean_calls": 4,
+            "mean_utility_microusd": 82773.33333333333,
+            "total_cost_microusd": 6720
+          },
+          "plan": {
+            "successes": 0,
+            "runs": 12,
+            "mean_calls": 4,
+            "mean_utility_microusd": -560,
+            "total_cost_microusd": 6720
+          },
+          "selector": {
+            "successes": 0,
+            "runs": 12,
+            "mean_calls": 4,
+            "mean_utility_microusd": -560,
+            "total_cost_microusd": 6720
+          }
+        }
+      },
+      {
+        "max_calls": 10,
+        "conditions": {
+          "fresh": {
+            "successes": 3,
+            "runs": 12,
+            "mean_calls": 9.25,
+            "mean_utility_microusd": 248705,
+            "total_cost_microusd": 15540
+          },
+          "history": {
+            "successes": 3,
+            "runs": 12,
+            "mean_calls": 9.25,
+            "mean_utility_microusd": 248705,
+            "total_cost_microusd": 15540
+          },
+          "plan": {
+            "successes": 2,
+            "runs": 12,
+            "mean_calls": 9.416666666666666,
+            "mean_utility_microusd": 165348.33333333334,
+            "total_cost_microusd": 15820
+          },
+          "selector": {
+            "successes": 2,
+            "runs": 12,
+            "mean_calls": 9.416666666666666,
+            "mean_utility_microusd": 165348.33333333334,
+            "total_cost_microusd": 15820
+          }
+        }
+      },
+      {
+        "max_calls": 20,
+        "conditions": {
+          "fresh": {
+            "successes": 6,
+            "runs": 12,
+            "mean_calls": 15.75,
+            "mean_utility_microusd": 497795,
+            "total_cost_microusd": 26460
+          },
+          "history": {
+            "successes": 6,
+            "runs": 12,
+            "mean_calls": 15.75,
+            "mean_utility_microusd": 497795,
+            "total_cost_microusd": 26460
+          },
+          "plan": {
+            "successes": 6,
+            "runs": 12,
+            "mean_calls": 16.25,
+            "mean_utility_microusd": 497725,
+            "total_cost_microusd": 27300
+          },
+          "selector": {
+            "successes": 5,
+            "runs": 12,
+            "mean_calls": 16.333333333333332,
+            "mean_utility_microusd": 414380,
+            "total_cost_microusd": 27440
+          }
+        }
+      },
+      {
+        "max_calls": 40,
+        "conditions": {
+          "fresh": {
+            "successes": 12,
+            "runs": 12,
+            "mean_calls": 20.5,
+            "mean_utility_microusd": 997130,
+            "total_cost_microusd": 34440
+          },
+          "history": {
+            "successes": 12,
+            "runs": 12,
+            "mean_calls": 20.5,
+            "mean_utility_microusd": 997130,
+            "total_cost_microusd": 34440
+          },
+          "plan": {
+            "successes": 12,
+            "runs": 12,
+            "mean_calls": 21.5,
+            "mean_utility_microusd": 996990,
+            "total_cost_microusd": 36120
+          },
+          "selector": {
+            "successes": 12,
+            "runs": 12,
+            "mean_calls": 21.833333333333332,
+            "mean_utility_microusd": 996943.3333333334,
+            "total_cost_microusd": 36680
+          }
+        }
+      },
+      {
+        "max_calls": 64,
+        "conditions": {
+          "fresh": {
+            "successes": 12,
+            "runs": 12,
+            "mean_calls": 20.5,
+            "mean_utility_microusd": 997130,
+            "total_cost_microusd": 34440
+          },
+          "history": {
+            "successes": 12,
+            "runs": 12,
+            "mean_calls": 20.5,
+            "mean_utility_microusd": 997130,
+            "total_cost_microusd": 34440
+          },
+          "plan": {
+            "successes": 12,
+            "runs": 12,
+            "mean_calls": 21.5,
+            "mean_utility_microusd": 996990,
+            "total_cost_microusd": 36120
+          },
+          "selector": {
+            "successes": 12,
+            "runs": 12,
+            "mean_calls": 21.833333333333332,
+            "mean_utility_microusd": 996943.3333333334,
+            "total_cost_microusd": 36680
+          }
+        }
+      }
+    ],
+    "faults": [
+      {
+        "failure": "timeout",
+        "condition": "fresh",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 8704,
+        "contract_violated": false
+      },
+      {
+        "failure": "timeout",
+        "condition": "history",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 8704,
+        "contract_violated": false
+      },
+      {
+        "failure": "timeout",
+        "condition": "plan",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 8704,
+        "contract_violated": false
+      },
+      {
+        "failure": "timeout",
+        "condition": "selector",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 8704,
+        "contract_violated": false
+      },
+      {
+        "failure": "missing_usage",
+        "condition": "fresh",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 8704,
+        "contract_violated": false
+      },
+      {
+        "failure": "missing_usage",
+        "condition": "history",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 8704,
+        "contract_violated": false
+      },
+      {
+        "failure": "missing_usage",
+        "condition": "plan",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 8704,
+        "contract_violated": false
+      },
+      {
+        "failure": "missing_usage",
+        "condition": "selector",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 8704,
+        "contract_violated": false
+      },
+      {
+        "failure": "bad_json",
+        "condition": "fresh",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 140,
+        "contract_violated": false
+      },
+      {
+        "failure": "bad_json",
+        "condition": "history",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 140,
+        "contract_violated": false
+      },
+      {
+        "failure": "bad_json",
+        "condition": "plan",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 140,
+        "contract_violated": false
+      },
+      {
+        "failure": "bad_json",
+        "condition": "selector",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 140,
+        "contract_violated": false
+      },
+      {
+        "failure": "model_drift",
+        "condition": "fresh",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 8704,
+        "contract_violated": true
+      },
+      {
+        "failure": "model_drift",
+        "condition": "history",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 8704,
+        "contract_violated": true
+      },
+      {
+        "failure": "model_drift",
+        "condition": "plan",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 8704,
+        "contract_violated": true
+      },
+      {
+        "failure": "model_drift",
+        "condition": "selector",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 8704,
+        "contract_violated": true
+      },
+      {
+        "failure": "overrun",
+        "condition": "fresh",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 614,
+        "contract_violated": true
+      },
+      {
+        "failure": "overrun",
+        "condition": "history",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 614,
+        "contract_violated": true
+      },
+      {
+        "failure": "overrun",
+        "condition": "plan",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 614,
+        "contract_violated": true
+      },
+      {
+        "failure": "overrun",
+        "condition": "selector",
+        "success": false,
+        "calls": 1,
+        "cost_microusd": 614,
+        "contract_violated": true
+      },
+      {
+        "failure": "paint",
+        "condition": "fresh",
+        "success": false,
+        "calls": 64,
+        "cost_microusd": 8960,
+        "contract_violated": false
+      },
+      {
+        "failure": "paint",
+        "condition": "history",
+        "success": false,
+        "calls": 64,
+        "cost_microusd": 8960,
+        "contract_violated": false
+      },
+      {
+        "failure": "paint",
+        "condition": "plan",
+        "success": false,
+        "calls": 64,
+        "cost_microusd": 8960,
+        "contract_violated": false
+      },
+      {
+        "failure": "paint",
+        "condition": "selector",
+        "success": false,
+        "calls": 64,
+        "cost_microusd": 8960,
+        "contract_violated": false
+      }
+    ]
+  },
+  "statistics": {
+    "mode": "EXACT_BINOMIAL_ENUMERATION_NOT_LLM",
+    "individual_interval_coverage": [
+      {
+        "n": 5,
+        "bernoulli_p": 0.0,
+        "exact_coverage": {
+          "mean": 1.0,
+          "q10": 1.0,
+          "lower_cvar": 1.0
+        }
+      },
+      {
+        "n": 5,
+        "bernoulli_p": 0.1,
+        "exact_coverage": {
+          "mean": 0.9995400000000001,
+          "q10": 1.0,
+          "lower_cvar": 1.0
+        }
+      },
+      {
+        "n": 5,
+        "bernoulli_p": 0.5,
+        "exact_coverage": {
+          "mean": 1.0,
+          "q10": 1.0,
+          "lower_cvar": 1.0
+        }
+      },
+      {
+        "n": 5,
+        "bernoulli_p": 0.9,
+        "exact_coverage": {
+          "mean": 0.9995399999999999,
+          "q10": 1.0,
+          "lower_cvar": 1.0
+        }
+      },
+      {
+        "n": 5,
+        "bernoulli_p": 0.95,
+        "exact_coverage": {
+          "mean": 0.9999699999999999,
+          "q10": 0.9999699999999999,
+          "lower_cvar": 1.0
+        }
+      },
+      {
+        "n": 5,
+        "bernoulli_p": 1.0,
+        "exact_coverage": {
+          "mean": 1.0,
+          "q10": 1.0,
+          "lower_cvar": 1.0
+        }
+      },
+      {
+        "n": 20,
+        "bernoulli_p": 0.0,
+        "exact_coverage": {
+          "mean": 1.0,
+          "q10": 1.0,
+          "lower_cvar": 1.0
+        }
+      },
+      {
+        "n": 20,
+        "bernoulli_p": 0.1,
+        "exact_coverage": {
+          "mean": 0.9999401414682602,
+          "q10": 1.0000000000000004,
+          "lower_cvar": 1.0000000000000004
+        }
+      },
+      {
+        "n": 20,
+        "bernoulli_p": 0.5,
+        "exact_coverage": {
+          "mean": 0.9974231719970703,
+          "q10": 1.0,
+          "lower_cvar": 1.0
+        }
+      },
+      {
+        "n": 20,
+        "bernoulli_p": 0.9,
+        "exact_coverage": {
+          "mean": 0.9999401414682597,
+          "q10": 1.0000000000000002,
+          "lower_cvar": 1.0000000000000002
+        }
+      },
+      {
+        "n": 20,
+        "bernoulli_p": 0.95,
+        "exact_coverage": {
+          "mean": 0.9999971431146171,
+          "q10": 0.9999998020661891,
+          "lower_cvar": 1.0
+        }
+      },
+      {
+        "n": 20,
+        "bernoulli_p": 1.0,
+        "exact_coverage": {
+          "mean": 1.0,
+          "q10": 1.0,
+          "lower_cvar": 1.0
+        }
+      },
+      {
+        "n": 100,
+        "bernoulli_p": 0.0,
+        "exact_coverage": {
+          "mean": 1.0,
+          "q10": 1.0,
+          "lower_cvar": 1.0
+        }
+      },
+      {
+        "n": 100,
+        "bernoulli_p": 0.1,
+        "exact_coverage": {
+          "mean": 0.9999603625761647,
+          "q10": 1.0000000000000024,
+          "lower_cvar": 1.0000000000000024
+        }
+      },
+      {
+        "n": 100,
+        "bernoulli_p": 0.5,
+        "exact_coverage": {
+          "mean": 0.9933628794840739,
+          "q10": 1.0000000000000002,
+          "lower_cvar": 1.0000000000000002
+        }
+      },
+      {
+        "n": 100,
+        "bernoulli_p": 0.9,
+        "exact_coverage": {
+          "mean": 0.9999603625761622,
+          "q10": 1.0,
+          "lower_cvar": 1.0
+        }
+      },
+      {
+        "n": 100,
+        "bernoulli_p": 0.95,
+        "exact_coverage": {
+          "mean": 0.9999994987310578,
+          "q10": 0.9999999998854251,
+          "lower_cvar": 1.0
+        }
+      },
+      {
+        "n": 100,
+        "bernoulli_p": 1.0,
+        "exact_coverage": {
+          "mean": 1.0,
+          "q10": 1.0,
+          "lower_cvar": 1.0
+        }
+      }
+    ],
+    "planning": [
+      {
+        "desired_difference_half_width": 0.1,
+        "paired_mean_sufficient_n": 1178,
+        "lower_cvar_sufficient_n": 131586
+      },
+      {
+        "desired_difference_half_width": 0.05,
+        "paired_mean_sufficient_n": 4709,
+        "lower_cvar_sufficient_n": 526341
+      },
+      {
+        "desired_difference_half_width": 0.01,
+        "paired_mean_sufficient_n": 117723,
+        "lower_cvar_sufficient_n": 13158503
+      }
+    ],
+    "planning_utility_support_width": 1,
+    "planning_warning": "Worst-case concentration bounds; not empirical power estimates. Wider utility support scales n quadratically. Real LLM variance, dependence, and costs unknown."
+  },
+  "llm_api_calls": 0,
+  "llm_quality_evidence": false
+}

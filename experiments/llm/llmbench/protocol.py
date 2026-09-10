@@ -13,7 +13,7 @@ from urllib.parse import urlsplit
 from ahsl.codec import canonical, fields, integer, need
 
 
-PROFILE = 'AHSL_LLM_EXPERIMENT_0_1'
+PROFILE = 'AHSL_LLM_EXPERIMENT_0_2'
 CONDITIONS = ('fresh', 'history', 'plan', 'selector')
 ARMS = CONDITIONS[:3]
 

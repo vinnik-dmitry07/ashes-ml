@@ -1,0 +1,9 @@
+{
+  "status": "COMPLETE",
+  "source_blobs_unchanged_by_replay": true,
+  "files": {
+    "plan.json": "6f6cc372756b66dddb03a61f26b97b2c8a95ebc8d1d49033506837a62f3a058a",
+    "events.jsonl": "83a08d70c2bb2f89c442d7bb6f19f6d276310430730e06cd6b8aa9c2b817103e",
+    "summary.json": "bfd65d26eddade380e68a4d5318126736973cd1fe61344bece8ce5d26e683560"
+  }
+}

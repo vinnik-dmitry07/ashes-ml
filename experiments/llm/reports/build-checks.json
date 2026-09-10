@@ -1,0 +1,7 @@
+{
+  "source_manifest": "418aaa5938416d0193561679b05e3a4fea0cd795e972c3b57280c69ebd491127",
+  "vendored_core_files": 15,
+  "core_1_4_byte_identical": true,
+  "spec_example_executed": true,
+  "pep8_extension": "PASS"
+}

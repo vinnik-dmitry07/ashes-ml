@@ -30,9 +30,38 @@ test_parent_timeout_does_not_retry_or_expose_exception (test_http.HTTPTests.test
 test_process_transport_and_exact_request_without_key_logging (test_http.HTTPTests.test_process_transport_and_exact_request_without_key_logging) ... ok
 test_redirect_is_not_followed (test_http.HTTPTests.test_redirect_is_not_followed) ... ok
 test_worker_error_does_not_echo_secret (test_http.HTTPTests.test_worker_error_does_not_echo_secret) ... ok
+test_arbitrary_checker_name_and_role_string_confer_no_authority (test_trust.TrustTests.test_arbitrary_checker_name_and_role_string_confer_no_authority) ... ok
+test_archive_and_training_views_drop_quarantined_trace (test_trust.TrustTests.test_archive_and_training_views_drop_quarantined_trace) ... ok
+test_caller_cannot_edit_dataset_or_receipt (test_trust.TrustTests.test_caller_cannot_edit_dataset_or_receipt) ... ok
+test_candidate_cannot_revalidate_or_lift_quarantine (test_trust.TrustTests.test_candidate_cannot_revalidate_or_lift_quarantine) ... ok
+test_checker_revocation_propagates_and_replacement_rechecks (test_trust.TrustTests.test_checker_revocation_propagates_and_replacement_rechecks) ... ok
+test_context_digest_is_measured (test_trust.TrustTests.test_context_digest_is_measured) ... ok
+test_descriptor_cannot_be_added_to_trace_payload (test_trust.TrustTests.test_descriptor_cannot_be_added_to_trace_payload) ... ok
+test_descriptors_ignore_dead_code_and_detect_behavior_change (test_trust.TrustTests.test_descriptors_ignore_dead_code_and_detect_behavior_change) ... ok
+test_diamond_dependencies_are_deduplicated (test_trust.TrustTests.test_diamond_dependencies_are_deduplicated) ... ok
+test_duplicate_receipts_cannot_launder_quarantined_artifact (test_trust.TrustTests.test_duplicate_receipts_cannot_launder_quarantined_artifact) ... ok
+test_event_budget_reserves_space_to_finish_an_admitted_check (test_trust.TrustTests.test_event_budget_reserves_space_to_finish_an_admitted_check) ... ok
+test_failed_claim_does_not_lock_an_artifact (test_trust.TrustTests.test_failed_claim_does_not_lock_an_artifact) ... ok
+test_false_goal_and_definition_shadowing_rejected (test_trust.TrustTests.test_false_goal_and_definition_shadowing_rejected) ... ok
+test_finite_inspection_budget_stops_repeated_bad_proofs (test_trust.TrustTests.test_finite_inspection_budget_stops_repeated_bad_proofs) ... ok
+test_fsync_failure_fences_writer_without_publishing_new_state (test_trust.TrustTests.test_fsync_failure_fences_writer_without_publishing_new_state) ... ok
+test_incomplete_checker_does_not_mint_a_certificate (test_trust.TrustTests.test_incomplete_checker_does_not_mint_a_certificate) ... ok
+test_insufficient_event_capacity_does_not_leave_pending_check (test_trust.TrustTests.test_insufficient_event_capacity_does_not_leave_pending_check) ... ok
+test_interrupted_check_resolves_without_reusing_quota (test_trust.TrustTests.test_interrupted_check_resolves_without_reusing_quota) ... ok
+test_local_export_rechecks_trust_at_write_boundary (test_trust.TrustTests.test_local_export_rechecks_trust_at_write_boundary) ... ok
+test_missing_dependency_and_depth_limit (test_trust.TrustTests.test_missing_dependency_and_depth_limit) ... ok
+test_oversize_payload_is_rejected_before_check_quota (test_trust.TrustTests.test_oversize_payload_is_rejected_before_check_quota) ... ok
+test_quarantine_blocks_retrieval_cache_and_all_exports (test_trust.TrustTests.test_quarantine_blocks_retrieval_cache_and_all_exports) ... ok
+test_replay_checks_signatures_and_reruns_checkers (test_trust.TrustTests.test_replay_checks_signatures_and_reruns_checkers) ... ok
+test_revalidation_creates_new_evidence_without_rewriting_history (test_trust.TrustTests.test_revalidation_creates_new_evidence_without_rewriting_history) ... ok
+test_scope_and_purpose_are_checked_at_consumption (test_trust.TrustTests.test_scope_and_purpose_are_checked_at_consumption) ... ok
+test_snapshot_limit_preserves_encodable_replay (test_trust.TrustTests.test_snapshot_limit_preserves_encodable_replay) ... ok
+test_stricter_checker_rejects_previously_valid_trace (test_trust.TrustTests.test_stricter_checker_rejects_previously_valid_trace) ... ok
+test_unknown_or_malformed_bundle_member_is_structured_rejection (test_trust.TrustTests.test_unknown_or_malformed_bundle_member_is_structured_rejection) ... ok
+test_unrelated_evidence_does_not_invalidate_a_cached_view (test_trust.TrustTests.test_unrelated_evidence_does_not_invalidate_a_cached_view) ... ok
 
 ----------------------------------------------------------------------
-Ran 32 tests in 2.655s
+Ran 61 tests in 4.181s
 
 OK
-{"source_manifest": "c2f2e9c38a1d85e42be9bdb6b81e42d69064f8304316114e1b4ae7071a1bd919", "tests_run": 32, "success": true, "live_llm_evaluation": "NOT_RUN"}
+{"source_manifest": "418aaa5938416d0193561679b05e3a4fea0cd795e972c3b57280c69ebd491127", "tests_run": 61, "success": true, "live_llm_evaluation": "NOT_RUN"}

@@ -1,5 +1,15 @@
 {
-  "source_manifest": "c2f2e9c38a1d85e42be9bdb6b81e42d69064f8304316114e1b4ae7071a1bd919",
-  "fixture_journal_head": "9406fe23e8b1038b5439b784654b00f19c7b34cd33ab2196947a774c9eb74ff5",
-  "fixture_plan_id": "87d22891f40ed4e136b71ac1a93cd2a360ca8b8a7b12ea0d9d09f7f4ad510e7e"
+  "source_manifest": "418aaa5938416d0193561679b05e3a4fea0cd795e972c3b57280c69ebd491127",
+  "fixture_plan": "2d5cc474dd39d1c873159fa9c9194adccd3da537336b1eaa02602b8e677c6611",
+  "fixture_journal_head": "0b98070de43c0fe987e61af73f0846f1e3db4809831542ea6bbab1e767c78d2f",
+  "trust_identity": {
+    "kind": "TrustLedger",
+    "source_manifest": "418aaa5938416d0193561679b05e3a4fea0cd795e972c3b57280c69ebd491127",
+    "owner": "0b5bdeac95a004ffd23ecf2bdf7ba49bbf82e76a2fac0ff0d1a75953d867abb8",
+    "max_checks": 256,
+    "max_events": 2048,
+    "max_bytes": 16000000
+  },
+  "trust_journal_head": "beeaac711e01092fe5c204e8da384190c5f16979b2e6fa7b8fbef2499bad858b",
+  "note": "Preserve independently; colocated hashes do not authenticate themselves. Trust fixture uses an intentionally public test key."
 }
