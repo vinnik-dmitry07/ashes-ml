@@ -12,6 +12,9 @@ DEFAULT_GUARANTEES = {
     'max_program_bytes': 65536,
 }
 
+IMPROVEMENT_PROFILE = 'SUCCESS_THEN_PARETO_COST_1'
+COST_AXES = ('actions', 'vm_fuel', 'program_bytes')
+
 
 def validate_guarantees(value):
     fields(value, DEFAULT_GUARANTEES)
@@ -43,6 +46,7 @@ def create_mission(manifest, levels, observer, evaluator):
         'kind': 'Mission', 'environment': ENVIRONMENT,
         'manifest': manifest, 'levels': deepcopy(levels),
         'absolute_success': 'ALL', 'floor': deepcopy(DEFAULT_GUARANTEES),
+        'improvement_profile': IMPROVEMENT_PROFILE,
         'observer': observer, 'evaluator': evaluator,
     }
 

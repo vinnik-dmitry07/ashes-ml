@@ -10,6 +10,26 @@ from .decisions import OPERATORS
 from .types import signature, type_ok, value_ok
 
 
+def expression_children(expr):
+    '''Children of a checked expression; literals and types are opaque data.'''
+    op = expr['op']
+    if op in ('lit', 'var'):
+        return ()
+    if op in ('call', 'builtin', 'service'):
+        return tuple(expr['args'])
+    if op == 'record':
+        return tuple(expr['fields'].values())
+    members = {
+        'let': ('value', 'body'),
+        'if': ('test', 'yes', 'no'),
+        'some': ('value',),
+        'get': ('record',),
+        'index': ('list', 'index'),
+    }
+    need(op in members, 'SCHEMA')
+    return tuple(expr[key] for key in members[op])
+
+
 def check(program, services=None):
     canonical(program)
     services = {} if services is None else services

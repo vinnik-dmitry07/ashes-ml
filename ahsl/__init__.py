@@ -1,3 +1,3 @@
-'''AHSL 1.3: bounded executable reference profiles.'''
+'''AHSL 1.4: bounded executable reference profiles.'''
 
-VERSION = '1.3'
+VERSION = '1.4'

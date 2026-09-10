@@ -6,6 +6,7 @@
   },
   "Assessment": {
     "assignment": "Ref",
+    "cost": "ExecutionCost",
     "guarantees": "Ref",
     "kind": "Text",
     "mission": "Ref",
@@ -68,6 +69,11 @@
     "parent": "Ref",
     "parent_guarantees": "Guarantees"
   },
+  "ExecutionCost": {
+    "actions": "Nat",
+    "program_bytes": "Nat",
+    "vm_fuel": "Nat"
+  },
   "ExecutionScope": {
     "environment": "Ref",
     "manifest": "Ref"
@@ -85,6 +91,18 @@
     "max_actions": "Nat",
     "max_program_bytes": "Nat",
     "require_ground_goal": "Bool"
+  },
+  "Improvement": {
+    "cost_comparable": "Bool",
+    "cost_nonworse": "Bool",
+    "cost_pairs": [
+      [
+        "ExecutionCost"
+      ]
+    ],
+    "cost_strict": "Bool",
+    "profile": "Text",
+    "success_gain": "Bool"
   },
   "Job": {
     "charge": "Nat",
@@ -144,6 +162,7 @@
     "environment": "Ref",
     "evaluator": "Ref",
     "floor": "Guarantees",
+    "improvement_profile": "Text",
     "kind": "Text",
     "levels": [
       "Nat"
@@ -200,6 +219,7 @@
     ],
     "generation": "Nat",
     "guarantees": "Ref",
+    "improvement": "Improvement",
     "kind": "Text",
     "mission": "Ref",
     "pairs": [
@@ -260,7 +280,7 @@
       "map": "EvaluationPlan"
     },
     "programs": {
-      "map": "Program"
+      "map": "ProgramText"
     },
     "published_contracts": {
       "map": "Guarantees"

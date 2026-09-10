@@ -59,6 +59,11 @@ class Evaluator:
             'mission': cid('Mission', mission),
             'guarantees': cid('Guarantees', guarantees),
             'outcome': outcome,
+            # Only verified action-producing calls are charged here. For a
+            # successful trace these are all calls through the ground goal.
+            'cost': {'actions': outcome['steps'],
+                     'vm_fuel': 50000 - remaining,
+                     'program_bytes': len(canonical(program))},
             'violations': violations(outcome, program, guarantees),
         }
         tag = hmac.new(self._key, canonical(body), hashlib.sha256).hexdigest()

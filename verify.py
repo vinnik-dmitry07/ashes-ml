@@ -206,7 +206,7 @@ def main():
     if not result.wasSuccessful():
         print(stream.getvalue())
         raise SystemExit(1)
-    report = {'profile': 'AHSL-1.3', 'status': 'EXECUTABLE_REFERENCE',
+    report = {'profile': 'AHSL-1.4', 'status': 'EXECUTABLE_REFERENCE',
               'tests_run': result.testsRun, 'failures': len(result.failures),
               'errors': len(result.errors), 'manifest_sha256': digest,
               'files_checked': len(pinned), 'wire_fuzz': adversarial_wire()}

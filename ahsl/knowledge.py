@@ -4,7 +4,7 @@ from copy import deepcopy
 from fractions import Fraction
 
 from .codec import canonical, cid, fields, integer, name, need, ref
-from .language import check
+from .language import check, expression_children
 
 
 def entry(value):
@@ -144,16 +144,13 @@ def trim_alias(program, alias):
     target = body['name']
     del result['functions'][alias]
 
-    def rewrite(value):
-        if type(value) is dict:
-            if value.get('op') == 'call' and value.get('name') == alias:
-                value['name'] = target
-            for child in value.values():
-                rewrite(child)
-        elif type(value) is list:
-            for child in value:
-                rewrite(child)
+    def rewrite(expr):
+        if expr['op'] == 'call' and expr['name'] == alias:
+            expr['name'] = target
+        for child in expression_children(expr):
+            rewrite(child)
 
-    rewrite(result)
+    for remaining in result['functions'].values():
+        rewrite(remaining['body'])
     check(result)
     return {'program': result, 'removed': alias, 'reassigned_to': target}

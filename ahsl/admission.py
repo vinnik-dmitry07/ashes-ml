@@ -7,12 +7,13 @@ from copy import deepcopy
 from fractions import Fraction
 from math import comb
 
-from .codec import canonical, cid, fields, integer, need, rat, ref
+from .codec import canonical, cid, decode, fields, integer, need, rat, ref
 from .environment import ENVIRONMENT, Runner, check_agent
 from .kernel import Ledger, replay
 from .language import check
 from .obligations import (
-    DEFAULT_GUARANTEES, check_mission, create_mission, refines,
+    COST_AXES, DEFAULT_GUARANTEES, IMPROVEMENT_PROFILE,
+    check_mission, create_mission, refines,
     validate_guarantees,
 )
 from .witness import Evaluator, derive_key, key_id
@@ -73,8 +74,8 @@ class Session:
         need(self.levels and self.levels == sorted(set(self.levels)))
         for level in self.levels:
             integer(level, 1, 12)
-        observer_key = derive_key(key, 'AHSL13-observer')
-        evaluator_key = derive_key(key, 'AHSL13-evaluator')
+        observer_key = derive_key(key, 'AHSL14-observer')
+        evaluator_key = derive_key(key, 'AHSL14-evaluator')
         self.mission = create_mission(
             manifest, self.levels, key_id(observer_key), key_id(evaluator_key))
         self.mission_id = cid('Mission', self.mission)
@@ -108,7 +109,9 @@ class Session:
         from the blob.
         '''
         return deepcopy({
-            'version': '1.3', 'levels': self.levels, 'programs': self.programs,
+            'version': '1.4', 'levels': self.levels,
+            'programs': {key: canonical(value).decode('ascii')
+                         for key, value in self.programs.items()},
             'plans': self.plans, 'used': sorted(self.used),
             'training_used': sorted(self.training_used),
             'dataset': self.dataset,
@@ -140,8 +143,18 @@ class Session:
                           'mission_id', 'published_contracts', 'contracts',
                           'decisions', 'request_log', 'request_log_bytes',
                           'request_log_head'))
-        need(snapshot['version'] == '1.3', 'STALE')
+        need(snapshot['version'] == '1.4', 'STALE')
         saved = deepcopy(snapshot)
+        need(type(saved['programs']) is dict)
+        programs = {}
+        for identifier, encoded in saved['programs'].items():
+            ref(identifier)
+            need(type(encoded) is str)
+            program = decode(encoded.encode('ascii'))
+            check_agent(program)
+            need(cid('Program', program) == identifier, 'INTEGRITY')
+            programs[identifier] = program
+        saved['programs'] = programs
         ledger = saved['ledger']
         baseline = saved['programs'][ledger['genesis']['active']]
         result = cls(baseline, ledger['genesis']['total'], key,
@@ -329,14 +342,31 @@ class Session:
         need(set(results) == set(wanted), 'INTEGRITY')
         pairs = [[results[parent], results[child]]
                  for parent, child in plan['assignments']]
-        # Any completed assessment consumes its exact assignments, even
-        # failure.
-        self.used.update(wanted)
         absolute = all(child for parent, child in pairs)
         retained = all(not witnesses[child]['assessment']['violations']
                        for parent, child in plan['assignments'])
         gain = any(not parent and child for parent, child in pairs)
-        accept = absolute and retained and (plan['mode'] == 'retain' or gain)
+        need(self.mission['improvement_profile'] == IMPROVEMENT_PROFILE,
+             'INTEGRITY')
+        costs = [[witnesses[item]['assessment']['cost'] for item in pair]
+                 for pair in plan['assignments']]
+        comparable = all(parent and child for parent, child in pairs)
+        nonworse = comparable and all(
+            child[axis] <= parent[axis]
+            for parent, child in costs for axis in COST_AXES)
+        strict = nonworse and any(
+            child[axis] < parent[axis]
+            for parent, child in costs for axis in COST_AXES)
+        improvement = {
+            'profile': IMPROVEMENT_PROFILE, 'success_gain': gain,
+            'cost_comparable': comparable, 'cost_nonworse': nonworse,
+            'cost_strict': strict, 'cost_pairs': deepcopy(costs),
+        }
+        accept = absolute and retained and (
+            plan['mode'] == 'retain' or gain or strict)
+        # All protocol and profile checks precede evidence consumption.
+        # A valid completed assessment consumes assignments even on failure.
+        self.used.update(wanted)
         certificate = {
             'kind': 'ReleaseDecision', 'plan': plan_id,
             'generation': state['generation'], 'pairs': pairs,
@@ -345,6 +375,7 @@ class Session:
             'mission': self.mission_id,
             'guarantees': cid('Guarantees', plan['candidate_guarantees']),
             'assessments': [witnesses[key] for key in sorted(witnesses)],
+            'improvement': improvement,
         }
         if accept:
             self.ledger.apply('admitter', {

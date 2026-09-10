@@ -8,18 +8,27 @@ from pathlib import Path
 
 from ahsl.admission import Session, formalize
 from ahsl.codec import cid
-from ahsl.examples import corridor_agent
+from ahsl.examples import action, builtin, choose, corridor_agent, lit, var
 from ahsl.proofs import search
 from ahsl.schema import validate_schema
 
 
 def run(manifest):
     root_key = b'demo-key-only-never-use-in-a-service'
-    owner = Session(corridor_agent('paint'), 48,
+    owner = Session(corridor_agent('paint'), 72,
                     root_key, manifest)
+    delayed = corridor_agent()
+    main = delayed['functions']['main']
+    main['body'] = choose(builtin('eq', var('index'), lit(0, 'Int')),
+                          action(lit('noop', 'Text')), main['body'])
+    plan = owner.prepare(delayed, list(range(1, 13)))
+    first_receipts = owner.evaluate(plan)
+    decision = owner.admit(plan, first_receipts)
+    assert decision['accept']
     plan = owner.prepare(corridor_agent(), list(range(1, 13)))
     receipts = owner.evaluate(plan)
-    decision = owner.admit(plan, receipts)
+    continued = owner.admit(plan, receipts)
+    assert continued['accept'] and continued['improvement']['cost_strict']
     admissions = []
     for receipt in receipts:
         trace = receipt['receipt']['trace']
@@ -42,6 +51,7 @@ def run(manifest):
     assert restored.snapshot() == snapshot
     for value, schema in (
         (decision, 'ReleaseDecision'),
+        (continued, 'ReleaseDecision'),
         (compiled_decision, 'ReleaseDecision'),
         (local, 'LocalPolicy'),
             (snapshot, 'SessionSnapshot')):
@@ -55,7 +65,8 @@ def run(manifest):
                         'term': ['lam', atom, ['var', 0]]}
     goal = ['and', library['C']['goal'], library['D']['goal']]
     return {
-        'release': decision, 'admitted_training_trajectories': len(admissions),
+        'release': decision, 'continued_improvement': continued,
+        'admitted_training_trajectories': len(admissions),
         'local_policy_entries': len(local['table']),
         'compiled_policy_successes': successes,
         'compiled_policy_release': compiled_decision,
@@ -64,7 +75,7 @@ def run(manifest):
         'snapshot_restored': True,
         'search': {mode: search(goal, library, 1, mode)
                    for mode in ('forward', 'decompose')},
-        'example_exploit': receipts[0], 'example_success': receipts[1],
+        'example_exploit': first_receipts[0], 'example_success': receipts[1],
     }
 
 

@@ -1,7 +1,7 @@
 {
   "release": {
     "kind": "ReleaseDecision",
-    "plan": "fc109fe16614f6ad41d788921383320191c162fe9faeaff873a4f35d72cf754e",
+    "plan": "1334c83709ed009a41200a73bb539c3953719ee7a3c5da5b1746490bd9e5878c",
     "generation": 0,
     "pairs": [
       [
@@ -69,511 +69,768 @@
       12
     ],
     "receipts": [
-      "01a07d58f0d116e8633b66fc086d80a57389ae38269fab5be1977f80ff92c476",
-      "03a004685a27b77f9ab3a489a07d4602079d0ae7c6a0bda85600e1eacfabfb7f",
-      "061718d08ca1c0f78b1faa7d33b51aaa323ac44d969749dcc9bc30d94e347569",
-      "1024d107722d168fc52eb20e6f3760474e8338cc8c98f518beaaaea41b8dfd9a",
-      "26a571484a605409758367d557df0119be1f7d762ea6723567e040942eff55d4",
-      "273c189a8a490dd0ed65124c5cde5777414790259a2581551dd84bf1a36561b8",
-      "440fad1b3b1408a33bdccc37dc1a94eecf073cf780d3e01f4f39f06039440017",
-      "6a3416ceb4fef44b5327e8863750786df003b38a63473ad2643a63ad5d3d4f7f",
-      "6e1063f33fce3d067e54bd24cc0273cd196e90de1b73c713e6511da795c8ebb1",
-      "6fc5c9ef05889873138d5d86616156b8bd994259cb0a48c928c0a2fa1067fa2e",
-      "70a970a9b6f74ac8e2a7c97e9b40be7879641d43fc19c35dafe7d4acf47c8b7d",
-      "718e3e1beb0b7cebc998197c60c71600eacd63a44f1327c1dc3fa23e181b3390",
-      "853789d8af21515eb23b3594853f798baefa3cffbf8c4ac3a550a1bb26c57cfb",
-      "adc82b49d33dcaad8ac442838ae21c63a6e978b42eeecd65d457d8c9d5cb6931",
-      "af54160d33f7017f848be78ba73332f5cbf573a18b93642c481ed651485d7336",
-      "b1c78973e3284f411c562ed8c2761f2d857772eb0f3e3bcff294a92df9db9d4e",
-      "bb046e64e4b23c362b8439667ef26b0a0133d22e010b16c49b1e4192f0176a91",
-      "bc0d0a849a5cb8a8c5ebe0c8566fa570ad853dac1ec911df6f1e3fdc80b33ace",
-      "c45266a0b5023103a0836ddf4de0bba3f9ef39703fb004f429f46a26e0106ad5",
-      "c4eb69260323e7a2b01fd8853f177f013fbc2731f8304a029d7fae5273d42c81",
-      "cf5c5efefe119ba78589a458279dbef2435046710ee6630388c8b61202f67b68",
-      "db4d82f5d009cb746b043e3808e9fee4fcbbd9c9cac50557147ce6ab192d04b9",
-      "e65c2dae659dbdf1c729ac402ec5dbedaded179059823e3b085e7bf3aca2781a",
-      "f7220836daa475f783d6ebc983d29f54b3ed8997723083bfa609bbeffbb33e0e"
+      "0705f0b17b356c4bf11c4e930d6b901f860680937560a358f5588c8cc079c66b",
+      "08d89fac897415454d65c0e56729155bbf76e3316b5ca087a0b0806ea811a887",
+      "191f11d20a516e88ebc231561218c268ca1d831da60c64bb170e5ab44f98c969",
+      "221691ad8d3cf743fd128c90596c4359cb46714898224a79c6ccdc2facdade93",
+      "3a31357d4ba916c3056302809c5e384c6f2edacb3db866778b944faec31495a2",
+      "495d6ef36e66954d8a707e00f345ceec2dc178977967fc011a314ac5ccfb1f02",
+      "49df92e847e74293edfdbaf4a6f39599a355ca332d34d830a3cedab31f858021",
+      "4d3a5844d3faf6cb25aa3ff26f0b676212c25778b2bf4b16713507ffba98fae4",
+      "599f10ab2171912b690206db2b1da7d5d405ea7988c48fd39df55715a27df25c",
+      "653156a813dd3c952db567c19ad916d0df76826101e10d985196960e0bee29b2",
+      "68ef1f2ac82a29b1b5007479a9da858a2cd83065c8624132f336d6d4e2a304bd",
+      "703ac270eb364848d53bf4d500c99f4c2f05e79114488dc10a520e473e4ee8c8",
+      "707936fd970f24031556d4514af89a16d57f628a620ba972c2b49358fb83cf9d",
+      "784aaa284d07732e4924b4cfd649e01c8ed127438ced17d3a3c19fd7728d2f99",
+      "8ea750710c131a344ead8d952c57d6623a42e092b09306cd4e3a155240398548",
+      "95b1a012e81237d9ee67d16b1aa7e35b67114ba76100312bdf5aa963a9c43836",
+      "b2c0867b848dfa867c776e6361d3cfc6321e647e608d00fbcc15ca668ae5cacc",
+      "b38ff1992faa7d18e9ec1be5cc5bc41204dbc3fe74e11e2ed2559b86dbeb500e",
+      "ba42840e7c963976feb1eed3f61a34828cf39dd800398986becc56c6dccdceaf",
+      "c9d364197f0211f579cffe7758076f4e219dcba3e6ae9583128f1fa5a1e0c2ac",
+      "cf1a1445a538d61c2ba71ade523c4414bb45170a822f2f0ea1376838bb44df50",
+      "e6f1c62e180acab7f897601b4c7553203abe06678b10699c9329c4df3231358c",
+      "f92996da01988010709d1f26c2a8b2cd06a797bdcc3aa29173037c3ae335a6b6",
+      "f97cbb00d6b38f9c6860ac72e7e59e2e15417dff2d5e1e16c20c315f735bbc77"
     ],
-    "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-    "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+    "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+    "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
     "assessments": [
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "044b57e8de291a79ec239c73433c8d7230f81a14ab1ebd2bee21db8afa65858c",
-          "source": "1024d107722d168fc52eb20e6f3760474e8338cc8c98f518beaaaea41b8dfd9a",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "06a6b9f94c71c8043087b75398aeb73749c6d3c9c4a889fac0ec988015cfa5ae",
+          "source": "221691ad8d3cf743fd128c90596c4359cb46714898224a79c6ccdc2facdade93",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 21,
+            "steps": 32,
+            "trace": "c27cad557d36c5dd27d02678af0a00b0f762252bf9c0e8b99628d65916d7d306"
+          },
+          "cost": {
+            "actions": 32,
+            "vm_fuel": 838,
+            "program_bytes": 1715
+          },
+          "violations": []
+        },
+        "tag": "7d74f202085d41d58320114b66a07dc96d446b9417463cdb9065776adc0ccfff"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "1b21c60fec56fc3a12d86da8b1a2fc97c1eff13ad0c3e9460c0f20a58620415b",
+          "source": "c9d364197f0211f579cffe7758076f4e219dcba3e6ae9583128f1fa5a1e0c2ac",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 7,
+            "steps": 11,
+            "trace": "3f687f5c8ff9e7c02b9ffa9e6ffa76e2099403006a8ae3ef226b60e8efecc237"
+          },
+          "cost": {
+            "actions": 11,
+            "vm_fuel": 271,
+            "program_bytes": 1715
+          },
+          "violations": []
+        },
+        "tag": "016e142c2e536edafb8320b68545b1245c2733baa5fcab3881a2711be167eda7"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "1e90681cef70da2efbbbe6fc190f7d341626a36080bcb0d9953b06abe7f7d6ee",
+          "source": "495d6ef36e66954d8a707e00f345ceec2dc178977967fc011a314ac5ccfb1f02",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": false,
             "prediction_hits": 1,
             "steps": 1,
-            "trace": "33b3bda5888ed68b0fdcf837134f617bfa9ccb8af0854ce8f7d9ae507d3d087b"
+            "trace": "7d6a6450c99831dcdde7f62f179934eadf2c5b76db209cbe789ba1d5fda67459"
+          },
+          "cost": {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
           },
           "violations": [
             "GROUND_GOAL"
           ]
         },
-        "tag": "761a8a4ab518d3e468e66101ead3256e9067992d0d740851840438d5051daf35"
+        "tag": "491300b650fdd0b14e14589f7f099b8bf20c255f060e2734563394f4b9454700"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "1b9487c65e5bc68e1f4a40b5a6ac7acc1842e09c6b82c781513e86e21778f480",
-          "source": "440fad1b3b1408a33bdccc37dc1a94eecf073cf780d3e01f4f39f06039440017",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 16,
-            "steps": 25,
-            "trace": "040e9f278aa35c7a255cd180780ab0280ec4b6e6171c7660e524639a91f52bee"
-          },
-          "violations": []
-        },
-        "tag": "4f6e8ca9f43bd011ed876044b1c14a0a8e77c3ec82c01dedb579809f30ba9d37"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "2798c87929621dc3e229dc7c2b763bae11ea10672f3f41c9ffaf7897ceab1152",
-          "source": "6a3416ceb4fef44b5327e8863750786df003b38a63473ad2643a63ad5d3d4f7f",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 22,
-            "steps": 34,
-            "trace": "19f8194c0dd4a7e01a14ac23a74f08a3d4e3e8b0ae2ab436f0fa2c018775ddc9"
-          },
-          "violations": []
-        },
-        "tag": "e28b45ee7cd5b6f3555d55c88fe07ae85d72ee337723918dfef5835cc578c063"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "35bd2641aba00bfa82d040f5b936c0327dd456d74087ba2f648b5a34786589bc",
-          "source": "f7220836daa475f783d6ebc983d29f54b3ed8997723083bfa609bbeffbb33e0e",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "3a244e92a532aae936202befc87cffd4f7d04f1ba47c39c2daa6955205fbb08c",
+          "source": "ba42840e7c963976feb1eed3f61a34828cf39dd800398986becc56c6dccdceaf",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": false,
             "prediction_hits": 1,
             "steps": 1,
-            "trace": "77abc038cf02eb1f2eca65731a059f28a8b3f3cb5070bb6f561dbca16d2a2b2a"
+            "trace": "099e52abc9828818aa4e5db4cc56dabbd588cf0fe8d38c121dc90d64a742f8ca"
+          },
+          "cost": {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
           },
           "violations": [
             "GROUND_GOAL"
           ]
         },
-        "tag": "7bd0a52deecbd90436389518badad9a0746d1e0a0b9536ec272bc9329cf045cc"
+        "tag": "9ec8a5c8ace075aeea8d50615d48f8323a7db30f91c7464be77fa19e49a3801d"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "38fbebd16fd944408c5252b7028ed80cff40920153322aaeb80fee442b3f3136",
-          "source": "26a571484a605409758367d557df0119be1f7d762ea6723567e040942eff55d4",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "47fdec53e097c6b5fc10d0d91ee679102c873faeafb7d4ae0ff3dce402088088",
+          "source": "b2c0867b848dfa867c776e6361d3cfc6321e647e608d00fbcc15ca668ae5cacc",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
-            "prediction_hits": 6,
-            "steps": 10,
-            "trace": "f6346274030b98119c2e5cb613f9cdae0b15161c0b4c5851b088b4a121e6dd2d"
+            "prediction_hits": 5,
+            "steps": 8,
+            "trace": "af77ae08d933aae1cbebd95a53305ece424db5f734ab8190d1c4fcaad3335975"
+          },
+          "cost": {
+            "actions": 8,
+            "vm_fuel": 190,
+            "program_bytes": 1715
           },
           "violations": []
         },
-        "tag": "7ae1880fe7ad6a2050873e9e43238bc6ec944e430d2f821f6571fb4af8dd9ece"
+        "tag": "e6ec11b6e5ed459b92f92295c98481b154980461c540708e2065a4554b3221cc"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "3913e6e98ca5ed530370137288d18dd6a6e826ff24ec1ba29b37e44f3e9aa69b",
-          "source": "cf5c5efefe119ba78589a458279dbef2435046710ee6630388c8b61202f67b68",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "4dc01db7686dba26bff9fc37e76956f39d86d735bf0c64caa69ce8d667b19dcb",
+          "source": "653156a813dd3c952db567c19ad916d0df76826101e10d985196960e0bee29b2",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 19,
+            "steps": 29,
+            "trace": "a1033e1b45bf15b6369626129e15d55639b7e6edb29cb9788f3b5d151fc0b280"
+          },
+          "cost": {
+            "actions": 29,
+            "vm_fuel": 757,
+            "program_bytes": 1715
+          },
+          "violations": []
+        },
+        "tag": "934c811988c6ae298312032fe6c233e7194b9b0837fdc437a266126c7ed11c35"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "4fa9534645967e0fba07dc6ae489849e0be564a32e62fbb4f0290719bd82ca7f",
+          "source": "3a31357d4ba916c3056302809c5e384c6f2edacb3db866778b944faec31495a2",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": false,
             "prediction_hits": 1,
             "steps": 1,
-            "trace": "98da1fda126055f8a6343526fba7846cc9155691a843453c77eaae7b4b1ff857"
+            "trace": "59e268a38303c25ab110fc3b0bbce7691dfe37fa9f9c572ef381e951e4f8b4ca"
+          },
+          "cost": {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
           },
           "violations": [
             "GROUND_GOAL"
           ]
         },
-        "tag": "d8614e95c7f8d8ddd1d5c6928839b5f964f05eb88742675b1b3ca44ef323ad46"
+        "tag": "776bceaafddcfca71e9c8ba70705c17fd8e8683f51b288cef62db42b59defc53"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "3be6ceaa0360be9a900ea500a1ec861f22f27fd01da3d1e233af64af759b1e51",
-          "source": "70a970a9b6f74ac8e2a7c97e9b40be7879641d43fc19c35dafe7d4acf47c8b7d",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "558f43e10f84eca125269e7edbff633a183b86cc2b9ae38fae9343cd1f087230",
+          "source": "0705f0b17b356c4bf11c4e930d6b901f860680937560a358f5588c8cc079c66b",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
-            "prediction_hits": 24,
-            "steps": 37,
-            "trace": "5963ec2d551d37a51ae3ce88f727a61c886934461f9a886582c5ad2035205a1e"
+            "prediction_hits": 15,
+            "steps": 23,
+            "trace": "80dd4fba1e585ed1a0a629ba85a2a1eac587824f48a5617378324b25ab04b44b"
+          },
+          "cost": {
+            "actions": 23,
+            "vm_fuel": 595,
+            "program_bytes": 1715
           },
           "violations": []
         },
-        "tag": "7a9f18eb61f47a4d37dbd9501f0d5723e6629c14dce889640369cb73581b6845"
+        "tag": "b9106538f795067df02238ca3e9ea710480297e2d5c31ff3dc349ec892bebfb1"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "43267fefcc863d90d43b73ff97d23d39ba6013f10c647c5cdb9d6e0ab4db1647",
-          "source": "db4d82f5d009cb746b043e3808e9fee4fcbbd9c9cac50557147ce6ab192d04b9",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 2,
-            "steps": 4,
-            "trace": "d344402a8ba99b545d6389874dd936d9deda1404a1a0bc622ef71dcaeff118d7"
-          },
-          "violations": []
-        },
-        "tag": "368271c4736c6e25c44a27e8de796aac2ec44a6b04c075e851fe22ebbb807764"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "535dffdce3ef37e3b0c49ffb9caa128e3106bfeae8a7434177de0324b23058bc",
-          "source": "b1c78973e3284f411c562ed8c2761f2d857772eb0f3e3bcff294a92df9db9d4e",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "64b205e9a7f32ca39dad562f9ae82dee1a152cf22cfe112accfb546cf7ddeb4d",
+          "source": "8ea750710c131a344ead8d952c57d6623a42e092b09306cd4e3a155240398548",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": false,
             "prediction_hits": 1,
             "steps": 1,
-            "trace": "c1f2b07c44168096e718b21cf2a7df237adc07bea66f4dcf832250e9631a1185"
+            "trace": "8215a933f9452be4dafd614611822efb847ded8462e466c674a00a3f2240da17"
+          },
+          "cost": {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
           },
           "violations": [
             "GROUND_GOAL"
           ]
         },
-        "tag": "2e0d5520c4d9f1abfcf4de0a073934e542f97dcb99916ec50a74830909299177"
+        "tag": "235799778acdceac7798b1d54f09ace3bea6956f7660107d5293e5bfd3c2aeda"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "61d7699d9fac7b52513b40945b39f12cf359145ed07fcaab5901290a2b119b80",
-          "source": "bc0d0a849a5cb8a8c5ebe0c8566fa570ad853dac1ec911df6f1e3fdc80b33ace",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": false,
-            "prediction_hits": 1,
-            "steps": 1,
-            "trace": "23aae8f3b3fcc0abb95f3b3e6b4d33264855d3be6f7bc218cfb3cc87e75332f0"
-          },
-          "violations": [
-            "GROUND_GOAL"
-          ]
-        },
-        "tag": "13a662c217301c4f31451cc4dc3255979663bc766d35e9464844985642f843cc"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "6ba4aed205eaeec2fad867a99155361f26ce26c22be1d9e8504facdbd6473883",
-          "source": "061718d08ca1c0f78b1faa7d33b51aaa323ac44d969749dcc9bc30d94e347569",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "6d55ca601c068136a8164931c103410026112314cbd6e41eeb67e4ff2921d135",
+          "source": "707936fd970f24031556d4514af89a16d57f628a620ba972c2b49358fb83cf9d",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
-            "prediction_hits": 4,
-            "steps": 7,
-            "trace": "e9eb28376fdc037341a1ad8eaa066d59ad324a0493ec76ddfdac8415ccd4e320"
+            "prediction_hits": 13,
+            "steps": 20,
+            "trace": "2f73f659ef9f40c80adda246edc7714de35aa3ff6374a7da1e164b61f5b600e7"
+          },
+          "cost": {
+            "actions": 20,
+            "vm_fuel": 514,
+            "program_bytes": 1715
           },
           "violations": []
         },
-        "tag": "e3f1486942ac7412cb554e66e3dcd8c1a31886cf2967d25d9e2f6bfcb3c47929"
+        "tag": "d85441fdb22bed9d0c7a31312769b34472fc8c2778b079be625ec57ab19e7030"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "6d47a1d46db22c805ffe77bdd068096a295e2745d08335807b5409902e377be0",
-          "source": "c45266a0b5023103a0836ddf4de0bba3f9ef39703fb004f429f46a26e0106ad5",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "76930ce8849234e1270773e95c4c5e431afd91f748e95f2f8a5cdf7c6d89b441",
+          "source": "784aaa284d07732e4924b4cfd649e01c8ed127438ced17d3a3c19fd7728d2f99",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": false,
+            "prediction_hits": 1,
+            "steps": 1,
+            "trace": "9d9761ccd95a4c4149af26f15b7343a84ac7963c987549353ae9e6c3e93e10f1"
+          },
+          "cost": {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          "violations": [
+            "GROUND_GOAL"
+          ]
+        },
+        "tag": "d8b2dd11bb2fe50a44dc887389991c5bb084255dab2589c90b788639ccbb2a89"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "81ae5481a46baab329c243536a2ed51d50e473e68ea1d87189831c95af5f392f",
+          "source": "68ef1f2ac82a29b1b5007479a9da858a2cd83065c8624132f336d6d4e2a304bd",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": false,
+            "prediction_hits": 1,
+            "steps": 1,
+            "trace": "f700cb7ff09703a8b905861b95f3aea1b27fd6f645bf46ec8ada96d867bbe540"
+          },
+          "cost": {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          "violations": [
+            "GROUND_GOAL"
+          ]
+        },
+        "tag": "26cbd50c6fd6f546729b19c9798569593c3c65452547a2d91a51b4ff38dc1958"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "8fcf983027de19dd7bfd886e05615a9b86fd495d89e9a20df86c5f199c9ff6dc",
+          "source": "08d89fac897415454d65c0e56729155bbf76e3316b5ca087a0b0806ea811a887",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
-            "prediction_hits": 10,
-            "steps": 16,
-            "trace": "ab0544cb4dc0f71de8da34470d3fcabe4a0ea640390c66ce9f15c53074fe72f4"
+            "prediction_hits": 25,
+            "steps": 38,
+            "trace": "bb5e49986e14d47bbaf3056021d7811589efd81c88be4c47a2a1798e784c859d"
+          },
+          "cost": {
+            "actions": 38,
+            "vm_fuel": 1000,
+            "program_bytes": 1715
           },
           "violations": []
         },
-        "tag": "4173080f58ce293e3bff8e7ee51055055054b3231f321f2724b00b7fa60edbb8"
+        "tag": "448c3fdb1748b6e46562311146280a9834eb419f14207efba6e8e20abe5f4154"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "72c5c5773308268d3b5aaddd980228aaf3f112e996650e2cc4eca9be9585ff9f",
-          "source": "273c189a8a490dd0ed65124c5cde5777414790259a2581551dd84bf1a36561b8",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": false,
-            "prediction_hits": 1,
-            "steps": 1,
-            "trace": "d3b6960c0c6ce23b56ec5a717fab1e438bedd11d8e86cb3324b261d85f69e547"
-          },
-          "violations": [
-            "GROUND_GOAL"
-          ]
-        },
-        "tag": "686faeaf7275c4c90af5436136fca2e7a31fc022741693ac48414f0d44953c24"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "7bc149e3258c478a7f37b6f31b32ee89fa1bcd2f6aa88d365e60a28f9ccc2295",
-          "source": "adc82b49d33dcaad8ac442838ae21c63a6e978b42eeecd65d457d8c9d5cb6931",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "988c7ff285fe044beba7e4172d2d2934e81aef47ed56990ecc2512dd9d9a2097",
+          "source": "4d3a5844d3faf6cb25aa3ff26f0b676212c25778b2bf4b16713507ffba98fae4",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
-            "prediction_hits": 8,
-            "steps": 13,
-            "trace": "71286d14aef01eca47f00114a7fefe3732946addb18cd014dfa600f6650ee7fe"
+            "prediction_hits": 9,
+            "steps": 14,
+            "trace": "47b1f097dc21415bf35be1cb002692f560a3cb7a44578c59bc12015a935e33f2"
+          },
+          "cost": {
+            "actions": 14,
+            "vm_fuel": 352,
+            "program_bytes": 1715
           },
           "violations": []
         },
-        "tag": "356f10d6a6884e59224ea5b020c6b34ee077b8ba0e104cefd5173dd204959039"
+        "tag": "5286d3408e7b4e98f5d732f310036edd604511b9979a3b3bcc01fb6288f6f4c3"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "94490ef82fd6e5f9dba41f29b149c691a5df29cff662ea53ef1a0d9237b2102b",
-          "source": "853789d8af21515eb23b3594853f798baefa3cffbf8c4ac3a550a1bb26c57cfb",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": false,
-            "prediction_hits": 1,
-            "steps": 1,
-            "trace": "e351d6a41604cefb97d6eabcda921db70ed3092e8408f297c99178be0fdf9ce3"
-          },
-          "violations": [
-            "GROUND_GOAL"
-          ]
-        },
-        "tag": "af7d475a6cccffbcd42578d4c275d3e2e25d8f97ae09e9656ddd3ba75bdfcd8d"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "b3df4ee065063d725e0e2183925d24f9e534954b5f786485d7a810e74837191c",
-          "source": "01a07d58f0d116e8633b66fc086d80a57389ae38269fab5be1977f80ff92c476",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "9b7626b447879a080eb3436750e1176e5d538add42c5a5bf9a119346e6c19f89",
+          "source": "f97cbb00d6b38f9c6860ac72e7e59e2e15417dff2d5e1e16c20c315f735bbc77",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
-            "prediction_hits": 12,
-            "steps": 19,
-            "trace": "91560b8ee7c716cd4d7754809665b30bd4cc777d89c6431f205d2bda21c34937"
+            "prediction_hits": 23,
+            "steps": 35,
+            "trace": "b22450a7ae0e3034af068460ab6168f74dd14299eb5b53678b558e14c97f4b94"
+          },
+          "cost": {
+            "actions": 35,
+            "vm_fuel": 919,
+            "program_bytes": 1715
           },
           "violations": []
         },
-        "tag": "4249f64475796a08fc6fe9768551d89504def754d16fb4c72e4ded9d6d16441f"
+        "tag": "de7fd5bb8e576f9272a1aa47f58c3fce7c39619c554525b55eefe4c9cfd86ab8"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "b48cad21f4a1c5a3d9f0ec41859a6abb837b85e3577d666b543a33b122950d8c",
-          "source": "718e3e1beb0b7cebc998197c60c71600eacd63a44f1327c1dc3fa23e181b3390",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": false,
-            "prediction_hits": 1,
-            "steps": 1,
-            "trace": "8dbde0eef6acb22dba7dd5a7911387aa47a1694a60eef359b27c7ff4863b9225"
-          },
-          "violations": [
-            "GROUND_GOAL"
-          ]
-        },
-        "tag": "c1cdafa7aead726de02f6f50fe463cc0202e8cf991785ceca81984d335bb555e"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "b5b549d998acaae2d3fcde2623660e24ee733d4b268dcdc3cdf0d613e7f2f212",
-          "source": "af54160d33f7017f848be78ba73332f5cbf573a18b93642c481ed651485d7336",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "a3aff603ffb0419aa562892265e694f0145d76e6e0156182af8becae2d9212ae",
+          "source": "703ac270eb364848d53bf4d500c99f4c2f05e79114488dc10a520e473e4ee8c8",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
-            "prediction_hits": 20,
-            "steps": 31,
-            "trace": "e94c99bd5d251bf1b75d2c606c6041a91be750cbba7d4b3c1a2a6730055d2070"
+            "prediction_hits": 3,
+            "steps": 5,
+            "trace": "8f65787d5d47b6d6a906e8e95d3b10031518cd97d6ab1f7f807eabaac1058c30"
+          },
+          "cost": {
+            "actions": 5,
+            "vm_fuel": 109,
+            "program_bytes": 1715
           },
           "violations": []
         },
-        "tag": "2b1f4b109221e5bba89e2b9cc5a2f7a1262abaa456b205af88f05dbe4d5c4973"
+        "tag": "4f4bb9d9c3854da4e64113a1fd174b9f46b343c7e0d3519858a20705ea193366"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "ba39a19c99f619a3bc9fdc9bc122cd93471e2785748df4bf94ca8ed80f906545",
-          "source": "6fc5c9ef05889873138d5d86616156b8bd994259cb0a48c928c0a2fa1067fa2e",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": false,
-            "prediction_hits": 1,
-            "steps": 1,
-            "trace": "e83fda94b314fdb9ad71e029da59b91bcc299104666953defc76d02c2bbc2d66"
-          },
-          "violations": [
-            "GROUND_GOAL"
-          ]
-        },
-        "tag": "75263730c088f0d056c56fd18f9007d59c38789b336bfbec09ae5d843bdb392d"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "bfd6e225b8f291f7d325ca13964ca1deef6d13d10698cdf1dcbbd60fcb4a9adc",
-          "source": "bb046e64e4b23c362b8439667ef26b0a0133d22e010b16c49b1e4192f0176a91",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": false,
-            "prediction_hits": 1,
-            "steps": 1,
-            "trace": "1b438364122c0ee173e2798c138c20097091b9330898c3b17c40cfa9df03e742"
-          },
-          "violations": [
-            "GROUND_GOAL"
-          ]
-        },
-        "tag": "d15de08f8b33b123222aa66a7779cea7092a892b3351e8c8ce450fdb87704bcc"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "cc5dc542d11f9af7606c77f446681bfe19afe41ec309e3aa21ecfbf1fb4cbb54",
-          "source": "6e1063f33fce3d067e54bd24cc0273cd196e90de1b73c713e6511da795c8ebb1",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "b562373d78aae3d056da695be6c69b83402e6b84afeade6965cd80bdcfadbf89",
+          "source": "95b1a012e81237d9ee67d16b1aa7e35b67114ba76100312bdf5aa963a9c43836",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
-            "prediction_hits": 14,
-            "steps": 22,
-            "trace": "a3349c89a114bd60980c194d0a139bf910f567954b17fb4d9c0c1a6d9cfcef73"
+            "prediction_hits": 17,
+            "steps": 26,
+            "trace": "e63869711fc4b6b423fdff7f923b2ca09006495bdc3df782262d83fb0e66914f"
+          },
+          "cost": {
+            "actions": 26,
+            "vm_fuel": 676,
+            "program_bytes": 1715
           },
           "violations": []
         },
-        "tag": "5a9b461d154624d6c22f99a8c47c566867d9bf7f547808bfdc80323e46a948f5"
+        "tag": "d17d9249c6d3a58e05a8343d4c72ee0c11c92bd1b789c58ca38fca2e0e223a24"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "d685665707f14a1719fddcf3d03d30cbef6e7f9727d3766a92a27d56ffe33813",
-          "source": "e65c2dae659dbdf1c729ac402ec5dbedaded179059823e3b085e7bf3aca2781a",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "b8ada68ad8a6b1988c1ee6110b70e01af10974449fb35248578a053d7a842f20",
+          "source": "599f10ab2171912b690206db2b1da7d5d405ea7988c48fd39df55715a27df25c",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": false,
             "prediction_hits": 1,
             "steps": 1,
-            "trace": "56c3458a7c283af5cfedc1f4c76145ecd82451076b94e5ca0a7e555642846ef5"
+            "trace": "aa959d8aec4bdb0a11a16404e0eb297c29e2244462363ee7f71797fe49eac1d2"
+          },
+          "cost": {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
           },
           "violations": [
             "GROUND_GOAL"
           ]
         },
-        "tag": "b366702e0cc529aad8244ed8801b5cd1f9476bfe43a677e1d2edebecf97b8445"
+        "tag": "51f592aa8582dd4ab94357f0cdea290cb03208a40581a26a670dfd62e252a51b"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "eb58e5c87d0290bd35fe01155e4e9195b14f049e5f20745145ef8aa56173ca1d",
-          "source": "c4eb69260323e7a2b01fd8853f177f013fbc2731f8304a029d7fae5273d42c81",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "b90b5d41f397cbac35da6704be00c7b97cd41559b24aadc6857c562494ba914f",
+          "source": "e6f1c62e180acab7f897601b4c7553203abe06678b10699c9329c4df3231358c",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": false,
             "prediction_hits": 1,
             "steps": 1,
-            "trace": "ba7a3bb99c70277ad980f58257f58cf57688730d99f2d78dcd735f60e14c1fea"
+            "trace": "fd8b3f65f6857a0c0329f32e2dd837699c01d8291e45876ddea41883e69ff9f5"
+          },
+          "cost": {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
           },
           "violations": [
             "GROUND_GOAL"
           ]
         },
-        "tag": "47d166577a0e94d3fe9ab5175033b80591ca9f1387b9944a11077b0be563af6b"
+        "tag": "43be32582cc13c66991c14fd9118e135ae2b023bb865cd78e24447150093fb43"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "ff56c573e2c60be9b6aec30dfbae41b01d0b24963ca4fe2275813ed189c31c77",
-          "source": "03a004685a27b77f9ab3a489a07d4602079d0ae7c6a0bda85600e1eacfabfb7f",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "bb749a1fb0950d409c14fbf58979e96acb88ca451967f5aa2b37bf544c0aa035",
+          "source": "f92996da01988010709d1f26c2a8b2cd06a797bdcc3aa29173037c3ae335a6b6",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": false,
+            "prediction_hits": 1,
+            "steps": 1,
+            "trace": "9091f5e1562c88f7d57a1e626de9a86e81f0a46d6c9e26e4fd9e4b2041b6e093"
+          },
+          "cost": {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          "violations": [
+            "GROUND_GOAL"
+          ]
+        },
+        "tag": "09209e0185df9678c4a267518379017d5ce747e38eb3177ee6e8325034c24820"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "bd31688504b3b2654b693fe3455603eff84e330fa2aec6fae91af0f60cff4f33",
+          "source": "191f11d20a516e88ebc231561218c268ca1d831da60c64bb170e5ab44f98c969",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": false,
+            "prediction_hits": 1,
+            "steps": 1,
+            "trace": "e486c9483d78ea053648e5f08106632f03d9d7a07fa64bd339a86bee0bc05de0"
+          },
+          "cost": {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          "violations": [
+            "GROUND_GOAL"
+          ]
+        },
+        "tag": "68fe645b9cea08c3823d9c1e45937c952dc27896189f7a92167e03cca1cd8791"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "e15475600394b3bdf7393efea40a4ab278c58ee5cebf982275426ab0ed219cce",
+          "source": "49df92e847e74293edfdbaf4a6f39599a355ca332d34d830a3cedab31f858021",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": false,
+            "prediction_hits": 1,
+            "steps": 1,
+            "trace": "aa43441b2f78dfbf083609e376430dc3fe597980c6b14151cfc69a1388a9a5ce"
+          },
+          "cost": {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          "violations": [
+            "GROUND_GOAL"
+          ]
+        },
+        "tag": "0b8df527d130c416bd502e8b31e1ec0623e8bd3a152dbf9a0cb5d2f4645d6648"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "f4fc9202c8cd29b05a03edb1e4ddc9df395a62ceb4d0ee79fbf9d33e4228389e",
+          "source": "cf1a1445a538d61c2ba71ade523c4414bb45170a822f2f0ea1376838bb44df50",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
-            "prediction_hits": 18,
-            "steps": 28,
-            "trace": "2e0705554da8477a4114d92c9d6b06a4a3740272f145fa1aae9ad8623ca54ab6"
+            "prediction_hits": 11,
+            "steps": 17,
+            "trace": "cb127a3e2907c522d232f523b492a3c53331ce90f7805e31d4c4b687b1f7f497"
+          },
+          "cost": {
+            "actions": 17,
+            "vm_fuel": 433,
+            "program_bytes": 1715
           },
           "violations": []
         },
-        "tag": "aba1c2183a5ac88393c3112e91a68493a6372f3a450d548093999b246b7ac5e3"
+        "tag": "737b5212f0766fcc0e79a0d5f34df1e65f77f28ee0c497b46c45674a4f679376"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "f70bddda8f5e64ef950f55d53bcaab0d38494274f54d721bd9b4ea85941f2cf6",
+          "source": "b38ff1992faa7d18e9ec1be5cc5bc41204dbc3fe74e11e2ed2559b86dbeb500e",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": false,
+            "prediction_hits": 1,
+            "steps": 1,
+            "trace": "c12f38f34fb48ea19b627d4c5860cbd4c2a98970e0482fdac87040057d645ece"
+          },
+          "cost": {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          "violations": [
+            "GROUND_GOAL"
+          ]
+        },
+        "tag": "72cf761de720a58836e33e287aba1a4e93c2dbedf2f72e2f6f08359e3d035c0a"
       }
-    ]
+    ],
+    "improvement": {
+      "profile": "SUCCESS_THEN_PARETO_COST_1",
+      "success_gain": true,
+      "cost_comparable": false,
+      "cost_nonworse": false,
+      "cost_strict": false,
+      "cost_pairs": [
+        [
+          {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          {
+            "actions": 5,
+            "vm_fuel": 109,
+            "program_bytes": 1715
+          }
+        ],
+        [
+          {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          {
+            "actions": 8,
+            "vm_fuel": 190,
+            "program_bytes": 1715
+          }
+        ],
+        [
+          {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          {
+            "actions": 11,
+            "vm_fuel": 271,
+            "program_bytes": 1715
+          }
+        ],
+        [
+          {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          {
+            "actions": 14,
+            "vm_fuel": 352,
+            "program_bytes": 1715
+          }
+        ],
+        [
+          {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          {
+            "actions": 17,
+            "vm_fuel": 433,
+            "program_bytes": 1715
+          }
+        ],
+        [
+          {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          {
+            "actions": 20,
+            "vm_fuel": 514,
+            "program_bytes": 1715
+          }
+        ],
+        [
+          {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          {
+            "actions": 23,
+            "vm_fuel": 595,
+            "program_bytes": 1715
+          }
+        ],
+        [
+          {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          {
+            "actions": 26,
+            "vm_fuel": 676,
+            "program_bytes": 1715
+          }
+        ],
+        [
+          {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          {
+            "actions": 29,
+            "vm_fuel": 757,
+            "program_bytes": 1715
+          }
+        ],
+        [
+          {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          {
+            "actions": 32,
+            "vm_fuel": 838,
+            "program_bytes": 1715
+          }
+        ],
+        [
+          {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          {
+            "actions": 35,
+            "vm_fuel": 919,
+            "program_bytes": 1715
+          }
+        ],
+        [
+          {
+            "actions": 1,
+            "vm_fuel": 11,
+            "program_bytes": 839
+          },
+          {
+            "actions": 38,
+            "vm_fuel": 1000,
+            "program_bytes": 1715
+          }
+        ]
+      ]
+    }
   },
-  "admitted_training_trajectories": 12,
-  "local_policy_entries": 246,
-  "compiled_policy_successes": [
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true
-  ],
-  "compiled_policy_release": {
+  "continued_improvement": {
     "kind": "ReleaseDecision",
-    "plan": "e07ec95dee706aff0ee36212e875eee494a2c6e3c03e673cd841f5dbb4b0e5bf",
+    "plan": "0341a2af4c80f7a494e8973ec7e39f3fe477639f2ecf9b1b118151c2fffdc030",
     "generation": 1,
     "pairs": [
       [
@@ -641,469 +898,1563 @@
       12
     ],
     "receipts": [
-      "06093013b8e1d5aa935a939876472df21f2f82b359b56302cfbe1a97dfc2b62d",
-      "19ce63d7fe3ea56f9129ebfa307f3f587f9dc7e4e176d40ee82f6353e5913485",
-      "1a67fc76f89c6e216ea67e39f971faa4ab7108072b89e30f2bbf8e5ca66b0e04",
-      "245449d35868444fe3736d6c79c9d3dcce842cad7771108c8fc17a907e0ccdb5",
-      "2610d34cc945b0b39f5000ae5ebb6f54ed77d4842ccc6204f96daeeca9e2325a",
-      "2e15d0657fb0cf3f9b646b9faecde0fc8c05ba2cbffc8fc8d6b80da96d8aefae",
-      "2fe4b8c3859d11b2567ac6d9d3b61910f0eb5449e78943da53c02da5a324dc27",
-      "36a2886db039647f648d9ff1c6b13b9df94a90df80fb920075a19b43dc7cfbc7",
-      "3895f8a928a8b427aa3e730906f2f2e48455b1e709ae5d0c1a45c8457ae5109a",
-      "3a490de4bdfa2b24747296f2be60f634062f4a6078561e5b82fba6f4c46a397d",
-      "4571d3b0da727a9f361b77d041e2ea1a7345be2050d3e0a9c604dc0e4fdc72e6",
-      "4709595aa3d45b2741a947c60e3af1773e0b4d62988e8dbc9d7af0e55034beb5",
-      "5cded523333ad215f1c31a763b4396f92bdbdb95e50f4a9e67bbcff29e51bce2",
-      "7690ebee49cf0003f2df3cae17021e3866137b77ec8d3b55cf2ddfea02c3978d",
-      "86063c0c24aa751ddddb25025a60441f5d87e1947b85f351a263780dc3f4e5e3",
-      "8ebde5c104dceaab3cb19616d5fcff1d8ac32e47ce4b871c3df506518a20f655",
-      "91662267d759ad6ad7a3dea76364986b69ae6808a859c99e357a03091a28d2d9",
-      "99bab94e06f3b27450c8bbd3dc7838959dbd7e2543d199d55c8173b520549d6e",
-      "a91723c299fc345f4c25d11c0d408d2065d3bc3751e8c0fc2e4fa2808b985633",
-      "c917f28a3773498e08201b4d48338e99a622c7b22ba0c5b172e07b7ee0fd0b45",
-      "dc6cf71b371068e1663d8ae0e054023f6478744d43da8de9e61c3a625a508784",
-      "eb8917cb85c0f38f61924c4c4b34a635e4bcdf6d43410dae94de7b1c1ab97e4a",
-      "f12f6c4e17ca8146375049d55c5ceaf55477827a0cc2e32d1792ad812e1a2424",
-      "fc1cc78e6d500a25b2075f400404e4079099248ef256064127fc996572cdc560"
+      "0bdf3b235d6f7fb0f5ff9d3a017e506ee83cd209f47730d9a8158e505a6475b1",
+      "11574f81f82344bdfc6db92fdb4b2d86feab72d6d17197b007692df62b89b225",
+      "13eca9f17016240b0c4fe21c5a478a49fed9ddd9dfe647cc4056ed575e875814",
+      "18256fe46fe458305e8c64868423bc604dfa1b77906cdb372d542cda2c9607c7",
+      "1b946339e5ca4c1c4dffb3233b68c21153b4b546a825ff7a2ddd60477f2031ac",
+      "1c45949eede26d1a9b91cf6cb5ca2d4bfda6f1343159f4bfa203f3aa17c337f5",
+      "2b2cc4b6bf93aa51ea839a88da178f26d912179e00b678bdb38a0d33e400529f",
+      "333530d0a0c34fe5280a62fd491b88dcbb5d70ab82e9c953cc86d3e9d86d7215",
+      "3b1d14666a3a3493ec63e27c228a26fbfd991d5ff6989a2ffe1fe9e041cc6483",
+      "44977413c5aaf5d6b5248b4616b45e8c4c8acf0b681fbf500f2ec44d64571a77",
+      "461359068267a4d28f5b68c4c148afe62054d2829a11f8d38d16172932bafe8b",
+      "5244750b0eb9f436ac3d0fa0d6334a103bc599dd3d083d0c33d20dab973eb654",
+      "573c4456357f4046d3ac83b37d2f3dde18973fec65102fd07bb8d0064ea383db",
+      "602981ea1d30ba79cbb9e325d7abc80b2831d8de6243a4563c35e5e19a505eb7",
+      "643e9ab3aa14f0d3b1af383dfdb7ff8ed29eb66239d32f8714e651a0088117b8",
+      "6e4942923161f355a212850faa65f091bb18e3ae9d34ae26ba330a8461fba8e2",
+      "8cac71536d86226254d31d7195461a6c4934baad6fe718d7ee4dd19146b04f5c",
+      "93316181943ceb9eb4311f78f593cecf66d4c384caf94c45a4c34578a2d2cfb1",
+      "96aa52a9435080eab4e8a94886eafe4dcbd5640678aa8d47052d9d6e3cc76649",
+      "9757f3a2f6a034d1291d1758e8fe658cd8eb223910e3261e73a2c7bf997cc6ae",
+      "a82203980a316670117ffadbfded95a6cf360e73dbdc596cf2ba998e51b02f63",
+      "b7e4956b9aba25546b92497134dea75a9cbfc37faf51d492e307d0d7cc2df13e",
+      "f1dad89ceb8638f4c210b2e5c5f3369f8e8874d99915f664c9bb5db1f96a8941",
+      "fef8ddff227a9dbc57dd54340814d18015fbeef33fd06b363bc2fe19d99e663e"
     ],
-    "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-    "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+    "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+    "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
     "assessments": [
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "0174be84f7b8111d237b9c6644a3623bc5e7c12c168d57fdbd0ff091130a524f",
-          "source": "dc6cf71b371068e1663d8ae0e054023f6478744d43da8de9e61c3a625a508784",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "13e275a37f926f6f523c8654eeeed7be7bf3a7c240e9198a345efbddaaa2c8b7",
+          "source": "2b2cc4b6bf93aa51ea839a88da178f26d912179e00b678bdb38a0d33e400529f",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
-            "prediction_hits": 18,
-            "steps": 28,
-            "trace": "b2cec5e18529d78843607520852fbf5649076232c1a6885ed452ccec473751e0"
+            "prediction_hits": 19,
+            "steps": 29,
+            "trace": "cf1ab61c292f80d23c6b25b210c2edeb810a8d4f163799452439d16cead3f8d5"
+          },
+          "cost": {
+            "actions": 29,
+            "vm_fuel": 757,
+            "program_bytes": 1715
           },
           "violations": []
         },
-        "tag": "200f4aa9f9e3f574c2eb5c6d33896b1af14c96e235d4ac20217d6100eee10420"
+        "tag": "f157919aadc4d67fcaad2716f29108a32f4a2b5ca563a164f632d09b8167ad0f"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "04c156a3b5c6e3c8bb6bc9210058c8d255a101a5cdc053e209167e9fd4cba9ad",
-          "source": "8ebde5c104dceaab3cb19616d5fcff1d8ac32e47ce4b871c3df506518a20f655",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "2e74697219b4e7a469d7baad92eee13cc92e75051f31e233a9ddbfcd163e7f37",
+          "source": "44977413c5aaf5d6b5248b4616b45e8c4c8acf0b681fbf500f2ec44d64571a77",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
-            "prediction_hits": 2,
-            "steps": 4,
-            "trace": "4decaa725d375622a4b0d2149b7d37c7270ba365c42b6c20acd4343144cd117c"
+            "prediction_hits": 17,
+            "steps": 26,
+            "trace": "2c5a08eeb94c8577e5e442f1c8dbce2ba08529c85ac3affc28ae386551467d5c"
+          },
+          "cost": {
+            "actions": 26,
+            "vm_fuel": 676,
+            "program_bytes": 1715
           },
           "violations": []
         },
-        "tag": "2d33ff9b683583218393c2795fdadc746970b8ffe2e7b65bc3849936f5ba9a84"
+        "tag": "231e030c1a83ed29fa9d803ddf6e2552d33f88c8ad3cbe05d44884b49b06708a"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "1ec4a2767c9c3a7001e8270d4ea540aadc1df88e891ca46288cb079211cf53bc",
-          "source": "7690ebee49cf0003f2df3cae17021e3866137b77ec8d3b55cf2ddfea02c3978d",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 14,
-            "steps": 22,
-            "trace": "28ac69dd1b272637ff9760ebe1690006093f5c0cde3dfc32e4bc25c70796c474"
-          },
-          "violations": []
-        },
-        "tag": "576de12406c9da7ae448c4e41ddb85c266ecf5deb03d24a0cb8828c037fb2d07"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "273b0c6b166e5e4f830daf7e3d9da7c907f9a1d55e6b0ec987cccb034e2e48e7",
-          "source": "06093013b8e1d5aa935a939876472df21f2f82b359b56302cfbe1a97dfc2b62d",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 8,
-            "steps": 13,
-            "trace": "c9bd31f250c8822bbcbf9698afcbdaf221557f23968c6000f954d0d0c4f46a3a"
-          },
-          "violations": []
-        },
-        "tag": "dc8c170a4dfc0326a169d091eea54a0fb5555f4ec59ea581b7eed0b29c70bb28"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "2a2d24004c9d659a0f2422d7fbddf740696fd5bd378542f31b1b0d57c125d4ab",
-          "source": "eb8917cb85c0f38f61924c4c4b34a635e4bcdf6d43410dae94de7b1c1ab97e4a",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 4,
-            "steps": 7,
-            "trace": "9a6e6e384cce216513f740e5e947b5bf13929aa1814b08bb5b4a032311bc84bc"
-          },
-          "violations": []
-        },
-        "tag": "d95462b792629634312e85b86d1d36cda3eff2d3d203dfa2fd64e827152310f9"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "2c88bc4d25c2be0b5fa9f0f25a2b71665288fa723d488253efb8d74ae23146db",
-          "source": "245449d35868444fe3736d6c79c9d3dcce842cad7771108c8fc17a907e0ccdb5",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 10,
-            "steps": 16,
-            "trace": "547ecdc1d4f870f5c81d47fd9b73fdd1749de97b32196ee6a681032ce2e306e4"
-          },
-          "violations": []
-        },
-        "tag": "a7b38828c75f8985d66b0c229a002e7ee2abef146ac4a6feacbecb3ff12de78c"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "2cad74c3c11917246247cc418b17634864875e84f1bfce9333024bc36be008c7",
-          "source": "a91723c299fc345f4c25d11c0d408d2065d3bc3751e8c0fc2e4fa2808b985633",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 14,
-            "steps": 22,
-            "trace": "42d2c12a525bed2edad78945d981233f66dcfa25c0361e600f50d559e24fac1f"
-          },
-          "violations": []
-        },
-        "tag": "2093e49c55689a403c0a947b667a6be1c14a2acf88e286e16afc4d493e234e70"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "33061d5e09920d53969b01e4cc5e6ffe18724f5acb9038cf9d2d883e8f015096",
-          "source": "36a2886db039647f648d9ff1c6b13b9df94a90df80fb920075a19b43dc7cfbc7",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "35add15ee97cf8cf7530cca90d475d16109ad31530b85ef97c933ea588498842",
+          "source": "6e4942923161f355a212850faa65f091bb18e3ae9d34ae26ba330a8461fba8e2",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
             "prediction_hits": 22,
             "steps": 34,
-            "trace": "dced638982ec6b31a153a2edad21ad7156cc7ba73de4ba92dc8dc1147e380fe4"
+            "trace": "83ceba0e8c980f270706761ad06c68ddba5023d7af36322278998e2385f4b259"
+          },
+          "cost": {
+            "actions": 34,
+            "vm_fuel": 772,
+            "program_bytes": 1321
           },
           "violations": []
         },
-        "tag": "b07f9e41f997fc9457815c49d53f55d9f2c8f1f66934dde1c981e4eb3814d3a5"
+        "tag": "9db03a165001295fd080a3e712202eba942964515ccaad074e6b26145411adee"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "398934837ceae031914430e6ab77507be4a5e90ad4c701f643b488b301564762",
-          "source": "1a67fc76f89c6e216ea67e39f971faa4ab7108072b89e30f2bbf8e5ca66b0e04",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "438abd5cf65a4d0b51ca32c45442004368b432cc46ddeef186e98f29699d4f2a",
+          "source": "602981ea1d30ba79cbb9e325d7abc80b2831d8de6243a4563c35e5e19a505eb7",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 12,
+            "steps": 19,
+            "trace": "771482acc01faf51179cf10951e9d9b37a12da00a6b1d94a4d62ab4c5ccedb22"
+          },
+          "cost": {
+            "actions": 19,
+            "vm_fuel": 427,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "87112352f4877ab81300e49165bc646310ac04f229b56b434a7c2f7aea21757c"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "512f03e98bc9307f1c985bd851a8b2d5a8acb6cb7234b5928799a8d16625fdd5",
+          "source": "333530d0a0c34fe5280a62fd491b88dcbb5d70ab82e9c953cc86d3e9d86d7215",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 20,
+            "steps": 31,
+            "trace": "2e81528bbf9935f08fce21c5bf0175f61d0157cc8e7f6a5ff7368159f0769bfa"
+          },
+          "cost": {
+            "actions": 31,
+            "vm_fuel": 703,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "3b0bb10a53699e43cf708c4924d0060e6fab71a72fb37c2f4295add5cfd78348"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "5db2636402edf51f6740b3d858ead8536a72c3af3b0dc9393a1e2ab63d3e9240",
+          "source": "11574f81f82344bdfc6db92fdb4b2d86feab72d6d17197b007692df62b89b225",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 15,
+            "steps": 23,
+            "trace": "6748df46dc7b7f02d32a63424bf00be61ef7a514bf0ddd67b232f3d57791c259"
+          },
+          "cost": {
+            "actions": 23,
+            "vm_fuel": 595,
+            "program_bytes": 1715
+          },
+          "violations": []
+        },
+        "tag": "aaa3a4c5f66ca3f1acc49aa88079c60570c71ac3635208da20f758c610d92a1a"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "66f0da9d24dcca712c933d5a3391c0e9ad32dfb29beecd82cd19ef0fdafddada",
+          "source": "a82203980a316670117ffadbfded95a6cf360e73dbdc596cf2ba998e51b02f63",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
             "prediction_hits": 8,
             "steps": 13,
-            "trace": "3a218d08fbf89d8ce9ae835122670487708ec39ae18bcb68f6fbbebf54c44642"
+            "trace": "fac26d1f9be044b1f365c909429ff97832590256c1a6868c1a9aad67eddf3e39"
+          },
+          "cost": {
+            "actions": 13,
+            "vm_fuel": 289,
+            "program_bytes": 1321
           },
           "violations": []
         },
-        "tag": "d73fd530699519d59e0d47e609e82166b8312ed7c7c7579189cb79d612da0e63"
+        "tag": "837132219642ba15d9508326320b0f2ac082962030d6c405fcc0b38bb7764225"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "4210b19df78cf07fe228b5250e21ce0624068c9506c2032800b67fb15770b646",
-          "source": "86063c0c24aa751ddddb25025a60441f5d87e1947b85f351a263780dc3f4e5e3",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "6ad775919516112497ebaf7695c68a3abed415c3c59d6a02e9f2c4616c0b28d0",
+          "source": "3b1d14666a3a3493ec63e27c228a26fbfd991d5ff6989a2ffe1fe9e041cc6483",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
-            "prediction_hits": 16,
-            "steps": 25,
-            "trace": "4439fb833173ae53a5a698b9ea36a2543794f74122963e4a6006fc48544e4c13"
+            "prediction_hits": 13,
+            "steps": 20,
+            "trace": "af978093ecaa3c6c2d72b28aaae2a5f3836ecd0fd4d2e21a7d36037e91b779be"
+          },
+          "cost": {
+            "actions": 20,
+            "vm_fuel": 514,
+            "program_bytes": 1715
           },
           "violations": []
         },
-        "tag": "cf1b61b3dee66fd92a1172aefd492ecf8faae4c6f6f3ed60cda5e86c4b9bb6c9"
+        "tag": "b6acef259a2bdccb3d4503870de7c6ab6552deae778465c5bfa16429caee6c04"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "642d8620eb3b29fc49d193ddc7eb0f2adf8549d1c88ed0367b07709699b7e37b",
-          "source": "2610d34cc945b0b39f5000ae5ebb6f54ed77d4842ccc6204f96daeeca9e2325a",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "719a94988d9d6ae35cc6fa4cce3ab27e811caaaae9b5581d2f9fbed761a2f333",
+          "source": "573c4456357f4046d3ac83b37d2f3dde18973fec65102fd07bb8d0064ea383db",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
-            "prediction_hits": 12,
-            "steps": 19,
-            "trace": "4ea48d7bb886fd9e7a2a6b0255a6ec3ad86e50f502cacb5535d21497b9aca7c2"
+            "prediction_hits": 7,
+            "steps": 11,
+            "trace": "9d24f9f8d9c1bd14eeeefe424f4d3b9b191079ba1b4f3e1d3d83ed226395c690"
+          },
+          "cost": {
+            "actions": 11,
+            "vm_fuel": 271,
+            "program_bytes": 1715
           },
           "violations": []
         },
-        "tag": "027011e1307ce6e5b85d5cc9c7c76038d0bffe3c49b2dcea54c044f9889557a0"
+        "tag": "456b850f2c4921e617ce2feb33c6b36547856225dc7c3de4af29a71d575cee45"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "69891ca09ae435a135d9c5dbf72efcdcb7efdc573d41b42e36a104329374b416",
-          "source": "19ce63d7fe3ea56f9129ebfa307f3f587f9dc7e4e176d40ee82f6353e5913485",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "8e550e4195127c7b8d104f27cdefe4198bf4d20a471d42fa3667d571998897cf",
+          "source": "13eca9f17016240b0c4fe21c5a478a49fed9ddd9dfe647cc4056ed575e875814",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
-            "prediction_hits": 4,
-            "steps": 7,
-            "trace": "668a2b6a8326b6684291e2d1f7973dda30c51b7e44fd3b36b171b1521b713219"
+            "prediction_hits": 9,
+            "steps": 14,
+            "trace": "edb641fa56f5e466ce365d69f25a43b541029af819f04b4f0700a1186e427808"
+          },
+          "cost": {
+            "actions": 14,
+            "vm_fuel": 352,
+            "program_bytes": 1715
           },
           "violations": []
         },
-        "tag": "d4f8605cbd88a9b13c44e2e6eae51b60ccea0c89eb2c8d921333b02fde2e41a9"
+        "tag": "43b0780440457dd13c0076093fae8bf8bd2621bae4f02afed1218bc504f30089"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "79329a167a4b9707b272f86b7d7ed24a4c50e1f1f16d6cc347e85eb7fa9f0461",
-          "source": "4571d3b0da727a9f361b77d041e2ea1a7345be2050d3e0a9c604dc0e4fdc72e6",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "916e460a4c9f4a046d7394233b36138364478fef2858fd19abf7067fea5ef99b",
+          "source": "1c45949eede26d1a9b91cf6cb5ca2d4bfda6f1343159f4bfa203f3aa17c337f5",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
-            "prediction_hits": 24,
-            "steps": 37,
-            "trace": "95a7993204bc940e3e40c268e7e5a779f589e1c843328aabf74d00b8d31391e5"
+            "prediction_hits": 14,
+            "steps": 22,
+            "trace": "ff824b589c183e59c537fe802b3d207b823b54040dae34cfd92e744d921209c2"
+          },
+          "cost": {
+            "actions": 22,
+            "vm_fuel": 496,
+            "program_bytes": 1321
           },
           "violations": []
         },
-        "tag": "a0403c48a105b1aeace3fa3363055234b3e18277a646c9073e7d036b9a6021c0"
+        "tag": "85c2936caea67b833036d0513df5f85f75dc15bb99daaf8d64aba56d11e1dc9d"
       },
       {
         "assessment": {
           "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "8100ed0e14610a6546bb7b638e55f23e64facfe45f9d035ccc6355df4427d506",
-          "source": "2e15d0657fb0cf3f9b646b9faecde0fc8c05ba2cbffc8fc8d6b80da96d8aefae",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 16,
-            "steps": 25,
-            "trace": "b5b4aace33d1b299261289ab6cbbcb3c468d3f169e7b88c7a33459b9e9e920ea"
-          },
-          "violations": []
-        },
-        "tag": "5db3d0a08dcfe5c55ee3741f1f9eeca6e1dac3636cb8f92868c8f171272f0d6f"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "963bce2799b4bc84ddf2f8950c7ce59fef6ba1049a594d995c5a8f4444113fea",
-          "source": "f12f6c4e17ca8146375049d55c5ceaf55477827a0cc2e32d1792ad812e1a2424",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 20,
-            "steps": 31,
-            "trace": "53b6300f083b21d27570318d82280a790888ec4fa7e775431986dd5ce61dc5ef"
-          },
-          "violations": []
-        },
-        "tag": "0ca0b85558c7da62e2cd3f3dfdb4e9095b178785f682497bdf31639ea95d71b5"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "a1031812c77517817c367e851623b861968cf1c21275af53fbdf708f1a5bc6ac",
-          "source": "2fe4b8c3859d11b2567ac6d9d3b61910f0eb5449e78943da53c02da5a324dc27",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 20,
-            "steps": 31,
-            "trace": "07ad1a4f0d534c9249fa485fb4300a342fbf4b5e23f49907da754f71f1504d32"
-          },
-          "violations": []
-        },
-        "tag": "871acf332ed00a923c77622b7c2a8233d799ce2b282a876eb3936f3762df6681"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "a6df7d3afefde07ebd2ebcf2d3bc9930f4a9ac7b08d490848a1205fa54522b42",
-          "source": "5cded523333ad215f1c31a763b4396f92bdbdb95e50f4a9e67bbcff29e51bce2",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 6,
-            "steps": 10,
-            "trace": "e3cafb34cb40c191909cd812d63daa46cd8541b9522ada060bb6082e1283d996"
-          },
-          "violations": []
-        },
-        "tag": "cd0eac51eb1ceadcef67b8eeee34e825b0e1c87f427f2584be5dea2625b741f2"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "ab10cfee36d6f447731f7e785992237f2f419bc7a935f2aa898206ebda86467b",
-          "source": "91662267d759ad6ad7a3dea76364986b69ae6808a859c99e357a03091a28d2d9",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 22,
-            "steps": 34,
-            "trace": "a1c5530350a97e5ab9510582b882eb58f3b2ca278d033920aca0d90587475d2f"
-          },
-          "violations": []
-        },
-        "tag": "7cd6541b16af5ed8dbaac2c82edb66277bfb5bf77a43fda8e7c3968ef88a7ea7"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "acab1f4c2c21ad6d81f2cbd4f29befb74f1324452a701c43fd842868c5cf5a26",
-          "source": "3895f8a928a8b427aa3e730906f2f2e48455b1e709ae5d0c1a45c8457ae5109a",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 12,
-            "steps": 19,
-            "trace": "45b2a7eed762b700d87ff773d3dba704a3f2b424f9d52f83ab7a11be803c994f"
-          },
-          "violations": []
-        },
-        "tag": "e323b68b93fc9f190af8946dad40400b21862dc5a4c5b8794409814db426c5c7"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "b0b6c51b8fe24b9e53bcee4d8f72eb0a6b16db1e8d4506c390c097a0bf589a5a",
-          "source": "99bab94e06f3b27450c8bbd3dc7838959dbd7e2543d199d55c8173b520549d6e",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 6,
-            "steps": 10,
-            "trace": "ddd2fe82e53d7f9fbebe1630b12db8d328e0ea3c41cf4aff5765996549429ec2"
-          },
-          "violations": []
-        },
-        "tag": "d02988195ca8fd1e95479c6f2b96dfa7794ba0680522148331ffab24b43ffe89"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "ca92927b69f0f4cb85f486fcf8bf999e74bcfb98c1ae466387b0b3bd7aa340f3",
-          "source": "3a490de4bdfa2b24747296f2be60f634062f4a6078561e5b82fba6f4c46a397d",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 18,
-            "steps": 28,
-            "trace": "29bc680fe38aa3b55e31d9c4d6000c1a5535fb9ed2414e82aa14516b0536d059"
-          },
-          "violations": []
-        },
-        "tag": "9b73ffad41678e0dc40d46658b02a16a7eecab2cb69f53d0dc97e47743f7c74b"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "d24342978e99d53bd2dedb56f396d4ebf626a9f47939951a5719fd4dc32fb05e",
-          "source": "c917f28a3773498e08201b4d48338e99a622c7b22ba0c5b172e07b7ee0fd0b45",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 2,
-            "steps": 4,
-            "trace": "37e9dbb7e6eddf1d8c72e66ec48464778882082eb77e42682aec9563558dfe80"
-          },
-          "violations": []
-        },
-        "tag": "f68f8a93129ce7d555360480720d09dc3ffedfee44125c85e0de7f89e85c33fd"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "d3c368fa7b8aa6c8510f7c0a0a0930ff31748534b3214c813a040271e96d35a3",
-          "source": "fc1cc78e6d500a25b2075f400404e4079099248ef256064127fc996572cdc560",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
-          "outcome": {
-            "ground_success": true,
-            "prediction_hits": 24,
-            "steps": 37,
-            "trace": "d8b5a45867cc4cbf721c39dd1c6612275619d63fda4e23c50af832c479fa631a"
-          },
-          "violations": []
-        },
-        "tag": "52ee41f96c5748bbcda91bd052d2c3ae1971219a1252d8a8a17d2671d7ad3b05"
-      },
-      {
-        "assessment": {
-          "kind": "Assessment",
-          "principal": "85eb944bbfdf4817b0ae4bdac29164268800499b90cf99044e33fbe2b02ad057",
-          "assignment": "f45313cc0be02a841d5ef583834a6a59666249b2aa406b8a55d47ac5d365b17e",
-          "source": "4709595aa3d45b2741a947c60e3af1773e0b4d62988e8dbc9d7af0e55034beb5",
-          "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-          "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "930f7c1cca47b600b8a68d8a3c29551f73b844fb281fb8e7c36ed2989bc63735",
+          "source": "5244750b0eb9f436ac3d0fa0d6334a103bc599dd3d083d0c33d20dab973eb654",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
           "outcome": {
             "ground_success": true,
             "prediction_hits": 10,
             "steps": 16,
-            "trace": "89656e3d99b43e558e052593837f75b1f21fe67da671410f99c96aef44c09d11"
+            "trace": "d934735de4551f3eb610382aacff7c6caa6db9c1cc81c37e7b498bb5c858850c"
+          },
+          "cost": {
+            "actions": 16,
+            "vm_fuel": 358,
+            "program_bytes": 1321
           },
           "violations": []
         },
-        "tag": "b5a9f0f382d720c65d4526e80a2747af4e904944edc7f502b3edaa3956b7cd55"
+        "tag": "96fdaa6b2ba30b56acfa47421aab8e5ab7af72b601b889561451ad0e8b6385e0"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "c6628e26af8c4cae401e41b0b0f633cc579e03bd3b901941b9c02ceb2ff5f5d5",
+          "source": "0bdf3b235d6f7fb0f5ff9d3a017e506ee83cd209f47730d9a8158e505a6475b1",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 2,
+            "steps": 4,
+            "trace": "9ca17bd18b5c4208a1bb1a68019f8c423363ff9392bd323d2c279733832ba9a1"
+          },
+          "cost": {
+            "actions": 4,
+            "vm_fuel": 82,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "bb1186b55fe5a3a75f2897f9c4c23e2fcdd17599ac607b8e21646ea4f167c40f"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "cbd0a55d1aa9d3c53d02f6dc66e9b27928c22996c2ffba6a1cb947f394467b29",
+          "source": "fef8ddff227a9dbc57dd54340814d18015fbeef33fd06b363bc2fe19d99e663e",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 3,
+            "steps": 5,
+            "trace": "fe35bd7de7b26d198d69196d6adcd2d893fc9c52612582100557dddc7d9f35cf"
+          },
+          "cost": {
+            "actions": 5,
+            "vm_fuel": 109,
+            "program_bytes": 1715
+          },
+          "violations": []
+        },
+        "tag": "d23620b2b7c446d88532840c3e84f16417b5ab111cd90f5a02b1acd9153ef1c7"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "cc8bc3e64c60f1a8fa8a5bede6539e0a12dedc69b026916e6476afdbe12bd951",
+          "source": "8cac71536d86226254d31d7195461a6c4934baad6fe718d7ee4dd19146b04f5c",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 24,
+            "steps": 37,
+            "trace": "2a018fa88bdd63ec79e9e969938b8f1f06d6a7a350ed01d10643a3e5ea3772d7"
+          },
+          "cost": {
+            "actions": 37,
+            "vm_fuel": 841,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "cedaf34288971253280a5a819193eea1ebc491b822f66ff6ae6964e745349f16"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "ccd80d9919b459e633c8a361eee33e43c1b211d03924c7702007a7c92b6d4acf",
+          "source": "461359068267a4d28f5b68c4c148afe62054d2829a11f8d38d16172932bafe8b",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 5,
+            "steps": 8,
+            "trace": "c550627b1f4febab0b313f097b4e2ff528ebc7b2ed6cacdcf8d12fca9500bd85"
+          },
+          "cost": {
+            "actions": 8,
+            "vm_fuel": 190,
+            "program_bytes": 1715
+          },
+          "violations": []
+        },
+        "tag": "b8c3d45b088aba9ead57c4cab057140533bb25224a486f3591401dc1959bfd8b"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "d4bd6c0e94f212721e84f44d95961f782d02795680461682750d211e314f904a",
+          "source": "b7e4956b9aba25546b92497134dea75a9cbfc37faf51d492e307d0d7cc2df13e",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 11,
+            "steps": 17,
+            "trace": "371f011978f8be2303348854b73d65dc938e7e51a873ae722e68f9e2bc659cd6"
+          },
+          "cost": {
+            "actions": 17,
+            "vm_fuel": 433,
+            "program_bytes": 1715
+          },
+          "violations": []
+        },
+        "tag": "0e311f529c4dd4249be4168ba5567624789b5e46c22e2a874da8e94f43a9e300"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "d5706416fd6f3b878c3de600e60c4fd01fa1879daaa5011e9c01a1807b9acd80",
+          "source": "1b946339e5ca4c1c4dffb3233b68c21153b4b546a825ff7a2ddd60477f2031ac",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 18,
+            "steps": 28,
+            "trace": "8ac1474f7e8820928d0b645521fa2908bd514bfdc2f99d3c3e8b03b86a2a1fd7"
+          },
+          "cost": {
+            "actions": 28,
+            "vm_fuel": 634,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "ffafd07dc54cef2367f8c79017e75480c4b9f3f359d3fa1e15ef970610232145"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "d8995ee22cd369c81481fb4ab0bff2891fbcbeb02e5dc1d7cd563c88775007cc",
+          "source": "96aa52a9435080eab4e8a94886eafe4dcbd5640678aa8d47052d9d6e3cc76649",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 4,
+            "steps": 7,
+            "trace": "e1acca9392fad8c082e314f345f6280b980e6164070ecb8e5bcfec369508c233"
+          },
+          "cost": {
+            "actions": 7,
+            "vm_fuel": 151,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "38e781f233132782f97d8f004fa8194481f63302e4a95c4bf4ab17e8f237727c"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "d9fccac48223a3ce179329e7df6ccd2a61c1e6c76901f536856ad7c60cf1008c",
+          "source": "f1dad89ceb8638f4c210b2e5c5f3369f8e8874d99915f664c9bb5db1f96a8941",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 25,
+            "steps": 38,
+            "trace": "94d6159a1d4c7c80133384e7ccc8387c48d8f3385e182bf76778dec1cb2a0aad"
+          },
+          "cost": {
+            "actions": 38,
+            "vm_fuel": 1000,
+            "program_bytes": 1715
+          },
+          "violations": []
+        },
+        "tag": "2de1a094c817c6d40d723ad82b5cb70d00f34c11720d7043487dfcdcfecd6d73"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "ded7c02bba2b8d373b015cee13bb3a1e103dfb46c18f13f6e41f7f6faee8dd70",
+          "source": "643e9ab3aa14f0d3b1af383dfdb7ff8ed29eb66239d32f8714e651a0088117b8",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 23,
+            "steps": 35,
+            "trace": "d8f6cffaea69968d444b406613eefe07020b3241cd2c70c57fdb60785e088b5a"
+          },
+          "cost": {
+            "actions": 35,
+            "vm_fuel": 919,
+            "program_bytes": 1715
+          },
+          "violations": []
+        },
+        "tag": "2385d0299b88b5db47b8d2b7a32d6c1b2cbeac83259ddfc6314e2bb26854ca0e"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "e57e6f9f587b40e96a8ab4616693405d7a36f456290b51bdc97a73de7cda77c3",
+          "source": "9757f3a2f6a034d1291d1758e8fe658cd8eb223910e3261e73a2c7bf997cc6ae",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 6,
+            "steps": 10,
+            "trace": "0a7c707cb4ecbb77777939608b95adf90639c6f54775c4b2a71e653682d2bd72"
+          },
+          "cost": {
+            "actions": 10,
+            "vm_fuel": 220,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "76a0415e704a1816fe36273d0d0afe605abbeefbc70b0e4617263af862d3c337"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "e924a67d511cc2bf2186482b571a3e7e32b576c67bb05cf2d5f16c318544b73d",
+          "source": "18256fe46fe458305e8c64868423bc604dfa1b77906cdb372d542cda2c9607c7",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 16,
+            "steps": 25,
+            "trace": "340622332dc627eb03ed745cd5660129e3fd9de4793aad4a381b772fee83571f"
+          },
+          "cost": {
+            "actions": 25,
+            "vm_fuel": 565,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "d098ed1af2c92d0d0c7265d9886f588880dd61a9c96438695a8f546f2fe35e13"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "fc7c651402706bc06434da7fae7ad5a101ef314faeb1ed87a50fb3b3d5654522",
+          "source": "93316181943ceb9eb4311f78f593cecf66d4c384caf94c45a4c34578a2d2cfb1",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 21,
+            "steps": 32,
+            "trace": "77d4fa5ab8ee992dd511ffd0fd830e999d8bfb0dc12b688dceec2a37a71be6c8"
+          },
+          "cost": {
+            "actions": 32,
+            "vm_fuel": 838,
+            "program_bytes": 1715
+          },
+          "violations": []
+        },
+        "tag": "74a3128ec3adcafae16449e22d99cb7ef149888086ed9f46b1e8bd1c1e11a836"
       }
-    ]
+    ],
+    "improvement": {
+      "profile": "SUCCESS_THEN_PARETO_COST_1",
+      "success_gain": false,
+      "cost_comparable": true,
+      "cost_nonworse": true,
+      "cost_strict": true,
+      "cost_pairs": [
+        [
+          {
+            "actions": 5,
+            "vm_fuel": 109,
+            "program_bytes": 1715
+          },
+          {
+            "actions": 4,
+            "vm_fuel": 82,
+            "program_bytes": 1321
+          }
+        ],
+        [
+          {
+            "actions": 8,
+            "vm_fuel": 190,
+            "program_bytes": 1715
+          },
+          {
+            "actions": 7,
+            "vm_fuel": 151,
+            "program_bytes": 1321
+          }
+        ],
+        [
+          {
+            "actions": 11,
+            "vm_fuel": 271,
+            "program_bytes": 1715
+          },
+          {
+            "actions": 10,
+            "vm_fuel": 220,
+            "program_bytes": 1321
+          }
+        ],
+        [
+          {
+            "actions": 14,
+            "vm_fuel": 352,
+            "program_bytes": 1715
+          },
+          {
+            "actions": 13,
+            "vm_fuel": 289,
+            "program_bytes": 1321
+          }
+        ],
+        [
+          {
+            "actions": 17,
+            "vm_fuel": 433,
+            "program_bytes": 1715
+          },
+          {
+            "actions": 16,
+            "vm_fuel": 358,
+            "program_bytes": 1321
+          }
+        ],
+        [
+          {
+            "actions": 20,
+            "vm_fuel": 514,
+            "program_bytes": 1715
+          },
+          {
+            "actions": 19,
+            "vm_fuel": 427,
+            "program_bytes": 1321
+          }
+        ],
+        [
+          {
+            "actions": 23,
+            "vm_fuel": 595,
+            "program_bytes": 1715
+          },
+          {
+            "actions": 22,
+            "vm_fuel": 496,
+            "program_bytes": 1321
+          }
+        ],
+        [
+          {
+            "actions": 26,
+            "vm_fuel": 676,
+            "program_bytes": 1715
+          },
+          {
+            "actions": 25,
+            "vm_fuel": 565,
+            "program_bytes": 1321
+          }
+        ],
+        [
+          {
+            "actions": 29,
+            "vm_fuel": 757,
+            "program_bytes": 1715
+          },
+          {
+            "actions": 28,
+            "vm_fuel": 634,
+            "program_bytes": 1321
+          }
+        ],
+        [
+          {
+            "actions": 32,
+            "vm_fuel": 838,
+            "program_bytes": 1715
+          },
+          {
+            "actions": 31,
+            "vm_fuel": 703,
+            "program_bytes": 1321
+          }
+        ],
+        [
+          {
+            "actions": 35,
+            "vm_fuel": 919,
+            "program_bytes": 1715
+          },
+          {
+            "actions": 34,
+            "vm_fuel": 772,
+            "program_bytes": 1321
+          }
+        ],
+        [
+          {
+            "actions": 38,
+            "vm_fuel": 1000,
+            "program_bytes": 1715
+          },
+          {
+            "actions": 37,
+            "vm_fuel": 841,
+            "program_bytes": 1321
+          }
+        ]
+      ]
+    }
   },
-  "ledger_spent_execution_tickets": 48,
+  "admitted_training_trajectories": 12,
+  "local_policy_entries": 246,
+  "compiled_policy_successes": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "compiled_policy_release": {
+    "kind": "ReleaseDecision",
+    "plan": "effa7f283cbedd89b904680fc31ad07a8d799b065efb3bb8f20220d7df3253e3",
+    "generation": 2,
+    "pairs": [
+      [
+        true,
+        true
+      ],
+      [
+        true,
+        true
+      ],
+      [
+        true,
+        true
+      ],
+      [
+        true,
+        true
+      ],
+      [
+        true,
+        true
+      ],
+      [
+        true,
+        true
+      ],
+      [
+        true,
+        true
+      ],
+      [
+        true,
+        true
+      ],
+      [
+        true,
+        true
+      ],
+      [
+        true,
+        true
+      ],
+      [
+        true,
+        true
+      ],
+      [
+        true,
+        true
+      ]
+    ],
+    "accept": true,
+    "scope": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "receipts": [
+      "1c7a6cfb36d85c2f453360a18fb810eb02bb9c5bef5024cf38ed6d4c9a03124a",
+      "3c83893906d9f69e0f0edfaa1b9ef8e852d28ef11380b98f9ba3329d87e3c6d6",
+      "44cbe4593f978feed7c6a202a6bb77ef9c79fbfed30ed83ff10996cddae707c1",
+      "4ba2aa5e1ca605ffb76638d5c2dde5b4d263e099ddd60f111c793d1166637934",
+      "5133944d73eadda801579abf373a41e81619a8df1ddda8fbf58ec3f8d901b89e",
+      "59d0c88920739842a4b38b1ed876637c1ef0dc5728cab7e78a1d156ffc7ccf56",
+      "5b85050995654bab42190d836ebc1e44fe364d4d800006f8793fde1024b28fd1",
+      "6841a602b8a45d32fd53f96f0fd378222ade69df06280776b5c2a47e64c381fc",
+      "7deee826ec634c9941270a072fa99d8f5c8cda15681878752e6891fcc81f5dcd",
+      "8142bb3b0757c80121fa026b3af75807de720bee8221c0a491b437a930a52821",
+      "91a86da5870ecc491dc19d8bad6dc38e9af19f30d7a24c01e9c465596d76c402",
+      "9c6d582e0cd5a3115dac42b2587cfb9d6aa367a60bac0e2a237a71594156d8ed",
+      "a88d43b25e3ef36e3d083e865240ef5c19c2ab4fc5eb5a572b2ad76f66eccc5d",
+      "b496a6236ba936029c71bd935b1acba4ace7586c1568e2a44f1fa8e6858a84c7",
+      "bd60386e3241a940eccef970a2a4ff8065582a4b4689a653022c758b4318cf16",
+      "bf2f81fb8e22d859ed05efe78ebaa07024f313207591e130e77c9e29da2b0ea5",
+      "c4dea55c65965b10948f2b4ea7199646d2f44db819e3eacf04bcd755acddb119",
+      "e10c825c8771dbb638dfa1a5bab574e9a61d39142cea6ebc41fe748d2b1a96e8",
+      "e1bed0aee961c39c75cbcabeb7f4087b763558fc9194e3f5987980853a10b638",
+      "e266b2257a5639639d3cf7033f02303c3a0c4b6b0a013e8c6f984edf9ab811ab",
+      "e31eaad708aaca7d43a8dfc71aefc8e5c3367dcdb6a6f070f83611f7fa17a824",
+      "f3e2d39d7d58d5801c67bc03212e3fc9c2787c55727e9c6e24f2877e39f457ac",
+      "f7e316b3e76fde2c53ef7a230d880a18d9ad86a6ce98d25c02fa0d7abf9adbba",
+      "fb0d11d4942ae12629688f7c66a751df3ae59f369f104b89cb6eb5485bf8b26f"
+    ],
+    "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+    "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+    "assessments": [
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "0a3da83067ebfc47b659cbef3324ea9cfa27ac94fdc28f5a44633379b231b0b0",
+          "source": "f7e316b3e76fde2c53ef7a230d880a18d9ad86a6ce98d25c02fa0d7abf9adbba",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 24,
+            "steps": 37,
+            "trace": "ccc771ee2c9f8378c39a5852ec41408f08d01495be0a418958dfa98608b68bbc"
+          },
+          "cost": {
+            "actions": 37,
+            "vm_fuel": 370,
+            "program_bytes": 23131
+          },
+          "violations": []
+        },
+        "tag": "9d58009e7b4099109b86b8fe59a1d18d7097cb01fcf9e4896636eb02a7011bad"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "0bc2624b3d5b387f495de2499785abf3dff93bf381417173210451a7717da1e1",
+          "source": "e1bed0aee961c39c75cbcabeb7f4087b763558fc9194e3f5987980853a10b638",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 12,
+            "steps": 19,
+            "trace": "fed887eb171dbe24b1542712f2e567c1f867ace84125a71c5afc234367163ad3"
+          },
+          "cost": {
+            "actions": 19,
+            "vm_fuel": 190,
+            "program_bytes": 23131
+          },
+          "violations": []
+        },
+        "tag": "ddcfc6c6f3703aadd7192d98cf6bf15d30b11143e6950fab2e0d3a539affac6a"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "182210ebc38a3048ab43cd46a225f929ae48bd945bc269645a9ae345c0f955bc",
+          "source": "bd60386e3241a940eccef970a2a4ff8065582a4b4689a653022c758b4318cf16",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 18,
+            "steps": 28,
+            "trace": "2db219c745a440927d64dbe3107f0177749bae16c3c01bc45d5c6c0c6667f152"
+          },
+          "cost": {
+            "actions": 28,
+            "vm_fuel": 634,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "1daf0d6964b844ec562f3bb7b3770a30076aef8cd5b415d49371539427125348"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "1c3a0489ec5a804110a47016dd9c61e0b22784a99c0a1e01a81fc3e7ca38a1a1",
+          "source": "e266b2257a5639639d3cf7033f02303c3a0c4b6b0a013e8c6f984edf9ab811ab",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 20,
+            "steps": 31,
+            "trace": "0c104e594803000fdef7dcd6291c6b2134ae2b379090d96586abf70bdd8e88c5"
+          },
+          "cost": {
+            "actions": 31,
+            "vm_fuel": 310,
+            "program_bytes": 23131
+          },
+          "violations": []
+        },
+        "tag": "fe9a4926181338bbe01510aaec493c22939f93041594e19d36e7f20d95da7565"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "22198cfab7dc37687404c356c899f095ec0bdb0a0b69368ab974f6c615874615",
+          "source": "1c7a6cfb36d85c2f453360a18fb810eb02bb9c5bef5024cf38ed6d4c9a03124a",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 14,
+            "steps": 22,
+            "trace": "2a97071805babe46b47dac7a2102d817a42e6394a4169bdd4bb04bd75b3a0140"
+          },
+          "cost": {
+            "actions": 22,
+            "vm_fuel": 496,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "1184ea58029d608f9876aaf47e50dadcab20e4e4da79593addbcb47bae0a451d"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "35709d0147665318fcd68088eea07f4c937cb3f896181a1b8ee06ca23599d185",
+          "source": "b496a6236ba936029c71bd935b1acba4ace7586c1568e2a44f1fa8e6858a84c7",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 12,
+            "steps": 19,
+            "trace": "f14461045f9a5338180792d614e0239a0b92bce7525354e1f1af136f8683c4ff"
+          },
+          "cost": {
+            "actions": 19,
+            "vm_fuel": 427,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "c693dc7a6f942f894b42f22b172ba2ce6e94f2adbaf0f8142d79d3522128f488"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "4088566d602e551a54de372ccc5fd19d5f846e20257db056baa61e1ae7744ea4",
+          "source": "a88d43b25e3ef36e3d083e865240ef5c19c2ab4fc5eb5a572b2ad76f66eccc5d",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 24,
+            "steps": 37,
+            "trace": "a5360b0abc6be42f3490382d393ef13331171fbf45aaa9f9f89fe7b95049af3e"
+          },
+          "cost": {
+            "actions": 37,
+            "vm_fuel": 841,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "85047fdb7d85c5924d52c8680cd0c891bb36fa12ae70923734deb33bbd247974"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "463de016ba0e8d9f07217fda3102386eeb899a53f324c2677a82d1d0e04ac310",
+          "source": "bf2f81fb8e22d859ed05efe78ebaa07024f313207591e130e77c9e29da2b0ea5",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 10,
+            "steps": 16,
+            "trace": "e40ee54755a9946b963cbb236fd91c03cb2b7acf364675554704cb2174fa0798"
+          },
+          "cost": {
+            "actions": 16,
+            "vm_fuel": 358,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "75a3f0e2294c0db0c1a8dff8a39fe2c367954f97f33eb9719839e68bae4ad1ce"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "5018f04476393959e2018f47f5f375136fa96e20f82b54244557f73130e9aa05",
+          "source": "e10c825c8771dbb638dfa1a5bab574e9a61d39142cea6ebc41fe748d2b1a96e8",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 18,
+            "steps": 28,
+            "trace": "bc0c47bf312f3379ae2aa965cc6bcf976c5124c4a6f70df244b8e5f426d9df7e"
+          },
+          "cost": {
+            "actions": 28,
+            "vm_fuel": 280,
+            "program_bytes": 23131
+          },
+          "violations": []
+        },
+        "tag": "c69d08e3ea7a215ff60d4b81d6f84725c52cba8b602d43054ea0b7f52f9135b0"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "567aeded99ea2eb66b94d1ba439aab10d2f5a39495e74cdb7ccb9674016c1d15",
+          "source": "5133944d73eadda801579abf373a41e81619a8df1ddda8fbf58ec3f8d901b89e",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 8,
+            "steps": 13,
+            "trace": "386039fafbd23b0a9f47e4c97b4c92f7aba53ca19e5751d370bd4fc1a8c861d3"
+          },
+          "cost": {
+            "actions": 13,
+            "vm_fuel": 289,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "c4b6b4ccd4b5d29d7e6a938218c7c5cbfa81080694471a70eb22db9669b87b79"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "5c47b7c1cf9ba3882bec7f390e33b30938073ecc4f7fb05eeb6b59a7b1e69556",
+          "source": "3c83893906d9f69e0f0edfaa1b9ef8e852d28ef11380b98f9ba3329d87e3c6d6",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 6,
+            "steps": 10,
+            "trace": "e65cba9c616879a2b664037a6230576409f4a15915ae0f58dd9a1a70bc46e407"
+          },
+          "cost": {
+            "actions": 10,
+            "vm_fuel": 100,
+            "program_bytes": 23131
+          },
+          "violations": []
+        },
+        "tag": "2cca3f8e17ca97893454ac5e8c1ad42374028dc546281cc4fae08f47082dacea"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "6179f20fb2e50116964ebb4c5f941f93d7ea0938a8297534b5d1ab227f879f59",
+          "source": "9c6d582e0cd5a3115dac42b2587cfb9d6aa367a60bac0e2a237a71594156d8ed",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 2,
+            "steps": 4,
+            "trace": "7a1cc800a193465758c5b1d1025f83021dcfc5e97f65a130f99164e9b0ae0fbb"
+          },
+          "cost": {
+            "actions": 4,
+            "vm_fuel": 82,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "618f19cb16767fd8d4c3fb5380a7ed23f064ce750faf60fb649c9b44ca68e205"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "761d9923ecacdac7f59e8e1b6889b8482a7b9913c65f74bea43b7ffaff3db280",
+          "source": "4ba2aa5e1ca605ffb76638d5c2dde5b4d263e099ddd60f111c793d1166637934",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 22,
+            "steps": 34,
+            "trace": "1308e93da3bc3e0ecec23cc89d4389c11e5d715efdac9eaa3d6e3169688320cc"
+          },
+          "cost": {
+            "actions": 34,
+            "vm_fuel": 340,
+            "program_bytes": 23131
+          },
+          "violations": []
+        },
+        "tag": "0b7976743920add6583ce9d7e3e9225eda99bf9f9479c74204c62828a3eb9e87"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "9073da0316e86563df5f9dc716840cb279450b7374f3909848abe9c70103a036",
+          "source": "6841a602b8a45d32fd53f96f0fd378222ade69df06280776b5c2a47e64c381fc",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 4,
+            "steps": 7,
+            "trace": "f15a7372a99f2cbe65bfd47d20542b5ec0681cae759bccbe6511f10d031a5174"
+          },
+          "cost": {
+            "actions": 7,
+            "vm_fuel": 70,
+            "program_bytes": 23131
+          },
+          "violations": []
+        },
+        "tag": "ce0f0327e4ab12a5434f57620312bfc20239e5abe436e998017533609e1673e7"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "928270c93231627caf06fa00d8de42100d1f43d8efbcf1aaf8407824b04cbe93",
+          "source": "44cbe4593f978feed7c6a202a6bb77ef9c79fbfed30ed83ff10996cddae707c1",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 20,
+            "steps": 31,
+            "trace": "8e7fbd16ad9615f6aa7eb2b25ba4b5dbae6f75b6680c4406ef4f9352773e3afe"
+          },
+          "cost": {
+            "actions": 31,
+            "vm_fuel": 703,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "06c3f16c4b88d72cfdeb64a38c9138ec53d1abe8d267b71ea8d149d43a779c6e"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "b4d3fc578a89d19ad62db204ca4f4530ed9f9bac108d8c1e73bbbe73312b34a5",
+          "source": "59d0c88920739842a4b38b1ed876637c1ef0dc5728cab7e78a1d156ffc7ccf56",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 4,
+            "steps": 7,
+            "trace": "3776f12092f791d150ba1519e8e48d39021fe90e17e9409f44f17038e65bf968"
+          },
+          "cost": {
+            "actions": 7,
+            "vm_fuel": 151,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "cd90f7230c527cd8711574804e2455050c099c4fc5c2bbfd42f6e3accb6cd2c6"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "b5df3397c16fbaa51ebb9f219dbbf23825fcf79d7bbb64a5ad754bc4f4aecca7",
+          "source": "c4dea55c65965b10948f2b4ea7199646d2f44db819e3eacf04bcd755acddb119",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 14,
+            "steps": 22,
+            "trace": "70d440692a6b3fb11f889e01ce31de735421e6c5b5f9bc6c9a8a7d718af5b0b0"
+          },
+          "cost": {
+            "actions": 22,
+            "vm_fuel": 220,
+            "program_bytes": 23131
+          },
+          "violations": []
+        },
+        "tag": "085cdaabdb8a692274f0441ab261e1b45fcc6349ba820d150c6fab3b0ee62e82"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "cc9a59a8e635e9f78ea213f3aeb5afb21c9f99f84f65e8ae67e1c83698640b6f",
+          "source": "7deee826ec634c9941270a072fa99d8f5c8cda15681878752e6891fcc81f5dcd",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 8,
+            "steps": 13,
+            "trace": "a7e4b40fc6a8f4b8716b099a94890a771ffada2def179bcc90bbdad967f3ad6e"
+          },
+          "cost": {
+            "actions": 13,
+            "vm_fuel": 130,
+            "program_bytes": 23131
+          },
+          "violations": []
+        },
+        "tag": "a947d41ebe2f75f0d9446935cd9d5a4c4421fe6e9093385f08c2c4076cf48b39"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "d3159518885fe09c6c79fcbbbae2bf2da4b2dd4b0c2f80050c1a4c8117a2675b",
+          "source": "91a86da5870ecc491dc19d8bad6dc38e9af19f30d7a24c01e9c465596d76c402",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 10,
+            "steps": 16,
+            "trace": "6a895b753872174c8c05aa02954384f2942d3ecce1a789b3b8fd4c5d1fb6da63"
+          },
+          "cost": {
+            "actions": 16,
+            "vm_fuel": 160,
+            "program_bytes": 23131
+          },
+          "violations": []
+        },
+        "tag": "b2b8db00e678dba5365aa35ab09fa94fc9eb5942a005f0414874e3d14e5f920f"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "d99266685e81e3a5dbadff8fef04563fa1e60b068c1af36a4961a003724563a1",
+          "source": "5b85050995654bab42190d836ebc1e44fe364d4d800006f8793fde1024b28fd1",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 16,
+            "steps": 25,
+            "trace": "9b549a479c2fc8a11b65c485319059c55837e606a66c499fe92835f8e760a1cc"
+          },
+          "cost": {
+            "actions": 25,
+            "vm_fuel": 250,
+            "program_bytes": 23131
+          },
+          "violations": []
+        },
+        "tag": "54ee3383fda3921e58331ba3885b3dc6ad3d392e3dcab27329dcf80d45a4801e"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "db03887456aad84149e6634b6e105d21c13fe73a443431fab0e1a32f589dfc90",
+          "source": "8142bb3b0757c80121fa026b3af75807de720bee8221c0a491b437a930a52821",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 22,
+            "steps": 34,
+            "trace": "9b05aeef169bca5e8184f35d02f5cdf40a9940522a8d45b8dffaac65f9f5b6be"
+          },
+          "cost": {
+            "actions": 34,
+            "vm_fuel": 772,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "f90dd126e22ac5a899de1eda35868fa119eb97e69c4924c249d7680a3564c137"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "dc6880fe932c774b91ef47a22f14710551651bbd5af9a2fad0ee44b0df9af113",
+          "source": "e31eaad708aaca7d43a8dfc71aefc8e5c3367dcdb6a6f070f83611f7fa17a824",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 16,
+            "steps": 25,
+            "trace": "b254d8567a491ddfce701fbe680074795e3f9140a92b72a36abd8b83dba26d85"
+          },
+          "cost": {
+            "actions": 25,
+            "vm_fuel": 565,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "dc83719a66e20d899f96db409bef49d58197e74626ce3b0027cca177bad923a5"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "e1b6c892f5c1fef81ed841437bc812997531db5d7fb62859848d153cc3ac8cfa",
+          "source": "fb0d11d4942ae12629688f7c66a751df3ae59f369f104b89cb6eb5485bf8b26f",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 6,
+            "steps": 10,
+            "trace": "7205cf8893a4925a9770972b56e689b67d97081dcbf609d5313907b2f96b4907"
+          },
+          "cost": {
+            "actions": 10,
+            "vm_fuel": 220,
+            "program_bytes": 1321
+          },
+          "violations": []
+        },
+        "tag": "58407e380a8f58bbfacfc3e296ca0df2dc7c0c03328dfe282797c7a4217ac58a"
+      },
+      {
+        "assessment": {
+          "kind": "Assessment",
+          "principal": "6074591d8e859b7def84b9995b25d499fc60ef0a9afa26189da96e31c40d60b6",
+          "assignment": "f79327511c0fa6b9e0f48c2a61dfc892e2c23f10a5efbd158c034301c7fbd50d",
+          "source": "f3e2d39d7d58d5801c67bc03212e3fc9c2787c55727e9c6e24f2877e39f457ac",
+          "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+          "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552",
+          "outcome": {
+            "ground_success": true,
+            "prediction_hits": 2,
+            "steps": 4,
+            "trace": "dd400c1895927b7312007293a7eadd992abec4943cbfc9279e2b2a76f8061ec7"
+          },
+          "cost": {
+            "actions": 4,
+            "vm_fuel": 40,
+            "program_bytes": 23131
+          },
+          "violations": []
+        },
+        "tag": "33cc49f4b2ec5113696ca229fe7ea9f9f46199ceb2ce8457522194714f5beeee"
+      }
+    ],
+    "improvement": {
+      "profile": "SUCCESS_THEN_PARETO_COST_1",
+      "success_gain": false,
+      "cost_comparable": true,
+      "cost_nonworse": false,
+      "cost_strict": false,
+      "cost_pairs": [
+        [
+          {
+            "actions": 4,
+            "vm_fuel": 82,
+            "program_bytes": 1321
+          },
+          {
+            "actions": 4,
+            "vm_fuel": 40,
+            "program_bytes": 23131
+          }
+        ],
+        [
+          {
+            "actions": 7,
+            "vm_fuel": 151,
+            "program_bytes": 1321
+          },
+          {
+            "actions": 7,
+            "vm_fuel": 70,
+            "program_bytes": 23131
+          }
+        ],
+        [
+          {
+            "actions": 10,
+            "vm_fuel": 220,
+            "program_bytes": 1321
+          },
+          {
+            "actions": 10,
+            "vm_fuel": 100,
+            "program_bytes": 23131
+          }
+        ],
+        [
+          {
+            "actions": 13,
+            "vm_fuel": 289,
+            "program_bytes": 1321
+          },
+          {
+            "actions": 13,
+            "vm_fuel": 130,
+            "program_bytes": 23131
+          }
+        ],
+        [
+          {
+            "actions": 16,
+            "vm_fuel": 358,
+            "program_bytes": 1321
+          },
+          {
+            "actions": 16,
+            "vm_fuel": 160,
+            "program_bytes": 23131
+          }
+        ],
+        [
+          {
+            "actions": 19,
+            "vm_fuel": 427,
+            "program_bytes": 1321
+          },
+          {
+            "actions": 19,
+            "vm_fuel": 190,
+            "program_bytes": 23131
+          }
+        ],
+        [
+          {
+            "actions": 22,
+            "vm_fuel": 496,
+            "program_bytes": 1321
+          },
+          {
+            "actions": 22,
+            "vm_fuel": 220,
+            "program_bytes": 23131
+          }
+        ],
+        [
+          {
+            "actions": 25,
+            "vm_fuel": 565,
+            "program_bytes": 1321
+          },
+          {
+            "actions": 25,
+            "vm_fuel": 250,
+            "program_bytes": 23131
+          }
+        ],
+        [
+          {
+            "actions": 28,
+            "vm_fuel": 634,
+            "program_bytes": 1321
+          },
+          {
+            "actions": 28,
+            "vm_fuel": 280,
+            "program_bytes": 23131
+          }
+        ],
+        [
+          {
+            "actions": 31,
+            "vm_fuel": 703,
+            "program_bytes": 1321
+          },
+          {
+            "actions": 31,
+            "vm_fuel": 310,
+            "program_bytes": 23131
+          }
+        ],
+        [
+          {
+            "actions": 34,
+            "vm_fuel": 772,
+            "program_bytes": 1321
+          },
+          {
+            "actions": 34,
+            "vm_fuel": 340,
+            "program_bytes": 23131
+          }
+        ],
+        [
+          {
+            "actions": 37,
+            "vm_fuel": 841,
+            "program_bytes": 1321
+          },
+          {
+            "actions": 37,
+            "vm_fuel": 370,
+            "program_bytes": 23131
+          }
+        ]
+      ]
+    }
+  },
+  "ledger_spent_execution_tickets": 72,
   "compiled_validation_runs_including_parent": 24,
   "snapshot_restored": true,
   "search": {
@@ -1118,7 +2469,7 @@
       "certificate": {
         "kind": "ProofCertificate",
         "profile": "F2_ND_1",
-        "environment": "78b58f12779dc30c16607fa4568afb5ea1c931304b61c7c0fdbafec613a77627",
+        "environment": "f167934665c69fb45906dca76fc517f3ed70d46120eb1eff374f01584c81a421",
         "goal": [
           "and",
           [
@@ -1163,21 +2514,21 @@
     "receipt": {
       "binding": {
         "sequence": 0,
-        "manifest": "29e7a26361a6b954b18e5f190068674fd212bdf0dabe2e17d334175ae5b8783a",
-        "environment": "69ddc41923a1d7cc00d268fa1742570d9d34a554f8386ac68159d839758419ac",
-        "candidate": "07339267ff0f9bc2c6c4996d599692b5fbc40e67b403c81d9c1bf3ce18bfdcac",
+        "manifest": "cfcf9cebb757060c156c837ba8a636ebf4562c1726d5011429378b6c8cffe7d0",
+        "environment": "8b03d6c05ae91dad311c9f159550375fdd8f7590e27a1019b8eeacd67c6c44e1",
+        "candidate": "5e6b0e2122d2f114e1c36a4d536ee3144ae2d4c0a3b953602a8c090f6bae0df8",
         "generation": 0,
         "level": 1,
         "repetition": 0,
-        "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-        "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3"
+        "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+        "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552"
       },
       "trace": {
         "kind": "ObservedTrace",
-        "assignment": "044b57e8de291a79ec239c73433c8d7230f81a14ab1ebd2bee21db8afa65858c",
-        "environment": "69ddc41923a1d7cc00d268fa1742570d9d34a554f8386ac68159d839758419ac",
+        "assignment": "1e90681cef70da2efbbbe6fc190f7d341626a36080bcb0d9953b06abe7f7d6ee",
+        "environment": "8b03d6c05ae91dad311c9f159550375fdd8f7590e27a1019b8eeacd67c6c44e1",
         "level": 1,
-        "candidate": "07339267ff0f9bc2c6c4996d599692b5fbc40e67b403c81d9c1bf3ce18bfdcac",
+        "candidate": "5e6b0e2122d2f114e1c36a4d536ee3144ae2d4c0a3b953602a8c090f6bae0df8",
         "generation": 0,
         "steps": [
           {
@@ -1187,9 +2538,9 @@
               "prediction": {
                 "position": 0
               },
-              "state": "cf8f24104c21c6a19f5b2bdb60e77ac07d071c7d8a2885d696deb888e68b3afe"
+              "state": "95cfe16a20caf467dd1b6c003ebd8624d0468ca8b63ce91d1657aa5352db7ccc"
             },
-            "commit": "b16f1e2635eae4beff08c578fd94e7e1d95adab9698a57027dd4b96300981650",
+            "commit": "5f79d59c4ae01b6c41659367dcc7d583d2d95451628add72ea47452c880d9e0b",
             "before": {
               "position": 0,
               "key": false,
@@ -1210,7 +2561,7 @@
               "level": 1
             },
             "prediction_hit": true,
-            "previous": "c5286b8cbef95321b403202a28f5c3478409ca77d195e35d68ef4791872dbf30"
+            "previous": "dcc52fa88b80d7f875885a9637332503f85dd7f78948d88489d40beab5f25ea6"
           }
         ],
         "final": {
@@ -1224,28 +2575,28 @@
         "error": null
       }
     },
-    "tag": "46151a9126fddb8ae0d10050f145db3801e22c406ff0e4e1dce4bae39b31dcd1"
+    "tag": "61b85674107e21983c91a52a4ff9b9b6e468a692ef728e0bc0804c6040a47390"
   },
   "example_success": {
     "receipt": {
       "binding": {
-        "sequence": 1,
-        "manifest": "29e7a26361a6b954b18e5f190068674fd212bdf0dabe2e17d334175ae5b8783a",
-        "environment": "69ddc41923a1d7cc00d268fa1742570d9d34a554f8386ac68159d839758419ac",
-        "candidate": "e500564acc7f178680e904dd70a552ce1aa6d1c7fe8fcbdc4622b8e2cca2f26f",
-        "generation": 0,
+        "sequence": 25,
+        "manifest": "cfcf9cebb757060c156c837ba8a636ebf4562c1726d5011429378b6c8cffe7d0",
+        "environment": "8b03d6c05ae91dad311c9f159550375fdd8f7590e27a1019b8eeacd67c6c44e1",
+        "candidate": "b33f40e0e005e728978d66c2f99e94332a6cc373c46479abb45bde8ae7993b7d",
+        "generation": 1,
         "level": 1,
         "repetition": 0,
-        "mission": "c3f2567ae139a59eb461c43c7a508358eb1fd9bae5f82eb3beb63bdacfc3fe39",
-        "guarantees": "13a8c891e1c62840275aaddca9bbbba4c31a047067dd874d49975579a74f67d3"
+        "mission": "58a649ca079815c984c9e35c66dfb112387854d0d35e3791503c82715147ac0b",
+        "guarantees": "2f01397a1635360d765eb51a4f8a3aa3e60f1729525b854104cf798f0d4d0552"
       },
       "trace": {
         "kind": "ObservedTrace",
-        "assignment": "43267fefcc863d90d43b73ff97d23d39ba6013f10c647c5cdb9d6e0ab4db1647",
-        "environment": "69ddc41923a1d7cc00d268fa1742570d9d34a554f8386ac68159d839758419ac",
+        "assignment": "c6628e26af8c4cae401e41b0b0f633cc579e03bd3b901941b9c02ceb2ff5f5d5",
+        "environment": "8b03d6c05ae91dad311c9f159550375fdd8f7590e27a1019b8eeacd67c6c44e1",
         "level": 1,
-        "candidate": "e500564acc7f178680e904dd70a552ce1aa6d1c7fe8fcbdc4622b8e2cca2f26f",
-        "generation": 0,
+        "candidate": "b33f40e0e005e728978d66c2f99e94332a6cc373c46479abb45bde8ae7993b7d",
+        "generation": 1,
         "steps": [
           {
             "index": 0,
@@ -1254,9 +2605,9 @@
               "prediction": {
                 "position": 0
               },
-              "state": "cf8f24104c21c6a19f5b2bdb60e77ac07d071c7d8a2885d696deb888e68b3afe"
+              "state": "95cfe16a20caf467dd1b6c003ebd8624d0468ca8b63ce91d1657aa5352db7ccc"
             },
-            "commit": "0f7e1ed653f1a696001202db6c9b2a628275191e506ea3523bb6b26c0efe3319",
+            "commit": "7215d664eb34b8582c312922b23f73db2473af90e45e92900f9dba0e7f943eea",
             "before": {
               "position": 0,
               "key": false,
@@ -1277,7 +2628,7 @@
               "level": 1
             },
             "prediction_hit": true,
-            "previous": "8e1e78d41ba7c7f052ab63ec49ee5a4e001c818507554c20c9ca21d9bcf21a39"
+            "previous": "9926ee41df5b2a309f67af18d2a0c3dbaf5880121a406f17a5744db57023e22d"
           },
           {
             "index": 1,
@@ -1286,9 +2637,9 @@
               "prediction": {
                 "position": 0
               },
-              "state": "2ac8910249ccf909369ed2aa19f7b196ac653cbf524ba25459dd7c3ea37790d2"
+              "state": "eaeb8c77e06474807b21cb53552f7818f3c66689d03db2ff682a3776eb6219d2"
             },
-            "commit": "440043022d20b0c0cfb2efa2bf477e3332a718498dade7628f50521c31d35f64",
+            "commit": "f439cbc0183be1c5ba76e2ea4973fa65eef475c67438d5617bf57e0b94eba398",
             "before": {
               "position": 0,
               "key": true,
@@ -1313,7 +2664,7 @@
               "level": 1
             },
             "prediction_hit": true,
-            "previous": "9367497f6da72694a0bbf9718165c8e0056908ad5ae85ea7cf7a99f63fd9e20b"
+            "previous": "cee8ed5f5eb536d5a7839ef407506b3d8118210d1ea5031f1455f1fcb595a090"
           },
           {
             "index": 2,
@@ -1322,9 +2673,9 @@
               "prediction": {
                 "position": 0
               },
-              "state": "f4cbd388f457a438ce3fced3a0b53107f97736c7f28b4c0995e93d8df8261ca0"
+              "state": "96a20a10051176f9f1522ff01b8cf952b085f96247080645e4bb57ecadb304f0"
             },
-            "commit": "e92cf11684929f908d3041aee5c01b44e9b46b23894ac46d6ace447fa2d7a3b6",
+            "commit": "51b3fe4161fb7112cdc8c03a525583eb6c9193c40f39ab2ddd79b356c1c89b52",
             "before": {
               "position": 0,
               "key": false,
@@ -1351,7 +2702,7 @@
               "level": 1
             },
             "prediction_hit": false,
-            "previous": "5610930cc3b3847f6a032c1748e39e90ce33008d6012e517a7e915ef3a6f5d12"
+            "previous": "3b61671a58c7651b0dc0d968c2de533f5d1dfad538f4eb4b800bce671a204347"
           },
           {
             "index": 3,
@@ -1360,9 +2711,9 @@
               "prediction": {
                 "position": 1
               },
-              "state": "ce1b74de282bb13d4d76f2644407c067fc1aec4ab3501a02990d8f7fe888c323"
+              "state": "badb77860a861c9e69a0c9779d126ad98bce2be24398b66d988cff824a327d98"
             },
-            "commit": "1ab86dc43ab885c60a672b74e0ef35a578dfc793a8eab5e9f94a1c177df3e8a6",
+            "commit": "4f0461b088478391009aaf0acc2802070de3c9999269f14fb03663da39dad103",
             "before": {
               "position": 1,
               "key": false,
@@ -1389,7 +2740,7 @@
               "level": 1
             },
             "prediction_hit": false,
-            "previous": "fff5bbf19c3e40428ecae1a08b9a6c5da0b778f53ec1773671744a9d754b80d1"
+            "previous": "f4aa60467c99e6e6a5d46d73d420fe3a07eb31c2485001a857969b051f6b1e39"
           }
         ],
         "final": {
@@ -1405,6 +2756,6 @@
         "error": null
       }
     },
-    "tag": "3b5315224886bb4c18346add21d9d43fd5d69319bb5dc4819034622d47866a0d"
+    "tag": "7cee7364d1968d4bde5f07f005b5d7b3603de11cf2d129c2c6d6c4c921f692aa"
   }
 }

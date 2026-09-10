@@ -1,6 +1,6 @@
 '''Closed structural schemas. Semantic validators remain profile-specific.'''
 
-from .codec import canonical, fields, integer, need, ref
+from .codec import canonical, decode, fields, integer, need, ref
 
 
 SCHEMAS = {
@@ -38,7 +38,13 @@ SCHEMAS = {
                         'scope': ['Nat'],
                         'receipts': ['Ref'], 'mission': 'Ref',
                         'guarantees': 'Ref',
-                        'assessments': ['AssessmentEnvelope']},
+                        'assessments': ['AssessmentEnvelope'],
+                        'improvement': 'Improvement'},
+    'ExecutionCost': {'actions': 'Nat', 'vm_fuel': 'Nat',
+                      'program_bytes': 'Nat'},
+    'Improvement': {'profile': 'Text', 'success_gain': 'Bool',
+                    'cost_comparable': 'Bool', 'cost_nonworse': 'Bool',
+                    'cost_strict': 'Bool', 'cost_pairs': [['ExecutionCost']]},
     'TrainingAdmission': {'kind': 'Text', 'profile': 'Text',
                           'environment': 'Ref',
                           'manifest': 'Ref', 'assignment': 'Ref',
@@ -77,10 +83,12 @@ SCHEMAS = {
                    'max_program_bytes': 'Nat'},
     'Mission': {'kind': 'Text', 'environment': 'Ref', 'manifest': 'Ref',
                 'levels': ['Nat'], 'absolute_success': 'Text',
+                'improvement_profile': 'Text',
                 'floor': 'Guarantees', 'observer': 'Ref', 'evaluator': 'Ref'},
     'Assessment': {'kind': 'Text', 'principal': 'Ref', 'assignment': 'Ref',
                    'source': 'Ref', 'mission': 'Ref', 'guarantees': 'Ref',
-                   'outcome': 'OperationalClaim', 'violations': ['Text']},
+                   'outcome': 'OperationalClaim', 'cost': 'ExecutionCost',
+                   'violations': ['Text']},
     'AssessmentEnvelope': {'assessment': 'Assessment', 'tag': 'Ref'},
     'RequestLogStart': {'mission': 'Ref'},
     'RequestRecord': {'index': 'Nat', 'request_hex': 'Text', 'before': 'Ref',
@@ -91,7 +99,8 @@ SCHEMAS = {
                     'level_min': 'Nat', 'level_max': 'Nat', 'goal': 'Text',
                     'effects': 'Text'},
     'SessionSnapshot': {
-        'version': 'Text', 'levels': ['Nat'], 'programs': {'map': 'Program'},
+        'version': 'Text', 'levels': ['Nat'],
+        'programs': {'map': 'ProgramText'},
         'plans': {'map': 'EvaluationPlan'}, 'used': ['Ref'],
         'training_used': ['Ref'], 'active_plan': {'nullable': 'Ref'},
         'requests_used': 'Nat',
@@ -133,6 +142,10 @@ def validate_schema(value, schema):
             if tag == 'Program':
                 from .language import check
                 return check(item)
+            if tag == 'ProgramText':
+                from .environment import check_agent
+                need(type(item) is str)
+                return check_agent(decode(item.encode('ascii')))
             if tag == 'Formula':
                 from .proofs import formula
                 return formula(item)
