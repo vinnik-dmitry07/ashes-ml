@@ -34,6 +34,10 @@
     "repetition": "Nat",
     "sequence": "Nat"
   },
+  "CheckpointAnchor": {
+    "digest": "Ref",
+    "revision": "Nat"
+  },
   "Envelope": {
     "receipt": "Receipt",
     "tag": "Ref"

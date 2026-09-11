@@ -95,6 +95,7 @@ SCHEMAS = {
                       'after': 'Ref', 'result': 'Ref', 'code': 'Text',
                       'previous': 'Ref'},
     'WireResult': {'code': 'Text', 'value': 'CanonicalValue'},
+    'CheckpointAnchor': {'revision': 'Nat', 'digest': 'Ref'},
     'Environment': {'profile': 'Text', 'version': 'Nat', 'actions': ['Text'],
                     'level_min': 'Nat', 'level_max': 'Nat', 'goal': 'Text',
                     'effects': 'Text'},

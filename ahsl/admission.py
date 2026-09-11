@@ -74,8 +74,8 @@ class Session:
         need(self.levels and self.levels == sorted(set(self.levels)))
         for level in self.levels:
             integer(level, 1, 12)
-        observer_key = derive_key(key, 'AHSL14-observer')
-        evaluator_key = derive_key(key, 'AHSL14-evaluator')
+        observer_key = derive_key(key, 'AHSL15-observer')
+        evaluator_key = derive_key(key, 'AHSL15-evaluator')
         self.mission = create_mission(
             manifest, self.levels, key_id(observer_key), key_id(evaluator_key))
         self.mission_id = cid('Mission', self.mission)
@@ -109,7 +109,7 @@ class Session:
         from the blob.
         '''
         return deepcopy({
-            'version': '1.4', 'levels': self.levels,
+            'version': '1.5', 'levels': self.levels,
             'programs': {key: canonical(value).decode('ascii')
                          for key, value in self.programs.items()},
             'plans': self.plans, 'used': sorted(self.used),
@@ -134,7 +134,8 @@ class Session:
         })
 
     @classmethod
-    def restore(cls, snapshot, key, expected_digest):
+    def restore_integrity(cls, snapshot, key, expected_digest):
+        '''Offline decoding only; use DurableSession for fresh resumption.'''
         ref(expected_digest)
         need(cid('SessionSnapshot', snapshot) == expected_digest, 'INTEGRITY')
         fields(snapshot, ('version', 'levels', 'programs', 'plans', 'used',
@@ -143,7 +144,7 @@ class Session:
                           'mission_id', 'published_contracts', 'contracts',
                           'decisions', 'request_log', 'request_log_bytes',
                           'request_log_head'))
-        need(snapshot['version'] == '1.4', 'STALE')
+        need(snapshot['version'] == '1.5', 'STALE')
         saved = deepcopy(snapshot)
         need(type(saved['programs']) is dict)
         programs = {}

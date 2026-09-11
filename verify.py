@@ -176,7 +176,96 @@ def adversarial_wire():
         result = decode(handle(session, canonical(value)))
         assert result['code'] in ERRORS | {'OK'}
         counts[result['code']] = counts.get(result['code'], 0) + 1
-    return {'requests': sum(counts.values()), 'outcomes': counts}
+    return {'requests': sum(counts.values()), 'outcomes': counts,
+            'outer_admitted': session.requests_used,
+            'outer_rejected': sum(counts.values()) - session.requests_used,
+            'schema_rejections': counts.get('SCHEMA', 0),
+            'ok': counts.get('OK', 0)}
+
+
+def structured_wire():
+    '''Mutate valid request trees, retaining successful dispatch controls.'''
+    from ahsl.admission import Session
+    from ahsl.api import handle
+    from ahsl.codec import ERRORS, canonical, cid, decode
+    from ahsl.examples import builtin, corridor_agent, lit, program
+    rng = random.Random(15074123)
+    counts, origins = {}, {'seed': 0, 'mutation': 0}
+    admitted = 0
+
+    def send(owner, request, origin):
+        nonlocal admitted
+        before = owner.requests_used
+        result = decode(handle(owner, canonical(request)))
+        admitted += owner.requests_used - before
+        need_code = result['code'] in ERRORS | {'OK'}
+        assert need_code
+        counts[result['code']] = counts.get(result['code'], 0) + 1
+        origins[origin] += 1
+        return result
+
+    for _ in range(8):
+        owner = Session(corridor_agent('paint'), 24,
+                        b'structured-wire-public-fixture-key',
+                        cid('Manifest', manifest()), [1])
+        candidate = corridor_agent()
+        first = send(owner, {'op': 'propose', 'program': candidate}, 'seed')
+        assert first['code'] == 'OK'
+        plan = first['value']
+        evaluated = send(owner, {'op': 'evaluate', 'plan': plan}, 'seed')
+        assert evaluated['code'] == 'OK'
+        assignments = evaluated['value']
+        receipt = owner.runner.receipts[assignments[1]]
+        accepted = send(owner, {'op': 'admit', 'plan': plan,
+                                'assignments': assignments}, 'seed')
+        assert accepted['code'] == 'OK' and accepted['value']['accept']
+        trained = send(owner, {'op': 'train', 'envelope': receipt}, 'seed')
+        assert trained['code'] == 'OK'
+        templates = [
+            {'op': 'propose', 'program': corridor_agent('noop')},
+            {'op': 'evaluate', 'plan': plan},
+            {'op': 'read_receipt', 'assignment': assignments[1]},
+            {'op': 'admit', 'plan': plan, 'assignments': assignments},
+            {'op': 'train', 'envelope': receipt},
+            {'op': 'condense', 'assignments': [assignments[1]]},
+            {'op': 'check_proof', 'goal': ['top'], 'term': ['unit'],
+             'library': {}},
+            {'op': 'run_pure', 'program': program(lit(1, 'Int'), 'Int'),
+             'arguments': [], 'fuel': 10},
+        ]
+        for _ in range(92):
+            request = deepcopy(rng.choice(templates))
+            mutation = rng.randrange(8)
+            origin = 'seed' if mutation == 0 else 'mutation'
+            if mutation == 1:
+                request['extra'] = 1
+            elif mutation == 2:
+                del request[rng.choice(sorted(request))]
+            elif mutation == 3:
+                request[rng.choice(sorted(request))] = None
+            elif mutation == 4:
+                request = {'op': 'run_pure', 'arguments': [], 'fuel': 10,
+                           'program': program(lit(1, 'Int'), 'Bool')}
+            elif mutation == 5:
+                request = {'op': 'evaluate', 'plan': cid('Unknown', 'plan')}
+            elif mutation == 6:
+                forged = deepcopy(receipt)
+                forged['tag'] = '0' * 64
+                request = {'op': 'train', 'envelope': forged}
+            elif mutation == 7:
+                request = {
+                    'op': 'run_pure', 'arguments': [], 'fuel': 1,
+                    'program': program(builtin('add', lit(1, 'Int'),
+                                               lit(2, 'Int')), 'Int'),
+                }
+            send(owner, request, origin)
+    return {'requests': sum(counts.values()), 'outcomes': counts,
+            'origins': origins, 'outer_admitted': admitted,
+            'ok': counts.get('OK', 0),
+            'covered_error_codes': len(set(counts) - {'OK'}),
+            'alphabet_size': len(ERRORS),
+            'scope': '8 independent sessions; valid lifecycle seeds and '
+            'bounded request-tree mutations, not exhaustive wire coverage'}
 
 
 def main():
@@ -206,10 +295,11 @@ def main():
     if not result.wasSuccessful():
         print(stream.getvalue())
         raise SystemExit(1)
-    report = {'profile': 'AHSL-1.4', 'status': 'EXECUTABLE_REFERENCE',
+    report = {'profile': 'AHSL-1.5', 'status': 'EXECUTABLE_REFERENCE',
               'tests_run': result.testsRun, 'failures': len(result.failures),
               'errors': len(result.errors), 'manifest_sha256': digest,
-              'files_checked': len(pinned), 'wire_fuzz': adversarial_wire()}
+              'files_checked': len(pinned), 'wire_fuzz': adversarial_wire(),
+              'structured_wire_fuzz': structured_wire()}
     reports = ROOT / 'reports'
     reports.mkdir(exist_ok=True)
     if not args.quick:

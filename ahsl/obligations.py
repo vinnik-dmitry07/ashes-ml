@@ -12,7 +12,7 @@ DEFAULT_GUARANTEES = {
     'max_program_bytes': 65536,
 }
 
-IMPROVEMENT_PROFILE = 'SUCCESS_THEN_PARETO_COST_1'
+IMPROVEMENT_PROFILE = 'SUCCESS_THEN_PARETO_COST_2'
 COST_AXES = ('actions', 'vm_fuel', 'program_bytes')
 
 

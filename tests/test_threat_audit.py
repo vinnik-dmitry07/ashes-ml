@@ -186,7 +186,7 @@ class ThreatAuditTests(unittest.TestCase):
         request = canonical({'op': 'missing'})
         handle(owner, request)
         snapshot = owner.snapshot()
-        restored = Session.restore(
+        restored = Session.restore_integrity(
             snapshot, KEY, cid('SessionSnapshot', snapshot))
         self.assertEqual(restored.request_log, owner.request_log)
         self.assertEqual(restored.request_log_head, owner.request_log_head)

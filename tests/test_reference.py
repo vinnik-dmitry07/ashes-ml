@@ -275,7 +275,7 @@ class ProofTests(Base):
         extra = {'i': {'goal': ['imp', self.p, self.p], 'term': self.identity}}
         self.rejects('INTEGRITY', check_certificate, certificate, extra)
 
-    def test_decomposition_is_useful_under_a_measured_search_budget(self):
+    def test_indexed_control_matches_decomposition_budget(self):
         library = {}
         for key in ('A', 'B', 'C', 'D'):
             atom = ['atom', key]
@@ -284,7 +284,10 @@ class ProofTests(Base):
         goal = ['and', library['C']['goal'], library['D']['goal']]
         forward = search(goal, library, 1, 'forward')
         directed = search(goal, library, 1, 'decompose')
-        self.assertEqual(forward['status'], 'UNKNOWN')
+        self.assertEqual(forward['status'], 'CHECKED')
+        self.assertEqual(forward['attempts'], directed['attempts'])
+        self.assertEqual(forward['certificate_visits'],
+                         directed['certificate_visits'])
         self.assertEqual(directed['status'], 'CHECKED')
         check_certificate(directed['certificate'], library)
         self.assertEqual(search(goal, library, 16)['status'], 'CHECKED')
@@ -425,12 +428,13 @@ class GroundingTests(Base):
         session.admit_training(envelopes[1])
         snapshot = session.snapshot()
         anchor = cid('SessionSnapshot', snapshot)
-        restored = Session.restore(snapshot, KEY, anchor)
+        restored = Session.restore_integrity(snapshot, KEY, anchor)
         self.assertEqual(canonical(restored.snapshot()), canonical(snapshot))
         self.rejects('DUPLICATE', restored.admit_training, envelopes[1])
         forged = deepcopy(snapshot)
         forged['training_used'] = []
-        self.rejects('INTEGRITY', Session.restore, forged, KEY, anchor)
+        self.rejects('INTEGRITY', Session.restore_integrity,
+                     forged, KEY, anchor)
 
     def test_resume_after_receipt_before_settlement(self):
         session = self.session([1])
@@ -444,7 +448,7 @@ class GroundingTests(Base):
         session.ledger.apply('executor', {'op': 'dispatch', 'job': 'j0'})
         session.runner.run(assignment, corridor_agent('paint'))
         snapshot = session.snapshot()
-        restored = Session.restore(
+        restored = Session.restore_integrity(
             snapshot, KEY, cid(
                 'SessionSnapshot', snapshot))
         restored.evaluate(plan)

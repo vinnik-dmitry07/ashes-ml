@@ -114,7 +114,7 @@ def decode(data):
 def cid(kind, value):
     name(kind)
     return hashlib.sha256(
-        b'AHSL/1.4/' + kind.encode('ascii') + b'\x00' + canonical(value)
+        b'AHSL/1.5/' + kind.encode('ascii') + b'\x00' + canonical(value)
     ).hexdigest()
 
 

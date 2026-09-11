@@ -6,7 +6,7 @@ import hmac
 
 from .codec import canonical, cid, fields, need
 from .environment import audit_trace, observe
-from .language import execute
+from .language import execute, program_cost_bytes
 from .obligations import violations
 
 
@@ -63,7 +63,7 @@ class Evaluator:
             # successful trace these are all calls through the ground goal.
             'cost': {'actions': outcome['steps'],
                      'vm_fuel': 50000 - remaining,
-                     'program_bytes': len(canonical(program))},
+                     'program_bytes': program_cost_bytes(program)},
             'violations': violations(outcome, program, guarantees),
         }
         tag = hmac.new(self._key, canonical(body), hashlib.sha256).hexdigest()

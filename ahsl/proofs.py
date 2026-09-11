@@ -119,45 +119,64 @@ def check_certificate(certificate, library):
 
 
 def search(goal, library, budget, mode='forward'):
-    '''Count attempted constructions, not semantic truth-table evaluations.'''
+    '''Both modes share indexed subgoals and charge one pair construction.'''
     formula(goal)
     integer(budget, 0, 10000)
     need(mode in ('forward', 'decompose'))
+    need(type(library) is dict and len(library) <= 256)
     known = {}
+    precheck_visits = 0
     for key in sorted(library):
         entry = library[key]
-        certify(entry['goal'], ['ref', key], library)
+        certificate = certify(entry['goal'], ['ref', key], library)
+        precheck_visits += certificate['visits']
         known[canonical(entry['goal'])] = ['ref', key]
     spent = 0
 
-    def directed(target):
+    def combine(target):
         nonlocal spent
-        if canonical(target) in known:
-            return known[canonical(target)]
-        if spent >= budget or target[0] != 'and':
+        left = known.get(canonical(target[1]))
+        right = known.get(canonical(target[2]))
+        if left is None or right is None or spent >= budget:
             return None
         spent += 1
-        left = directed(target[1])
-        right = directed(target[2])
-        if left is None or right is None:
+        term = ['pair', left, right]
+        known[canonical(target)] = term
+        return term
+
+    def directed(target):
+        key = canonical(target)
+        if key in known:
+            return known[key]
+        if target[0] != 'and':
             return None
-        return ['pair', left, right]
+        if directed(target[1]) is None or directed(target[2]) is None:
+            return None
+        return combine(target)
 
     if mode == 'decompose':
         term = directed(goal)
     else:
+        # A fair control admits the same nested conjunction fragment.
+        ordered, seen = [], set()
+
+        def postorder(target):
+            key = canonical(target)
+            if key in known or key in seen:
+                return
+            seen.add(key)
+            if target[0] == 'and':
+                postorder(target[1])
+                postorder(target[2])
+                ordered.append(target)
+
+        postorder(goal)
+        for target in ordered:
+            combine(target)
         term = known.get(canonical(goal))
-        initial = [(library[key]['goal'], ['ref', key])
-                   for key in sorted(library)]
-        for left, lp in initial:
-            for right, rp in initial:
-                if term is not None or spent >= budget:
-                    break
-                spent += 1
-                if ['and', left, right] == goal:
-                    term = ['pair', lp, rp]
-            if term is not None or spent >= budget:
-                break
     certificate = None if term is None else certify(goal, term, library)
     return {'status': 'UNKNOWN' if term is None else 'CHECKED',
-            'attempts': spent, 'certificate': certificate}
+            'cost_model': 'F2_PAIR_CONSTRUCTION_2',
+            'attempts': spent, 'precheck_visits': precheck_visits,
+            'certificate_visits': 0 if certificate is None else (
+                certificate['visits']), 'certificate': certificate}

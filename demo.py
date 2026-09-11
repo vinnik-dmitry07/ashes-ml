@@ -46,8 +46,8 @@ def run(manifest):
     assert compiled_decision['accept']
     successes = [child for parent, child in compiled_decision['pairs']]
     snapshot = owner.snapshot()
-    restored = Session.restore(snapshot, root_key,
-                               cid('SessionSnapshot', snapshot))
+    restored = Session.restore_integrity(snapshot, root_key,
+                                         cid('SessionSnapshot', snapshot))
     assert restored.snapshot() == snapshot
     for value, schema in (
         (decision, 'ReleaseDecision'),
@@ -64,6 +64,8 @@ def run(manifest):
         library[key] = {'goal': ['imp', atom, atom],
                         'term': ['lam', atom, ['var', 0]]}
     goal = ['and', library['C']['goal'], library['D']['goal']]
+    nested = ['and', ['and', library['A']['goal'], library['B']['goal']], goal]
+    from durable_demo import run as run_durable
     return {
         'release': decision, 'continued_improvement': continued,
         'admitted_training_trajectories': len(admissions),
@@ -72,9 +74,12 @@ def run(manifest):
         'compiled_policy_release': compiled_decision,
         'ledger_spent_execution_tickets': owner.ledger.state['spent'],
         'compiled_validation_runs_including_parent': len(compiled_receipts),
-        'snapshot_restored': True,
+        'snapshot_restored': restored.snapshot() == snapshot,
+        'durable_restoration': run_durable(manifest),
         'search': {mode: search(goal, library, 1, mode)
                    for mode in ('forward', 'decompose')},
+        'nested_search': {mode: search(nested, library, 3, mode)
+                          for mode in ('forward', 'decompose')},
         'example_exploit': first_receipts[0], 'example_success': receipts[1],
     }
 
@@ -86,7 +91,8 @@ if __name__ == '__main__':
     (root / 'reports').mkdir(exist_ok=True)
     (root / 'reports' / 'demo.json').write_text(
         json.dumps(result, indent=2) + '\n')
-    excluded = ('example_exploit', 'example_success', 'search')
+    excluded = ('example_exploit', 'example_success',
+                'search', 'nested_search')
     summary = {key: value for key, value in result.items()
                if key not in excluded}
     print(json.dumps(summary, indent=2))

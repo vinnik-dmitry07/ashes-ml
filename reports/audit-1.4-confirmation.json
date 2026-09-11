@@ -1,0 +1,39 @@
+{
+  "alpha_rename_accepted": true,
+  "cost_pairs": [
+    [
+      {
+        "actions": 4,
+        "vm_fuel": 82,
+        "program_bytes": 1321
+      },
+      {
+        "actions": 4,
+        "vm_fuel": 82,
+        "program_bytes": 1315
+      }
+    ],
+    [
+      {
+        "actions": 7,
+        "vm_fuel": 151,
+        "program_bytes": 1321
+      },
+      {
+        "actions": 7,
+        "vm_fuel": 151,
+        "program_bytes": 1315
+      }
+    ]
+  ],
+  "stale_restore_readmits": true,
+  "extra_tickets": 0,
+  "flat": {
+    "forward": "UNKNOWN",
+    "decompose": "CHECKED"
+  },
+  "nested": {
+    "forward": "UNKNOWN",
+    "decompose": "CHECKED"
+  }
+}

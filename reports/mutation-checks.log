@@ -1,0 +1,5 @@
+{
+  "caught": 3,
+  "attempted": 3,
+  "mechanism": "Targeted behavioral test failures; manifest verification was not invoked in the mutated copies."
+}

@@ -75,14 +75,19 @@ def _dispatch(session, request):
         return canonical({'code': 'SCHEMA', 'value': None})
 
 
+def check_request(session, request):
+    '''Pure outer admission checks, shared with the persistent owner.'''
+    need(type(request) is bytes, 'SCHEMA')
+    need(len(request) <= 131072, 'LIMIT')
+    need(session.requests_used < 1024, 'BUDGET')
+    need(session.request_log_bytes + 2 * len(request) + 1024 <= 2000000,
+         'BUDGET')
+
+
 def handle(session, request):
     '''Bounded full-request audit; rejects do not consume trial evidence.'''
     try:
-        need(type(request) is bytes, 'SCHEMA')
-        need(len(request) <= 131072, 'LIMIT')
-        need(session.requests_used < 1024, 'BUDGET')
-        need(session.request_log_bytes + 2 * len(request) + 1024 <= 2000000,
-             'BUDGET')
+        check_request(session, request)
     except Rejected as error:
         return canonical({'code': str(error), 'value': None})
     session.requests_used += 1

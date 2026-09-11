@@ -11,7 +11,7 @@ from ahsl.examples import (
     observation, program, var,
 )
 from ahsl.knowledge import trim_alias
-from ahsl.language import check, execute
+from ahsl.language import check, execute, program_cost_bytes
 from ahsl.obligations import DEFAULT_GUARANTEES, IMPROVEMENT_PROFILE
 from ahsl.schema import validate_schema
 
@@ -44,12 +44,14 @@ def delayed_solver():
     return candidate
 
 
-def padded_bytes(candidate, length, marker='a'):
+def padded_bytes(candidate, length, marker='a', normalized=False):
     candidate = deepcopy(candidate)
     candidate['functions']['padding'] = function({}, 'Text', lit('', 'Text'))
     padding = candidate['functions']['padding']['body']
-    padding['value'] = marker * (length - len(canonical(candidate)))
-    assert len(canonical(candidate)) == length
+    measure = program_cost_bytes if normalized else (
+        lambda value: len(canonical(value)))
+    padding['value'] = marker * (length - measure(candidate))
+    assert measure(candidate) == length
     return candidate
 
 
@@ -64,8 +66,8 @@ class Release14Tests(unittest.TestCase):
         snapshot = owner.snapshot()
         validate_schema(snapshot, 'SessionSnapshot')
         encoded = canonical(snapshot)
-        restored = Session.restore(decode(encoded), KEY,
-                                   cid('SessionSnapshot', snapshot))
+        restored = Session.restore_integrity(decode(encoded), KEY,
+                                             cid('SessionSnapshot', snapshot))
         self.assertEqual(canonical(restored.snapshot()), encoded)
         self.assertEqual(restored.programs, owner.programs)
         return restored
@@ -191,13 +193,14 @@ class Release14Tests(unittest.TestCase):
             snapshot = deepcopy(original)
             snapshot['programs'][identifier] = encoded
             with self.subTest(code=code), self.assertRaises(Rejected) as error:
-                Session.restore(snapshot, KEY,
-                                cid('SessionSnapshot', snapshot))
+                Session.restore_integrity(snapshot, KEY,
+                                          cid('SessionSnapshot', snapshot))
             self.assertEqual(str(error.exception), code)
         stale = deepcopy(original)
         stale['version'] = '1.3'
         with self.assertRaises(Rejected) as error:
-            Session.restore(stale, KEY, cid('SessionSnapshot', stale))
+            Session.restore_integrity(
+                stale, KEY, cid('SessionSnapshot', stale))
         self.assertEqual(str(error.exception), 'STALE')
 
     def test_improve_continues_after_full_success(self):
@@ -224,8 +227,8 @@ class Release14Tests(unittest.TestCase):
         main = slow['functions']['main']
         main['body'] = {'op': 'let', 'name': 'unused',
                         'value': lit(0, 'Int'), 'body': main['body']}
-        owner = self.owner(padded_bytes(slow, 4000))
-        verdict = self.admit(owner, padded_bytes(fast, 4000))
+        owner = self.owner(padded_bytes(slow, 4000, normalized=True))
+        verdict = self.admit(owner, padded_bytes(fast, 4000, normalized=True))
         self.assertTrue(verdict['accept'])
         for parent, child in verdict['improvement']['cost_pairs']:
             self.assertEqual(parent['program_bytes'], child['program_bytes'])
@@ -298,7 +301,8 @@ class Release14Tests(unittest.TestCase):
                                          DEFAULT_GUARANTEES)
         measured = witness['assessment']['cost']
         self.assertEqual(measured['actions'], 4)
-        self.assertEqual(measured['program_bytes'], len(canonical(candidate)))
+        self.assertEqual(measured['program_bytes'],
+                         program_cost_bytes(candidate))
         self.assertGreater(measured['vm_fuel'], 0)
         witness['assessment']['cost']['vm_fuel'] = 0
         with self.assertRaises(Rejected) as error:
