@@ -1,15 +1,23 @@
 {
-  "source_manifest": "418aaa5938416d0193561679b05e3a4fea0cd795e972c3b57280c69ebd491127",
-  "fixture_plan": "2d5cc474dd39d1c873159fa9c9194adccd3da537336b1eaa02602b8e677c6611",
-  "fixture_journal_head": "0b98070de43c0fe987e61af73f0846f1e3db4809831542ea6bbab1e767c78d2f",
-  "trust_identity": {
-    "kind": "TrustLedger",
-    "source_manifest": "418aaa5938416d0193561679b05e3a4fea0cd795e972c3b57280c69ebd491127",
-    "owner": "0b5bdeac95a004ffd23ecf2bdf7ba49bbf82e76a2fac0ff0d1a75953d867abb8",
-    "max_checks": 256,
-    "max_events": 2048,
-    "max_bytes": 16000000
+  "source_manifest": "c253f90f2f5df586dcd24a906390ed9f2a94e0e4fd7893b62c3d90f78edf33a6",
+  "search": {
+    "plan_id": "931577b672ec79bcc63cdac3369c9c22d77fb73bc8900a8ff9f6ab14cd4f6070",
+    "journal_head": "d538c0f1973757b34fa985ea2144c0c8c165736cc98061cad086011613de7850"
   },
-  "trust_journal_head": "beeaac711e01092fe5c204e8da384190c5f16979b2e6fa7b8fbef2499bad858b",
-  "note": "Preserve independently; colocated hashes do not authenticate themselves. Trust fixture uses an intentionally public test key."
+  "fixture": {
+    "plan_id": "381401eb4296639ea200d0722b49bb1e0f09e27ab3aec15cd70f88e216cdee14",
+    "journal_head": "09a25bfde19f347f2ef836fd421def3d3d69f95eb945313029b94d6f9c57d3a5"
+  },
+  "trust": {
+    "identity": {
+      "kind": "TrustLedger",
+      "source_manifest": "c253f90f2f5df586dcd24a906390ed9f2a94e0e4fd7893b62c3d90f78edf33a6",
+      "owner": "0b5bdeac95a004ffd23ecf2bdf7ba49bbf82e76a2fac0ff0d1a75953d867abb8",
+      "max_checks": 256,
+      "max_events": 2048,
+      "max_bytes": 16000000
+    },
+    "journal_head": "cfeaf5cfacabbcabf6ccc1fa5f626b13ce2197a3b15096459e365ccd2f7d3c9a"
+  },
+  "warning": "Preserve these anchors independently; a self-supplied hash is not independent provenance."
 }

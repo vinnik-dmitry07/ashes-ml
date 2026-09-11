@@ -34,8 +34,8 @@
       "accounted_cost_completed_runs_microusd": 40320,
       "calls_completed_runs_including_selection_and_planning": 288,
       "unknown_cost_calls_completed_runs": 0,
-      "mean_elapsed_ms_completed_runs": 34,
-      "q95_elapsed_ms_completed_runs": 54
+      "mean_elapsed_ms_completed_runs": 47,
+      "q95_elapsed_ms_completed_runs": 73
     },
     "history": {
       "requested": 12,
@@ -64,8 +64,8 @@
       "accounted_cost_completed_runs_microusd": 40320,
       "calls_completed_runs_including_selection_and_planning": 288,
       "unknown_cost_calls_completed_runs": 0,
-      "mean_elapsed_ms_completed_runs": 44,
-      "q95_elapsed_ms_completed_runs": 69
+      "mean_elapsed_ms_completed_runs": 55,
+      "q95_elapsed_ms_completed_runs": 90
     },
     "plan": {
       "requested": 12,
@@ -94,8 +94,8 @@
       "accounted_cost_completed_runs_microusd": 42000,
       "calls_completed_runs_including_selection_and_planning": 300,
       "unknown_cost_calls_completed_runs": 0,
-      "mean_elapsed_ms_completed_runs": 36.75,
-      "q95_elapsed_ms_completed_runs": 54
+      "mean_elapsed_ms_completed_runs": 49.416666666666664,
+      "q95_elapsed_ms_completed_runs": 82
     },
     "selector": {
       "requested": 12,
@@ -124,8 +124,8 @@
       "accounted_cost_completed_runs_microusd": 42840,
       "calls_completed_runs_including_selection_and_planning": 306,
       "unknown_cost_calls_completed_runs": 0,
-      "mean_elapsed_ms_completed_runs": 37.416666666666664,
-      "q95_elapsed_ms_completed_runs": 56
+      "mean_elapsed_ms_completed_runs": 51.916666666666664,
+      "q95_elapsed_ms_completed_runs": 95
     }
   },
   "selector_minus_baseline": {
@@ -181,8 +181,8 @@
       ]
     }
   },
-  "plan_id": "2d5cc474dd39d1c873159fa9c9194adccd3da537336b1eaa02602b8e677c6611",
-  "journal_head": "0b98070de43c0fe987e61af73f0846f1e3db4809831542ea6bbab1e767c78d2f",
+  "plan_id": "381401eb4296639ea200d0722b49bb1e0f09e27ab3aec15cd70f88e216cdee14",
+  "journal_head": "09a25bfde19f347f2ef836fd421def3d3d69f95eb945313029b94d6f9c57d3a5",
   "campaign_error": null,
   "ledger": {
     "accounted_cost_microusd": 165480,

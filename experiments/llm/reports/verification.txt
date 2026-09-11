@@ -30,6 +30,22 @@ test_parent_timeout_does_not_retry_or_expose_exception (test_http.HTTPTests.test
 test_process_transport_and_exact_request_without_key_logging (test_http.HTTPTests.test_process_transport_and_exact_request_without_key_logging) ... ok
 test_redirect_is_not_followed (test_http.HTTPTests.test_redirect_is_not_followed) ... ok
 test_worker_error_does_not_echo_secret (test_http.HTTPTests.test_worker_error_does_not_echo_secret) ... ok
+test_budget_includes_proposals_and_measured_evaluations (test_search.SearchTests.test_budget_includes_proposals_and_measured_evaluations) ... ok
+test_candidate_cannot_select_new_route_or_exceed_space (test_search.SearchTests.test_candidate_cannot_select_new_route_or_exceed_space) ... ok
+test_edit_after_freeze_invalidates_selection (test_search.SearchTests.test_edit_after_freeze_invalidates_selection) ... ok
+test_every_search_is_frozen_before_first_holdout_result (test_search.SearchTests.test_every_search_is_frozen_before_first_holdout_result) ... ok
+test_hidden_tests_cannot_influence_proposals_or_selection (test_search.SearchTests.test_hidden_tests_cannot_influence_proposals_or_selection) ... ok
+test_holdout_cannot_open_before_freeze (test_search.SearchTests.test_holdout_cannot_open_before_freeze) ... ok
+test_interruption_preserves_reservation_and_disables_inference (test_search.SearchTests.test_interruption_preserves_reservation_and_disables_inference) ... ok
+test_invalid_proposals_are_charged_and_cannot_spend_forever (test_search.SearchTests.test_invalid_proposals_are_charged_and_cannot_spend_forever) ... ok
+test_missing_footer_disables_inference_with_all_results_present (test_search.SearchTests.test_missing_footer_disables_inference_with_all_results_present) ... ok
+test_no_evaluation_fallback_remains_in_denominator (test_search.SearchTests.test_no_evaluation_fallback_remains_in_denominator) ... ok
+test_outer_repetitions_are_the_statistical_unit (test_search.SearchTests.test_outer_repetitions_are_the_statistical_unit) ... ok
+test_paint_cannot_turn_proxy_reward_into_holdout_success (test_search.SearchTests.test_paint_cannot_turn_proxy_reward_into_holdout_success) ... ok
+test_provider_contract_violation_disables_comparisons (test_search.SearchTests.test_provider_contract_violation_disables_comparisons) ... ok
+test_rehashed_score_tampering_fails_replay (test_search.SearchTests.test_rehashed_score_tampering_fails_replay) ... ok
+test_replay_recomputes_whole_search_and_holdout (test_search.SearchTests.test_replay_recomputes_whole_search_and_holdout) ... ok
+test_split_is_disjoint_and_committed_with_nonce (test_search.SearchTests.test_split_is_disjoint_and_committed_with_nonce) ... ok
 test_arbitrary_checker_name_and_role_string_confer_no_authority (test_trust.TrustTests.test_arbitrary_checker_name_and_role_string_confer_no_authority) ... ok
 test_archive_and_training_views_drop_quarantined_trace (test_trust.TrustTests.test_archive_and_training_views_drop_quarantined_trace) ... ok
 test_caller_cannot_edit_dataset_or_receipt (test_trust.TrustTests.test_caller_cannot_edit_dataset_or_receipt) ... ok
@@ -61,7 +77,7 @@ test_unknown_or_malformed_bundle_member_is_structured_rejection (test_trust.Trus
 test_unrelated_evidence_does_not_invalidate_a_cached_view (test_trust.TrustTests.test_unrelated_evidence_does_not_invalidate_a_cached_view) ... ok
 
 ----------------------------------------------------------------------
-Ran 61 tests in 4.181s
+Ran 77 tests in 13.966s
 
 OK
-{"source_manifest": "418aaa5938416d0193561679b05e3a4fea0cd795e972c3b57280c69ebd491127", "tests_run": 61, "success": true, "live_llm_evaluation": "NOT_RUN"}
+{"source_manifest": "c253f90f2f5df586dcd24a906390ed9f2a94e0e4fd7893b62c3d90f78edf33a6", "tests_run": 77, "success": true, "live_llm_evaluation": "NOT_RUN"}

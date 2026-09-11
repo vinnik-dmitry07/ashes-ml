@@ -1,0 +1,14 @@
+{
+  "search": {
+    "candidate_evaluations": 301,
+    "episodes": 1204,
+    "fixture_calls": 11172,
+    "checked_transitions": 10892
+  },
+  "holdout": {
+    "candidate_evaluations": 48,
+    "episodes": 192,
+    "fixture_calls": 2598,
+    "checked_transitions": 2586
+  }
+}

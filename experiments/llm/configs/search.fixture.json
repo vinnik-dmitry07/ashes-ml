@@ -1,0 +1,12 @@
+{
+  "repetitions": 12,
+  "search_seed": 20260910,
+  "search_tasks": 4,
+  "holdout_tasks": 4,
+  "search_budget_units": 1200,
+  "max_proposals": 16,
+  "deployment_horizon": 100,
+  "success_value_units": 100,
+  "failure_threshold": {"num": 1, "den": 4},
+  "fixture_fault": null
+}

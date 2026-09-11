@@ -1,0 +1,469 @@
+{
+  "schema_version": "ResearchDecisions/1",
+  "date": "2026-09-10",
+  "decisions": [
+    "ADOPT",
+    "EXPERIMENT",
+    "REFERENCE",
+    "DROP"
+  ],
+  "decision_is_not_evidence_or_release_authority": true,
+  "entries": [
+    {
+      "id": "R01",
+      "title": "Q-Learning With World Models (QWM)",
+      "decision": "EXPERIMENT",
+      "transfer_target": "Проверить ускорение обучения через модель мира",
+      "caveat": "Sample efficiency отдельно от предельного качества; EXPO/RLPD, одинаковые данные и бюджет; уточнить n и полосы.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R02",
+      "title": "BDH-CQ",
+      "decision": "EXPERIMENT",
+      "transfer_target": "Проверить recurrent latent reasoning на фронте цена–качество",
+      "caveat": "Нужна абляция recurrence при сопоставимых архитектуре, данных и вычислениях.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R03",
+      "title": "When Does Continual Learning Require Learning",
+      "decision": "EXPERIMENT",
+      "transfer_target": "Проверить выбор prompting, retrieval, distillation и RL при дрейфе",
+      "caveat": "Добавить retrieval-only контроль и другие семейства моделей; число повторов не считать известным без явного источника.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R04",
+      "title": "To Retain or to Adapt?",
+      "decision": "REFERENCE",
+      "transfer_target": "Рамка stability/plasticity при дрейфе",
+      "caveat": "Концептуальная полезность сама по себе не устанавливает практическую дельту.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R05",
+      "title": "Weight-Space Geometry of Offline Reasoning Training",
+      "decision": "DROP",
+      "transfer_target": "Исключить из основного набора для текущего проекта",
+      "caveat": "По предоставленной оценке: Qwen-only, math-only, чувствительность к training setup; это фильтр релевантности, не опровержение статьи.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R06",
+      "title": "Rethinking On-Policy Distillation",
+      "decision": "REFERENCE",
+      "transfer_target": "Механизм перераспределения вероятностной массы при OPD",
+      "caveat": "Проверить перенос за пределы Qwen-derived моделей и математических задач.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R07",
+      "title": "Evolutionary Strategies Lead to Catastrophic Forgetting",
+      "decision": "ADOPT",
+      "transfer_target": "Регрессионная проверка старых способностей после обновления",
+      "caveat": "Переносится диагностический контроль; решение не означает внедрение ES-оптимизатора.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R08",
+      "title": "XBridge",
+      "decision": "EXPERIMENT",
+      "transfer_target": "Проверить межсемейную коммуникацию через активации",
+      "caveat": "Сравнивать с FullComm и вариантами без обучения при общем бюджете передачи и инференса.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R09",
+      "title": "Cross-Model KV Cache Transfer",
+      "decision": "ADOPT",
+      "transfer_target": "Парный standalone-контроль, passthrough, нижний якорь и проверка выбора конфигурации",
+      "caveat": "Протокол переносим; пригодность самого преобразования KV нужно проверять для каждой пары моделей.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "PARTIAL_SOURCE_CHECK_IN_CONVERSATION",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R10",
+      "title": "DiffusionGemma",
+      "decision": "REFERENCE",
+      "transfer_target": "Системный фронт throughput–качество",
+      "caveat": "Выигрыш скорости не объявлять ростом reasoning capability; измерять на целевом железе и полной процедуре.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R11",
+      "title": "HOLA",
+      "decision": "REFERENCE",
+      "transfer_target": "Exact-memory augmentation",
+      "caveat": "По предоставленной оценке: небольшой масштаб; перенос на frontier не установлен.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R12",
+      "title": "PoLar / Skip a Layer or Loop It?",
+      "decision": "EXPERIMENT",
+      "transfer_target": "Адаптивный выбор пропусков и повторов слоёв",
+      "caveat": "Число 71.9% и изменения v2 требуют независимой проверки полного текста; oracle-путь не равен дешёвому селектору.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R13",
+      "title": "Latent Cache Flow",
+      "decision": "REFERENCE",
+      "transfer_target": "Уменьшение накладных расходов коммуникации",
+      "caveat": "Ранние результаты и небольшая экспериментальная база.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R14",
+      "title": "DMax",
+      "decision": "ADOPT",
+      "transfer_target": "Профиль ускоренного декодирования для проверки на целевой системе",
+      "caveat": "ADOPT задаёт направление переноса; локальный выигрыш и сохранение качества ещё нужно измерить.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R15",
+      "title": "LSP Scheduler",
+      "decision": "ADOPT",
+      "transfer_target": "Профиль планирования diffusion decoding без обучения",
+      "caveat": "Приёмка требует измеренного quality–speed frontier на нужной архитектуре.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R16",
+      "title": "LLaDA2.1",
+      "decision": "ADOPT",
+      "transfer_target": "Кандидатный профиль inference backend и его измерение",
+      "caveat": "Системный результат не изолирует вклад каждого алгоритмического компонента; внедрение в пакет не выполнено.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R17",
+      "title": "Looped Transformers / LOTUS",
+      "decision": "REFERENCE",
+      "transfer_target": "Латентное повторное вычисление",
+      "caveat": "По предоставленной оценке: math-only; перенос на другие задачи не показан.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R18",
+      "title": "Emergent Capabilities Arise Randomly",
+      "decision": "REFERENCE",
+      "transfer_target": "Гипотеза о sparse attention configurations",
+      "caveat": "Синтетические задачи и малые модели ограничивают внешнюю применимость.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R19",
+      "title": "LMs Compare Quantities via Heuristics",
+      "decision": "REFERENCE",
+      "transfer_target": "Диагностика shortcuts при сравнении величин",
+      "caveat": "Узкая задача; не общий метод улучшения агента.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R20",
+      "title": "Mechanistic Analysis of Looped Reasoning LMs",
+      "decision": "REFERENCE",
+      "transfer_target": "Диагностика recurrent states и fixed points",
+      "caveat": "Наблюдение конкретных состояний не доказывает универсальный механизм reasoning.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R21",
+      "title": "LiveMathematicianBench",
+      "decision": "ADOPT",
+      "transfer_target": "Протокол свежего математического тестирования",
+      "caveat": "Свежесть снижает риск устаревшего теста, но не гарантирует отсутствие загрязнения; нужны дата и правила доступа.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R22",
+      "title": "AI-rithmetic",
+      "decision": "REFERENCE",
+      "transfer_target": "Контроль длинной арифметики и её ошибок",
+      "caveat": "Точный узкий диагноз не равен общей оценке агента.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R23",
+      "title": "Position: LLMs Can't Jump",
+      "decision": "REFERENCE",
+      "transfer_target": "Рамка ограничений discovery",
+      "caveat": "Position piece; не эмпирическое доказательство нового метода.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R24",
+      "title": "The Loss Does Not See the Basis, but Adam Does",
+      "decision": "ADOPT",
+      "transfer_target": "Контроль параметризации и оптимизатора в воспроизводимости",
+      "caveat": "Переносится методологический инвариант, не обещание улучшения LLM-RL.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R25",
+      "title": "Explorative Modeling",
+      "decision": "ADOPT",
+      "transfer_target": "Измерение эффективности обучения и перенос принципа по отдельному протоколу",
+      "caveat": "Отделять общий принцип от чисел отдельных бенчмарков; локально не воспроизведено.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R26",
+      "title": "Self-Improving Pretraining",
+      "decision": "EXPERIMENT",
+      "transfer_target": "Self-generated сигнал против continued-pretraining контроля",
+      "caveat": "Проверять factuality и safety совместно; заявленные 30.9% не считать локально воспроизведённым результатом.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R27",
+      "title": "VISReg",
+      "decision": "ADOPT",
+      "transfer_target": "Vision: протокол data efficiency и OOD",
+      "caveat": "Специальный vision scope; прямой перенос на LLM reasoning не установлен.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R28",
+      "title": "When Does LeJEPA Learn a World Model?",
+      "decision": "REFERENCE",
+      "transfer_target": "Идентифицируемость world-model представлений",
+      "caveat": "Теория с эмпирической поддержкой не является готовой системой агента.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R29",
+      "title": "ELT",
+      "decision": "ADOPT",
+      "transfer_target": "Vision generation: архитектурный профиль повторного применения слоёв",
+      "caveat": "Parameter efficiency в vision не доказывает улучшение LLM reasoning.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R30",
+      "title": "CEO-Bench",
+      "decision": "ADOPT",
+      "transfer_target": "Экономический бенчмарк с ресурсами и отложенными последствиями",
+      "caveat": "Низкий результат моделей не является основанием исключить сложный бенчмарк; валидность метрик проверять отдельно.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R31",
+      "title": "AI Finds A Way",
+      "decision": "ADOPT",
+      "transfer_target": "Каталог отказов и проверка дескриптора по артефакту",
+      "caveat": "Сырой код тоже может содержать инъекцию в комментариях; детерминированная проверка сильнее доверия самоописанию.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "PARTIAL_SOURCE_CHECK_IN_CONVERSATION",
+      "implementation_status": "PARTIAL_IN_AHSL_0_2",
+      "subdecisions": []
+    },
+    {
+      "id": "R32",
+      "title": "Self-Improvements in Modern Agentic Systems",
+      "decision": "REFERENCE",
+      "transfer_target": "Таксономия и prior art",
+      "caveat": "Обзор не является доказательством эффективности конкретного механизма.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R33",
+      "title": "HyperAgents",
+      "decision": "EXPERIMENT",
+      "transfer_target": "Мутация мета-агента и выбор родителей по улучшению потомков",
+      "caveat": "Уточнить протокол n=5; p_min зависит от теста и односторонности. Широкие интервалы означают неточность, а не нулевой эффект.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R34",
+      "title": "PRO-LONG",
+      "decision": "ADOPT",
+      "transfer_target": "Простой write/read протокол памяти и сильный минимальный контроль",
+      "caveat": "Не превращать полезность простого контроля в теорему против всех сложных архитектур.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R35",
+      "title": "SimpleTES",
+      "decision": "ADOPT",
+      "transfer_target": "Системный цикл поиска, учёт бюджета и независимый оценщик",
+      "caveat": "Композитор отдельно имеет статус REFERENCE; слабая абляционная дельта не обосновывает его необходимость.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": [
+        {
+          "component": "composer",
+          "decision": "REFERENCE"
+        }
+      ]
+    },
+    {
+      "id": "R36",
+      "title": "Externalization in LLM Agents",
+      "decision": "REFERENCE",
+      "transfer_target": "Таксономия памяти, skills и protocols",
+      "caveat": "Концептуальная карта; причинный эффект требует отдельного эксперимента.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R37",
+      "title": "Meta-Harness",
+      "decision": "EXPERIMENT",
+      "transfer_target": "Поиск по коду и сырым трассам с независимым семплированием как контролем",
+      "caveat": "Best-of-N согласован по числу оценок; это не автоматически равные полные расходы. OOD-классификация есть; TB2 использует тот же набор для поиска и оценки.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "PARTIAL_SOURCE_CHECK_IN_CONVERSATION",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R38",
+      "title": "When Activation Oracles Learn Not to Read",
+      "decision": "EXPERIMENT",
+      "transfer_target": "Проверить адаптацию oracle и сохранение декодируемой информации",
+      "caveat": "По предоставленной оценке: Qwen3-8B и синтетика; нужны контроль другого декодера и перенос.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R39",
+      "title": "Is Evaluation Awareness Just Format Sensitivity?",
+      "decision": "ADOPT",
+      "transfer_target": "Контроль формата при оценке evaluation awareness",
+      "caveat": "Переносится тест конфаунда; не утверждение, что вся evaluation awareness сводится к формату.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R40",
+      "title": "This Is How the Neocortex Learns",
+      "decision": "REFERENCE",
+      "transfer_target": "Вычислительная neuroscience-теория",
+      "caveat": "Не эмпирическое свидетельство эффективности LLM.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    },
+    {
+      "id": "R41",
+      "title": "Revisiting the Platonic Representation Hypothesis",
+      "decision": "ADOPT",
+      "transfer_target": "Калибровка масштаба и контроля при сравнении представлений",
+      "caveat": "Диагностический результат; не отдельное доказательство прироста capability.",
+      "evidence_origin": "USER_TABLE_2026_09_10",
+      "verification_status": "NOT_INDEPENDENTLY_REVERIFIED",
+      "implementation_status": "PLANNED",
+      "subdecisions": []
+    }
+  ]
+}
