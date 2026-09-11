@@ -1,0 +1,58 @@
+{
+  "profile": "AHSL-1.5",
+  "status": "EXECUTABLE_REFERENCE",
+  "tests_run": 98,
+  "failures": 0,
+  "errors": 0,
+  "manifest_sha256": "01ada0969532bcc9db11d1f2968b2166ef76aa6866396195cccebc5398733430",
+  "files_checked": 33,
+  "wire_fuzz": {
+    "requests": 2000,
+    "outcomes": {
+      "REFERENCE": 26,
+      "SCHEMA": 998,
+      "BUDGET": 976
+    },
+    "outer_admitted": 1024,
+    "outer_rejected": 976,
+    "schema_rejections": 998,
+    "ok": 0
+  },
+  "structured_wire_fuzz": {
+    "requests": 768,
+    "outcomes": {
+      "OK": 97,
+      "SCHEMA": 269,
+      "TYPE": 92,
+      "AUTHORITY": 86,
+      "FUEL": 83,
+      "STALE": 27,
+      "REFERENCE": 101,
+      "DUPLICATE": 13
+    },
+    "origins": {
+      "seed": 135,
+      "mutation": 633
+    },
+    "outer_admitted": 768,
+    "ok": 97,
+    "covered_error_codes": 7,
+    "alphabet_size": 17,
+    "scope": "8 independent sessions; valid lifecycle seeds and bounded request-tree mutations, not exhaustive wire coverage"
+  },
+  "bounded_implementation_exploration": {
+    "scope": "2 jobs, total=3, upper in {1,2}, generation<=2, open_runs<=1",
+    "projection": "erase sequence; implementation step used directly",
+    "states": 6480,
+    "accepted_transitions": 35352,
+    "rejected_transitions": 140256,
+    "maximum_bfs_depth": 11,
+    "unknown_states_with_recovery_path": 1680,
+    "general_liveness_proved": false
+  },
+  "session_replay_hashseeds": [
+    "0",
+    "5",
+    "12345"
+  ]
+}

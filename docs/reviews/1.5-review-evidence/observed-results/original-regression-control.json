@@ -1,0 +1,26 @@
+{
+  "tests": 4,
+  "failures": [
+    {
+      "test": "boundary_tests.RecursionBoundaryTests.test_g12_evaluation_settles_and_can_admit_recursive_candidate",
+      "message": "AssertionError: 'SCHEMA' != 'OK'"
+    }
+  ],
+  "errors": [
+    {
+      "test": "boundary_tests.RecursionBoundaryTests.test_declared_depth_and_fuel_limits_remain_effective (expected='FUEL')",
+      "message": "RecursionError: maximum recursion depth exceeded"
+    },
+    {
+      "test": "boundary_tests.RecursionBoundaryTests.test_declared_depth_and_fuel_limits_remain_effective (expected='LIMIT')",
+      "message": "RecursionError: maximum recursion depth exceeded"
+    },
+    {
+      "test": "boundary_tests.RecursionBoundaryTests.test_in_domain_program_keeps_exact_result_and_fuel",
+      "message": "RecursionError: maximum recursion depth exceeded"
+    }
+  ],
+  "failed_test_methods": 3,
+  "passed_test_methods": 1,
+  "source": "Unmodified AHSL 1.5; three test methods must fail, effect-order control passes"
+}

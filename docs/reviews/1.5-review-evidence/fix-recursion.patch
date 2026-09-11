@@ -1,0 +1,288 @@
+--- a/ahsl/language.py
++++ b/ahsl/language.py
+@@ -172,57 +172,99 @@
+     remaining = fuel
+     functions = program['functions']
+ 
+-    def invoke(key, args, depth):
+-        need(depth <= 64, 'LIMIT')
+-        function = functions[key]
+-        need(len(args) == len(function['params']), 'TYPE')
+-        keys = sorted(function['params'])
+-        for value, tag in zip(args, [function['params'][key] for key in keys]):
+-            value_ok(value, tag)
+-        scope = dict(zip(keys, args))
+-        result = evaluate(function['body'], scope, depth)
+-        value_ok(result, function['result'])
+-        return result
+-
+-    def evaluate(expr, scope, depth):
+-        nonlocal remaining
+-        need(remaining > 0, 'FUEL')
+-        remaining -= 1
+-        op = expr['op']
+-        if op == 'lit':
+-            return deepcopy(expr['value'])
+-        if op == 'var':
+-            return scope[expr['name']]
+-        if op == 'record':
+-            return {key: evaluate(expr['fields'][key], scope, depth)
+-                    for key in sorted(expr['fields'])}
+-        if op == 'some':
+-            return evaluate(expr['value'], scope, depth)
+-        if op == 'let':
+-            value = evaluate(expr['value'], scope, depth)
+-            return evaluate(
+-                expr['body'], {**scope, expr['name']: value}, depth)
+-        if op == 'if':
+-            branch = 'yes' if evaluate(expr['test'], scope, depth) else 'no'
+-            return evaluate(expr[branch], scope, depth)
+-        if op == 'get':
+-            return evaluate(expr['record'], scope, depth)[expr['field']]
+-        if op == 'index':
+-            values = evaluate(expr['list'], scope, depth)
+-            index = evaluate(expr['index'], scope, depth)
+-            integer(index, 0, len(values) - 1)
+-            return values[index]
+-        args = [evaluate(arg, scope, depth) for arg in expr['args']]
+-        if op == 'call':
+-            return invoke(expr['name'], args, depth + 1)
+-        registry = OPERATORS if op == 'builtin' else services
+-        _, result_type, function = registry[expr['name']]
+-        result = function(*deepcopy(args))
+-        value_ok(result, result_type)
+-        canonical(result)
+-        return result
+-
+     canonical(arguments)
+     need(type(arguments) is list)
+-    result = invoke(program['entry'], arguments, 1)
+-    return {'result': result, 'fuel_used': fuel - remaining}
++    pending = [('invoke', program['entry'], arguments, 1)]
++    values = []
++
++    def collect(count):
++        result = values[-count:] if count else []
++        if count:
++            del values[-count:]
++        return result
++
++    # L12 call depth is a language limit, independent of the Python stack.
++    # Continuations preserve evaluation order and charge only AST visits.
++    while pending:
++        frame = pending.pop()
++        kind = frame[0]
++        if kind == 'invoke':
++            _, key, args, depth = frame
++            need(depth <= 64, 'LIMIT')
++            function = functions[key]
++            keys = sorted(function['params'])
++            need(len(args) == len(keys), 'TYPE')
++            for key, value in zip(keys, args):
++                value_ok(value, function['params'][key])
++            pending.append(('return', function['result']))
++            pending.append(('eval', function['body'], dict(zip(keys, args)),
++                            depth))
++        elif kind == 'return':
++            value_ok(values[-1], frame[1])
++        elif kind == 'bind':
++            _, name_, body, scope, depth = frame
++            pending.append(('eval', body, {**scope, name_: values.pop()},
++                            depth))
++        elif kind == 'branch':
++            _, expr, scope, depth = frame
++            branch = 'yes' if values.pop() else 'no'
++            pending.append(('eval', expr[branch], scope, depth))
++        elif kind == 'record':
++            keys = frame[1]
++            values.append(dict(zip(keys, collect(len(keys)))))
++        elif kind == 'get':
++            values.append(values.pop()[frame[1]])
++        elif kind == 'index':
++            index = values.pop()
++            items = values.pop()
++            integer(index, 0, len(items) - 1)
++            values.append(items[index])
++        elif kind == 'apply':
++            _, op, key, count, depth = frame
++            args = collect(count)
++            if op == 'call':
++                pending.append(('invoke', key, args, depth + 1))
++            else:
++                registry = OPERATORS if op == 'builtin' else services
++                _, result_type, function = registry[key]
++                result = function(*deepcopy(args))
++                value_ok(result, result_type)
++                canonical(result)
++                values.append(result)
++        else:
++            _, expr, scope, depth = frame
++            need(remaining > 0, 'FUEL')
++            remaining -= 1
++            op = expr['op']
++            if op == 'lit':
++                values.append(deepcopy(expr['value']))
++            elif op == 'var':
++                values.append(scope[expr['name']])
++            elif op == 'record':
++                keys = sorted(expr['fields'])
++                pending.append(('record', keys))
++                pending.extend(('eval', expr['fields'][key], scope, depth)
++                               for key in reversed(keys))
++            elif op == 'some':
++                pending.append(('eval', expr['value'], scope, depth))
++            elif op == 'let':
++                pending.append(('bind', expr['name'], expr['body'], scope,
++                                depth))
++                pending.append(('eval', expr['value'], scope, depth))
++            elif op == 'if':
++                pending.append(('branch', expr, scope, depth))
++                pending.append(('eval', expr['test'], scope, depth))
++            elif op == 'get':
++                pending.append(('get', expr['field']))
++                pending.append(('eval', expr['record'], scope, depth))
++            elif op == 'index':
++                pending.append(('index',))
++                pending.append(('eval', expr['index'], scope, depth))
++                pending.append(('eval', expr['list'], scope, depth))
++            else:
++                pending.append(('apply', op, expr['name'], len(expr['args']),
++                                depth))
++                pending.extend(('eval', arg, scope, depth)
++                               for arg in reversed(expr['args']))
++    need(len(values) == 1, 'INTEGRITY')
++    return {'result': values[0], 'fuel_used': fuel - remaining}
+--- a/SPEC.md
++++ b/SPEC.md
+@@ -315,7 +315,7 @@
+ manifest = pinned Manifest ID
+ levels = pinned required levels
+ absolute_success = "ALL"
+-improvement_profile = "SUCCESS_THEN_PARETO_COST_1"
++improvement_profile = "SUCCESS_THEN_PARETO_COST_2"
+ floor = {require_ground_goal:true, max_actions:64,
+          max_program_bytes:65536}
+ observer = SHA256(observer_key)
+--- /dev/null
++++ b/tests/test_recursion_boundary.py
+@@ -0,0 +1,120 @@
++'''The declared L12 limits must not depend on Python recursion depth.'''
++
++from copy import deepcopy
++import sys
++import unittest
++
++from ahsl.admission import Session
++from ahsl.api import handle
++from ahsl.codec import Rejected, canonical, cid, decode
++from ahsl.examples import (
++    builtin, call, choose, corridor_agent, function, lit, program, var,
++)
++from ahsl.language import check, execute
++
++
++def loop_function():
++    body = choose(
++        builtin('eq', var('n'), lit(0, 'Int')), lit(0, 'Int'),
++        call('loop', builtin('sub', var('n'), lit(1, 'Int'))),
++    )
++    for index in range(16):
++        body = {
++            'op': 'let', 'name': 'unused' + str(index),
++            'value': lit(0, 'Int'), 'body': body,
++        }
++    return function({'n': 'Int'}, 'Int', body)
++
++
++class RecursionBoundaryTests(unittest.TestCase):
++    def setUp(self):
++        previous = sys.getrecursionlimit()
++        self.addCleanup(sys.setrecursionlimit, previous)
++        sys.setrecursionlimit(1000)
++
++    def pure(self, iterations):
++        result = program(call('loop', lit(iterations, 'Int')), 'Int')
++        result['functions']['loop'] = loop_function()
++        check(result)
++        return result
++
++    def test_in_domain_program_keeps_exact_result_and_fuel(self):
++        self.assertEqual(execute(self.pure(60), [], 50000),
++                         {'result': 0, 'fuel_used': 2439})
++
++    def test_declared_depth_and_fuel_limits_remain_effective(self):
++        for candidate, fuel, expected in (
++            (self.pure(60), 2438, 'FUEL'),
++            (self.pure(64), 50000, 'LIMIT'),
++        ):
++            with self.subTest(expected=expected):
++                with self.assertRaises(Rejected) as caught:
++                    execute(candidate, [], fuel)
++                self.assertEqual(str(caught.exception), expected)
++
++    def test_continuations_preserve_effect_order_and_lazy_branching(self):
++        observed = []
++
++        def mark(value):
++            observed.append(value)
++            return value
++
++        def unreachable():
++            raise AssertionError('An unselected branch was evaluated')
++
++        def effect(value):
++            return {'op': 'service', 'name': 'mark',
++                    'args': [lit(value, 'Int')]}
++
++        selected = choose(
++            lit(False, 'Bool'),
++            {'op': 'service', 'name': 'unreachable', 'args': []},
++            call('difference', effect(2), effect(3)),
++        )
++        candidate = program(
++            {'op': 'record', 'fields': {'z': selected, 'a': effect(1)}},
++            {'Record': {'z': 'Int', 'a': 'Int'}},
++        )
++        candidate['functions']['difference'] = function(
++            {'z': 'Int', 'a': 'Int'}, 'Int',
++            builtin('sub', var('a'), var('z')),
++        )
++        services = {
++            'mark': (['Int'], 'Int', mark),
++            'unreachable': ([], 'Int', unreachable),
++        }
++        result = execute(candidate, [], 100, services)
++        self.assertEqual(result, {'result': {'a': 1, 'z': -1},
++                                  'fuel_used': 13})
++        self.assertEqual(observed, [1, 2, 3])
++
++    def test_g12_evaluation_settles_and_can_admit_recursive_candidate(self):
++        candidate = corridor_agent()
++        candidate['functions']['loop'] = loop_function()
++        body = deepcopy(candidate['functions']['main']['body'])
++        candidate['functions']['main']['body'] = {
++            'op': 'let', 'name': 'discard',
++            'value': call('loop', lit(60, 'Int')), 'body': body,
++        }
++        owner = Session(
++            corridor_agent('paint'), 8,
++            b'local-review-public-fixture-key-only', cid('Manifest', {}), [1],
++        )
++
++        def send(request):
++            result = decode(handle(owner, canonical(request)))
++            self.assertEqual(result['code'], 'OK')
++            return result['value']
++
++        plan = send({'op': 'propose', 'program': candidate})
++        assignments = send({'op': 'evaluate', 'plan': plan})
++        self.assertEqual(owner.ledger.state['open_runs'], 0)
++        self.assertEqual(owner.ledger.state['spent'], 2)
++        self.assertIsNone(owner.active_plan)
++        self.assertTrue(all(job['phase'] == 'DONE'
++                            for job in owner.ledger.state['jobs'].values()))
++        verdict = send({'op': 'admit', 'plan': plan,
++                        'assignments': assignments})
++        self.assertTrue(verdict['accept'])
++        self.assertEqual(verdict['improvement']['cost_pairs'][0][1]['vm_fuel'],
++                         9842)

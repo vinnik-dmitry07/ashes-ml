@@ -1,0 +1,9 @@
+{
+  "status": "COMPLETE",
+  "events": 1384,
+  "requested_pipeline_runs": 48,
+  "completed_pipeline_runs": 48,
+  "requested_optimization_runs": 24,
+  "journal_head": "d538c0f1973757b34fa985ea2144c0c8c165736cc98061cad086011613de7850",
+  "summary_digest": "6fb08dc6edf7be4fee86a8232fef02cbcdfc87ebb1634a5e03b18c7a816a160b"
+}

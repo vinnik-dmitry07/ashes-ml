@@ -1,0 +1,28 @@
+{
+  "mutations": [
+    {
+      "mutation": "equal_principals",
+      "test": "test_equal_principals_are_rejected_by_low_level_mission",
+      "caught": true,
+      "returncode": 1,
+      "output": "test_equal_principals_are_rejected_by_low_level_mission (test_release_15.Release15Tests.test_equal_principals_are_rejected_by_low_level_mission) ... FAIL\n\n======================================================================\nFAIL: test_equal_principals_are_rejected_by_low_level_mission (test_release_15.Release15Tests.test_equal_principals_are_rejected_by_low_level_mission)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/tmp/ahsl15-mutants-furoma93/equal_principals/tests/test_release_15.py\", line 113, in test_equal_principals_are_rejected_by_low_level_mission\n    self.rejects('AUTHORITY', create_mission, MANIFEST, [1],\n  File \"/tmp/ahsl15-mutants-furoma93/equal_principals/tests/test_release_15.py\", line 28, in rejects\n    with self.assertRaises(Rejected) as caught:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Rejected not raised\n\n----------------------------------------------------------------------\nRan 1 test in 0.002s\n\nFAILED (failures=1)\n"
+    },
+    {
+      "mutation": "raw_name_bytes",
+      "test": "test_alpha_rename_cannot_be_a_cost_improvement",
+      "caught": true,
+      "returncode": 1,
+      "output": "test_alpha_rename_cannot_be_a_cost_improvement (test_release_15.Release15Tests.test_alpha_rename_cannot_be_a_cost_improvement) ... FAIL\n\n======================================================================\nFAIL: test_alpha_rename_cannot_be_a_cost_improvement (test_release_15.Release15Tests.test_alpha_rename_cannot_be_a_cost_improvement)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/tmp/ahsl15-mutants-furoma93/raw_name_bytes/tests/test_release_15.py\", line 60, in test_alpha_rename_cannot_be_a_cost_improvement\n    self.assertFalse(result['accept'])\nAssertionError: True is not false\n\n----------------------------------------------------------------------\nRan 1 test in 0.044s\n\nFAILED (failures=1)\n"
+    },
+    {
+      "mutation": "unfenced_owner",
+      "test": "test_restore_claim_is_single_use_even_when_blob_has_not_changed",
+      "caught": true,
+      "returncode": 1,
+      "output": "test_restore_claim_is_single_use_even_when_blob_has_not_changed (test_release_15.Release15Tests.test_restore_claim_is_single_use_even_when_blob_has_not_changed) ... FAIL\n\n======================================================================\nFAIL: test_restore_claim_is_single_use_even_when_blob_has_not_changed (test_release_15.Release15Tests.test_restore_claim_is_single_use_even_when_blob_has_not_changed)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/tmp/ahsl15-mutants-furoma93/unfenced_owner/tests/test_release_15.py\", line 176, in test_restore_claim_is_single_use_even_when_blob_has_not_changed\n    self.rejects('STALE', DurableSession.restore,\n  File \"/tmp/ahsl15-mutants-furoma93/unfenced_owner/tests/test_release_15.py\", line 28, in rejects\n    with self.assertRaises(Rejected) as caught:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Rejected not raised\n\n----------------------------------------------------------------------\nRan 1 test in 0.007s\n\nFAILED (failures=1)\n"
+    }
+  ],
+  "caught": 3,
+  "attempted": 3,
+  "mechanism": "Targeted behavioral test failures; manifest verification was not invoked in the mutated copies."
+}

@@ -1,0 +1,618 @@
+{
+  "kind": "finite deterministic stress fixture",
+  "fault_schedule": "one complete paint run among five; not an LLM estimate",
+  "rows": [
+    {
+      "level": 1,
+      "method": "solver",
+      "minimum_solution_actions": 4,
+      "successes": 5,
+      "runs": 5,
+      "pass_all_5": true,
+      "empirical_variance": "0",
+      "actions": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "maximum_actions": 4
+    },
+    {
+      "level": 1,
+      "method": "paint",
+      "minimum_solution_actions": 4,
+      "successes": 0,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "0",
+      "actions": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "maximum_actions": 1
+    },
+    {
+      "level": 1,
+      "method": "fault_schedule",
+      "minimum_solution_actions": 4,
+      "successes": 4,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "4/25",
+      "actions": [
+        4,
+        4,
+        1,
+        4,
+        4
+      ],
+      "maximum_actions": 4
+    },
+    {
+      "level": 2,
+      "method": "solver",
+      "minimum_solution_actions": 7,
+      "successes": 5,
+      "runs": 5,
+      "pass_all_5": true,
+      "empirical_variance": "0",
+      "actions": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "maximum_actions": 7
+    },
+    {
+      "level": 2,
+      "method": "paint",
+      "minimum_solution_actions": 7,
+      "successes": 0,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "0",
+      "actions": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "maximum_actions": 1
+    },
+    {
+      "level": 2,
+      "method": "fault_schedule",
+      "minimum_solution_actions": 7,
+      "successes": 4,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "4/25",
+      "actions": [
+        7,
+        7,
+        1,
+        7,
+        7
+      ],
+      "maximum_actions": 7
+    },
+    {
+      "level": 3,
+      "method": "solver",
+      "minimum_solution_actions": 10,
+      "successes": 5,
+      "runs": 5,
+      "pass_all_5": true,
+      "empirical_variance": "0",
+      "actions": [
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "maximum_actions": 10
+    },
+    {
+      "level": 3,
+      "method": "paint",
+      "minimum_solution_actions": 10,
+      "successes": 0,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "0",
+      "actions": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "maximum_actions": 1
+    },
+    {
+      "level": 3,
+      "method": "fault_schedule",
+      "minimum_solution_actions": 10,
+      "successes": 4,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "4/25",
+      "actions": [
+        10,
+        10,
+        1,
+        10,
+        10
+      ],
+      "maximum_actions": 10
+    },
+    {
+      "level": 4,
+      "method": "solver",
+      "minimum_solution_actions": 13,
+      "successes": 5,
+      "runs": 5,
+      "pass_all_5": true,
+      "empirical_variance": "0",
+      "actions": [
+        13,
+        13,
+        13,
+        13,
+        13
+      ],
+      "maximum_actions": 13
+    },
+    {
+      "level": 4,
+      "method": "paint",
+      "minimum_solution_actions": 13,
+      "successes": 0,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "0",
+      "actions": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "maximum_actions": 1
+    },
+    {
+      "level": 4,
+      "method": "fault_schedule",
+      "minimum_solution_actions": 13,
+      "successes": 4,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "4/25",
+      "actions": [
+        13,
+        13,
+        1,
+        13,
+        13
+      ],
+      "maximum_actions": 13
+    },
+    {
+      "level": 5,
+      "method": "solver",
+      "minimum_solution_actions": 16,
+      "successes": 5,
+      "runs": 5,
+      "pass_all_5": true,
+      "empirical_variance": "0",
+      "actions": [
+        16,
+        16,
+        16,
+        16,
+        16
+      ],
+      "maximum_actions": 16
+    },
+    {
+      "level": 5,
+      "method": "paint",
+      "minimum_solution_actions": 16,
+      "successes": 0,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "0",
+      "actions": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "maximum_actions": 1
+    },
+    {
+      "level": 5,
+      "method": "fault_schedule",
+      "minimum_solution_actions": 16,
+      "successes": 4,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "4/25",
+      "actions": [
+        16,
+        16,
+        1,
+        16,
+        16
+      ],
+      "maximum_actions": 16
+    },
+    {
+      "level": 6,
+      "method": "solver",
+      "minimum_solution_actions": 19,
+      "successes": 5,
+      "runs": 5,
+      "pass_all_5": true,
+      "empirical_variance": "0",
+      "actions": [
+        19,
+        19,
+        19,
+        19,
+        19
+      ],
+      "maximum_actions": 19
+    },
+    {
+      "level": 6,
+      "method": "paint",
+      "minimum_solution_actions": 19,
+      "successes": 0,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "0",
+      "actions": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "maximum_actions": 1
+    },
+    {
+      "level": 6,
+      "method": "fault_schedule",
+      "minimum_solution_actions": 19,
+      "successes": 4,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "4/25",
+      "actions": [
+        19,
+        19,
+        1,
+        19,
+        19
+      ],
+      "maximum_actions": 19
+    },
+    {
+      "level": 7,
+      "method": "solver",
+      "minimum_solution_actions": 22,
+      "successes": 5,
+      "runs": 5,
+      "pass_all_5": true,
+      "empirical_variance": "0",
+      "actions": [
+        22,
+        22,
+        22,
+        22,
+        22
+      ],
+      "maximum_actions": 22
+    },
+    {
+      "level": 7,
+      "method": "paint",
+      "minimum_solution_actions": 22,
+      "successes": 0,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "0",
+      "actions": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "maximum_actions": 1
+    },
+    {
+      "level": 7,
+      "method": "fault_schedule",
+      "minimum_solution_actions": 22,
+      "successes": 4,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "4/25",
+      "actions": [
+        22,
+        22,
+        1,
+        22,
+        22
+      ],
+      "maximum_actions": 22
+    },
+    {
+      "level": 8,
+      "method": "solver",
+      "minimum_solution_actions": 25,
+      "successes": 5,
+      "runs": 5,
+      "pass_all_5": true,
+      "empirical_variance": "0",
+      "actions": [
+        25,
+        25,
+        25,
+        25,
+        25
+      ],
+      "maximum_actions": 25
+    },
+    {
+      "level": 8,
+      "method": "paint",
+      "minimum_solution_actions": 25,
+      "successes": 0,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "0",
+      "actions": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "maximum_actions": 1
+    },
+    {
+      "level": 8,
+      "method": "fault_schedule",
+      "minimum_solution_actions": 25,
+      "successes": 4,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "4/25",
+      "actions": [
+        25,
+        25,
+        1,
+        25,
+        25
+      ],
+      "maximum_actions": 25
+    },
+    {
+      "level": 9,
+      "method": "solver",
+      "minimum_solution_actions": 28,
+      "successes": 5,
+      "runs": 5,
+      "pass_all_5": true,
+      "empirical_variance": "0",
+      "actions": [
+        28,
+        28,
+        28,
+        28,
+        28
+      ],
+      "maximum_actions": 28
+    },
+    {
+      "level": 9,
+      "method": "paint",
+      "minimum_solution_actions": 28,
+      "successes": 0,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "0",
+      "actions": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "maximum_actions": 1
+    },
+    {
+      "level": 9,
+      "method": "fault_schedule",
+      "minimum_solution_actions": 28,
+      "successes": 4,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "4/25",
+      "actions": [
+        28,
+        28,
+        1,
+        28,
+        28
+      ],
+      "maximum_actions": 28
+    },
+    {
+      "level": 10,
+      "method": "solver",
+      "minimum_solution_actions": 31,
+      "successes": 5,
+      "runs": 5,
+      "pass_all_5": true,
+      "empirical_variance": "0",
+      "actions": [
+        31,
+        31,
+        31,
+        31,
+        31
+      ],
+      "maximum_actions": 31
+    },
+    {
+      "level": 10,
+      "method": "paint",
+      "minimum_solution_actions": 31,
+      "successes": 0,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "0",
+      "actions": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "maximum_actions": 1
+    },
+    {
+      "level": 10,
+      "method": "fault_schedule",
+      "minimum_solution_actions": 31,
+      "successes": 4,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "4/25",
+      "actions": [
+        31,
+        31,
+        1,
+        31,
+        31
+      ],
+      "maximum_actions": 31
+    },
+    {
+      "level": 11,
+      "method": "solver",
+      "minimum_solution_actions": 34,
+      "successes": 5,
+      "runs": 5,
+      "pass_all_5": true,
+      "empirical_variance": "0",
+      "actions": [
+        34,
+        34,
+        34,
+        34,
+        34
+      ],
+      "maximum_actions": 34
+    },
+    {
+      "level": 11,
+      "method": "paint",
+      "minimum_solution_actions": 34,
+      "successes": 0,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "0",
+      "actions": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "maximum_actions": 1
+    },
+    {
+      "level": 11,
+      "method": "fault_schedule",
+      "minimum_solution_actions": 34,
+      "successes": 4,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "4/25",
+      "actions": [
+        34,
+        34,
+        1,
+        34,
+        34
+      ],
+      "maximum_actions": 34
+    },
+    {
+      "level": 12,
+      "method": "solver",
+      "minimum_solution_actions": 37,
+      "successes": 5,
+      "runs": 5,
+      "pass_all_5": true,
+      "empirical_variance": "0",
+      "actions": [
+        37,
+        37,
+        37,
+        37,
+        37
+      ],
+      "maximum_actions": 37
+    },
+    {
+      "level": 12,
+      "method": "paint",
+      "minimum_solution_actions": 37,
+      "successes": 0,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "0",
+      "actions": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "maximum_actions": 1
+    },
+    {
+      "level": 12,
+      "method": "fault_schedule",
+      "minimum_solution_actions": 37,
+      "successes": 4,
+      "runs": 5,
+      "pass_all_5": false,
+      "empirical_variance": "4/25",
+      "actions": [
+        37,
+        37,
+        1,
+        37,
+        37
+      ],
+      "maximum_actions": 37
+    }
+  ]
+}
