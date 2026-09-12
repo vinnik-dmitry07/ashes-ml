@@ -21,9 +21,9 @@ python3 verify.py --expected-manifest 01ada0969532bcc9db11d1f2968b2166ef76aa6866
 Для долговечного агентского входа используйте `DurableSession`:
 
 ```python
-from ahsl.codec import canonical, cid
-from ahsl.durable import DurableSession
-from ahsl.examples import corridor_agent
+from src.codec import canonical, cid
+from src.durable import DurableSession
+from src.examples import corridor_agent
 
 # Публичный демонстрационный ключ; рабочий ключ задаёт владелец.
 key = b'example-key-not-a-production-secret'

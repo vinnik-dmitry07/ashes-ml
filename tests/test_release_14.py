@@ -3,17 +3,17 @@
 from copy import deepcopy
 import unittest
 
-from ahsl.admission import Session
-from ahsl.api import handle
-from ahsl.codec import Rejected, canonical, cid, decode
-from ahsl.examples import (
+from src.admission import Session
+from src.api import handle
+from src.codec import Rejected, canonical, cid, decode
+from src.examples import (
     action, builtin, call, choose, corridor_agent, function, lit,
     observation, program, var,
 )
-from ahsl.knowledge import trim_alias
-from ahsl.language import check, execute, program_cost_bytes
-from ahsl.obligations import DEFAULT_GUARANTEES, IMPROVEMENT_PROFILE
-from ahsl.schema import validate_schema
+from src.knowledge import trim_alias
+from src.language import check, execute, program_cost_bytes
+from src.obligations import DEFAULT_GUARANTEES, IMPROVEMENT_PROFILE
+from src.schema import validate_schema
 
 
 KEY = b'release-14-regression-root-key-only'

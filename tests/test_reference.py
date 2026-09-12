@@ -5,14 +5,14 @@ from fractions import Fraction
 import itertools
 import unittest
 
-from ahsl.admission import Session, assess_pairs, exact_pair_tests, formalize
-from ahsl.codec import Rejected, canonical, cid, decode, fraction, rat
-from ahsl.decisions import brier, expected, plurality, regret
-from ahsl.environment import (
+from src.admission import Session, assess_pairs, exact_pair_tests, formalize
+from src.codec import Rejected, canonical, cid, decode, fraction, rat
+from src.decisions import brier, expected, plurality, regret
+from src.environment import (
     ACTIONS, ENVIRONMENT, Runner, audit_trace, goal, initial, observe,
     solution, transition, verify_edge,
 )
-from ahsl.examples import (
+from src.examples import (
     builtin,
     call,
     corridor_agent,
@@ -25,11 +25,11 @@ from ahsl.examples import (
     recursive_context,
     var,
 )
-from ahsl.kernel import Ledger, invariant, replay, step
-from ahsl.knowledge import compose, mutate_literal, trim_alias
-from ahsl.language import check, execute
-from ahsl.proofs import certify, check_certificate, formula, search
-from ahsl.types import type_ok, value_ok
+from src.kernel import Ledger, invariant, replay, step
+from src.knowledge import compose, mutate_literal, trim_alias
+from src.language import check, execute
+from src.proofs import certify, check_certificate, formula, search
+from src.types import type_ok, value_ok
 
 
 MANIFEST = cid('TestManifest', {'version': 1})
@@ -53,8 +53,8 @@ class CodecTests(Base):
     def test_every_production_hash_domain_has_a_named_schema(self):
         import ast
         from pathlib import Path
-        from ahsl.schema import HASH_KINDS
-        root = Path(__file__).resolve().parents[1] / 'ahsl'
+        from src.schema import HASH_KINDS
+        root = Path(__file__).resolve().parents[1] / 'src'
         used = set()
         for path in root.glob('*.py'):
             for node in ast.walk(ast.parse(path.read_text())):
@@ -85,7 +85,7 @@ class CodecTests(Base):
     def test_frozen_vectors_and_schema_export(self):
         import json
         from pathlib import Path
-        from ahsl.schema import SCHEMAS
+        from src.schema import SCHEMAS
         root = Path(__file__).resolve().parents[1]
         cases = json.loads((root / 'encoding-vectors.json').read_text())
         for case in cases:
@@ -376,7 +376,7 @@ class KernelTests(Base):
 
 class GroundingTests(Base):
     def test_controller_budget_boundary(self):
-        from ahsl.api import handle
+        from src.api import handle
         session = self.session()
         request = canonical({'op': 'not_a_command'})
         for _ in range(1024):
@@ -395,8 +395,8 @@ class GroundingTests(Base):
         self.assertEqual(decisions[0], decisions[1])
 
     def test_hard_episode_limit_and_failed_gate_consumes_assignments(self):
-        from ahsl.examples import action
-        from ahsl.environment import AGENT_PARAMS, INTENT_TYPE
+        from src.examples import action
+        from src.environment import AGENT_PARAMS, INTENT_TYPE
         loop = program(action(lit('noop', 'Text')), {'Option': INTENT_TYPE},
                        AGENT_PARAMS)
         session = self.session([12])
@@ -409,7 +409,7 @@ class GroundingTests(Base):
         self.rejects('DUPLICATE', session.admit, plan, receipts)
 
     def test_public_initialization_is_structured_and_total(self):
-        from ahsl.api import initialize
+        from src.api import initialize
         for value in (None, [], {'total': -1}):
             owner, result = initialize(canonical(value), KEY)
             self.assertIsNone(owner)
@@ -475,7 +475,7 @@ class GroundingTests(Base):
         self.assertTrue(session.admit(next_plan, envelopes)['accept'])
 
     def test_wire_boundary_rejects_malformed_requests_without_authority(self):
-        from ahsl.api import handle
+        from src.api import handle
         session = self.session()
         values = [
             None, [], 0, True, {
@@ -668,7 +668,7 @@ class StatisticsTests(Base):
 
 class KnowledgeTests(Base):
     def test_same_scope_fact_requires_matching_grounded_assertion(self):
-        from ahsl.knowledge import ground_fact
+        from src.knowledge import ground_fact
         session = self.session([1])
         plan = session.prepare(corridor_agent(), [1])
         fact, registry = ground_fact(session.evaluate(plan)[1], session.runner)

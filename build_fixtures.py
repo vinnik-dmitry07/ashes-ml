@@ -6,12 +6,12 @@ rewriting.
 import json
 from pathlib import Path
 
-from ahsl.codec import canonical, cid
-from ahsl.examples import (
+from src.codec import canonical, cid
+from src.examples import (
     corridor_agent, council, group_relative_controller, islands,
     recursive_context,
 )
-from ahsl.schema import SCHEMAS
+from src.schema import SCHEMAS
 
 
 def main():

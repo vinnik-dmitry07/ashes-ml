@@ -1,6 +1,6 @@
 '''Closed structural types shared by language, components and contracts.'''
 
-from ahsl.codec import fields, integer, name, need, rat
+from src.codec import fields, integer, name, need, rat
 
 
 SCALARS = ('Unit', 'Bool', 'Int', 'Text', 'Rat')

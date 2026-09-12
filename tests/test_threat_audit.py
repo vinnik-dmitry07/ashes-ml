@@ -5,15 +5,15 @@ import hashlib
 import hmac
 import unittest
 
-from ahsl.admission import Session
-from ahsl.api import handle
-from ahsl.codec import Rejected, canonical, cid, decode
-from ahsl.environment import scripted, solution
-from ahsl.examples import (
+from src.admission import Session
+from src.api import handle
+from src.codec import Rejected, canonical, cid, decode
+from src.environment import scripted, solution
+from src.examples import (
     action, builtin, choose, corridor_agent, lit, var,
 )
-from ahsl.knowledge import compose, ground_fact, synthetic_trace
-from ahsl.obligations import DEFAULT_GUARANTEES
+from src.knowledge import compose, ground_fact, synthetic_trace
+from src.obligations import DEFAULT_GUARANTEES
 
 
 KEY = b'audit-root-key-for-reference-tests-only'

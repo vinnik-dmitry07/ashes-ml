@@ -34,8 +34,8 @@ def manifest():
 
 
 def model_check():
-    from ahsl.codec import Rejected, canonical, cid
-    from ahsl.kernel import initial, invariant, step
+    from src.codec import Rejected, canonical, cid
+    from src.kernel import initial, invariant, step
     a, b = cid('ModelCandidate', 'A'), cid('ModelCandidate', 'B')
 
     def project(state):
@@ -120,9 +120,9 @@ def model_check():
 
 
 def benchmark():
-    from ahsl.codec import cid
-    from ahsl.environment import Runner
-    from ahsl.examples import corridor_agent
+    from src.codec import cid
+    from src.environment import Runner
+    from src.examples import corridor_agent
     runner = Runner(b'benchmark-key-not-a-production-secret',
                     cid('Manifest', manifest()))
     rows = []
@@ -155,10 +155,10 @@ def benchmark():
 
 
 def adversarial_wire():
-    from ahsl.admission import Session
-    from ahsl.api import handle
-    from ahsl.codec import ERRORS, canonical, cid, decode
-    from ahsl.examples import corridor_agent
+    from src.admission import Session
+    from src.api import handle
+    from src.codec import ERRORS, canonical, cid, decode
+    from src.examples import corridor_agent
     rng = random.Random(74123)
     session = Session(corridor_agent('paint'),
                       24, b'wire-test-key-not-production-keyxx',
@@ -185,10 +185,10 @@ def adversarial_wire():
 
 def structured_wire():
     '''Mutate valid request trees, retaining successful dispatch controls.'''
-    from ahsl.admission import Session
-    from ahsl.api import handle
-    from ahsl.codec import ERRORS, canonical, cid, decode
-    from ahsl.examples import builtin, corridor_agent, lit, program
+    from src.admission import Session
+    from src.api import handle
+    from src.codec import ERRORS, canonical, cid, decode
+    from src.examples import builtin, corridor_agent, lit, program
     rng = random.Random(15074123)
     counts, origins = {}, {'seed': 0, 'mutation': 0}
     admitted = 0

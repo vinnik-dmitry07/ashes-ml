@@ -11,14 +11,14 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parent
 MUTATIONS = (
-    ('equal_principals', 'ahsl/obligations.py',
+    ('equal_principals', 'src/obligations.py',
      '    need(observer != evaluator, \'AUTHORITY\')\n', '',
      'test_equal_principals_are_rejected_by_low_level_mission'),
-    ('raw_name_bytes', 'ahsl/witness.py',
+    ('raw_name_bytes', 'src/witness.py',
      '\'program_bytes\': program_cost_bytes(program)',
      '\'program_bytes\': len(canonical(program))',
      'test_alpha_rename_cannot_be_a_cost_improvement'),
-    ('unfenced_owner', 'ahsl/durable.py',
+    ('unfenced_owner', 'src/durable.py',
      '        need(row[:2] == (self._revision, self._digest), '
      '\'STALE\')\n', '',
      'test_restore_claim_is_single_use_even_when_blob_has_not_changed'),

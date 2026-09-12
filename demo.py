@@ -6,11 +6,11 @@ chain.
 import json
 from pathlib import Path
 
-from ahsl.admission import Session, formalize
-from ahsl.codec import cid
-from ahsl.examples import action, builtin, choose, corridor_agent, lit, var
-from ahsl.proofs import search
-from ahsl.schema import validate_schema
+from src.admission import Session, formalize
+from src.codec import cid
+from src.examples import action, builtin, choose, corridor_agent, lit, var
+from src.proofs import search
+from src.schema import validate_schema
 
 
 def run(manifest):

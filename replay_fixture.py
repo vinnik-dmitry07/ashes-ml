@@ -3,11 +3,11 @@
 import json
 from pathlib import Path
 
-from ahsl.admission import Session, formalize
-from ahsl.api import handle
-from ahsl.codec import canonical, cid, decode
-from ahsl.examples import corridor_agent
-from ahsl.obligations import DEFAULT_GUARANTEES
+from src.admission import Session, formalize
+from src.api import handle
+from src.codec import canonical, cid, decode
+from src.examples import corridor_agent
+from src.obligations import DEFAULT_GUARANTEES
 
 
 def run(manifest):

@@ -8,15 +8,15 @@ import threading
 import unittest
 from unittest.mock import patch
 
-from ahsl.admission import Session
-from ahsl.api import handle
-from ahsl.codec import Rejected, canonical, cid, decode
-from ahsl.durable import DurableSession
-from ahsl.examples import builtin, call, corridor_agent, function, lit
-from ahsl.examples import program, var
-from ahsl.language import alpha_normalize, check, execute, program_cost_bytes
-from ahsl.obligations import create_mission
-from ahsl.proofs import check_certificate, search
+from src.admission import Session
+from src.api import handle
+from src.codec import Rejected, canonical, cid, decode
+from src.durable import DurableSession
+from src.examples import builtin, call, corridor_agent, function, lit
+from src.examples import program, var
+from src.language import alpha_normalize, check, execute, program_cost_bytes
+from src.obligations import create_mission
+from src.proofs import check_certificate, search
 
 
 KEY = b'release-15-public-test-key-not-production'
@@ -237,7 +237,7 @@ class Release15Tests(unittest.TestCase):
                 handle(session, request)
                 raise KeyboardInterrupt
 
-            with patch('ahsl.durable.handle',
+            with patch('src.durable.handle',
                        side_effect=crash_after_execution):
                 with self.assertRaises(KeyboardInterrupt):
                     owner.handle(canonical(command))

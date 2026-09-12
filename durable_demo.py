@@ -3,9 +3,9 @@
 from pathlib import Path
 import tempfile
 
-from ahsl.codec import Rejected, canonical, decode
-from ahsl.durable import DurableSession
-from ahsl.examples import corridor_agent
+from src.codec import Rejected, canonical, decode
+from src.durable import DurableSession
+from src.examples import corridor_agent
 
 
 def run(manifest):
