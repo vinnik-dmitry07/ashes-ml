@@ -1,8 +1,8 @@
 # AHSL 1.5
 
-Исполняемый эталон языка харнесов: Mission, гарантии родителя, отдельный оценщик, проверка исполнения и допуска. Эта версия исправляет замечания аудита 1.4: поисковый контроль, стоимость переименования, возобновление со старым снимком, отчётность фаззера и проверку реестра сервисов.
+An executable reference for a harness language: Mission, parent guarantees, a separate evaluator, and checks on execution and admission. This version addresses the 1.4 audit findings: search controls, rename cost, resume from a stale snapshot, fuzzer reporting, and service-registry checks.
 
-Python 3.11+, стандартная библиотека. Профиль долговечного владельца D12 использует SQLite и POSIX fsync. Релизные проверки выполнены на версии Python из §20 `SPEC.md`; воспроизведение 1.4 на Python 3.11.15 сообщил пользователь, это не дополнительный прогон 1.5 на 3.11.
+Python 3.11+, standard library. The durable owner profile D12 uses SQLite and POSIX fsync. Release checks were run on the Python version in §20 of `SPEC.md`. A 1.4 reproduction on Python 3.11.15 was reported by a user; it is not an extra 1.5 run on 3.11.
 
 ```bash
 python3 verify.py
@@ -10,22 +10,22 @@ python3 demo.py
 python3 verify_mutations.py
 ```
 
-`verify.py` не обновляет манифест. Для проверки по внешнему якорю:
+`verify.py` does not update the manifest. To check against an external anchor:
 
 ```bash
 python3 verify.py --expected-manifest 01ada0969532bcc9db11d1f2968b2166ef76aa6866396195cccebc5398733430
 ```
 
-`--write-manifest` и `build_fixtures.py` используются сборщиком нового выпуска. Они не являются проверкой происхождения. Манифест охватывает Python и JSON; документы защищены хешем архива.
+`--write-manifest` and `build_fixtures.py` are for assembling a new release. They are not a provenance check. The manifest covers Python and JSON; documents are protected by the archive hash.
 
-Для долговечного агентского входа используйте `DurableSession`:
+For a durable agent entry point, use `DurableSession`:
 
 ```python
 from src.codec import canonical, cid
 from src.durable import DurableSession
 from src.examples import corridor_agent
 
-# Публичный демонстрационный ключ; рабочий ключ задаёт владелец.
+# Public demo key; the owner sets the working key.
 key = b'example-key-not-a-production-secret'
 owner = DurableSession.create(
     'new-session.sqlite', corridor_agent('paint'), 24, key,
@@ -37,29 +37,29 @@ reply = owner.handle(canonical({
 snapshot, anchor = owner.checkpoint()
 owner.close()
 
-# Загружается актуальное состояние доверенной БД; прежний владелец отозван.
+# Loads the current state of the trusted DB; the previous owner is revoked.
 resumed = DurableSession.open('new-session.sqlite', key)
 resumed.close()
 ```
 
-`DurableSession.restore(path,snapshot,key,anchor)` проверяет предъявленную пару против текущей БД. Старые revision/digest дают STALE. `open` нужен, когда клиент потерял ответ после сохранённого результата. Отклонение внешней границей wire не продвигает checkpoint. Pending-операция блокирует автоматический повтор с PHASE. Отказ самой БД, её откат администратором или общее восстановление pending не покрыты. Полный контракт — §9.1.
+`DurableSession.restore(path, snapshot, key, anchor)` checks the presented pair against the current DB. Old revision/digest values return STALE. Use `open` when the client lost the reply after a saved result. A rejection at the outer wire boundary does not advance the checkpoint. A pending operation blocks automatic retry with PHASE. Failure of the DB itself, an administrator rollback, or general recovery of pending work is out of scope. The full contract is §9.1.
 
-Метод `Session.restore` удалён. `Session.restore_integrity` оставлен для офлайн-проверки исторических снимков и не даёт гарантии свежести. Прямой доступ к Python-объектам относится к доверенному владельцу; это не агентская песочница.
+`Session.restore` has been removed. `Session.restore_integrity` remains for offline checks of historical snapshots and does not guarantee freshness. Direct access to Python objects belongs to the trusted owner; this is not an agent sandbox.
 
-Три оси improve: действия, VM fuel и размер после нормализации связанных имён. Чистое переименование больше не считается улучшением. Лимит `max_program_bytes` продолжает ограничивать фактические байты исходной программы. Версия профиля стоимости — `SUCCESS_THEN_PARETO_COST_2`.
+The three improve axes are actions, VM fuel, and size after bound-name normalization. A pure rename is no longer an improvement. `max_program_bytes` still limits the actual bytes of the source program. The cost-profile version is `SUCCESS_THEN_PARETO_COST_2`.
 
-В обоих поисковых режимах одинаковый индекс подцелей и одна единица бюджета. Плоская цель требует одной конструкции, вложенная — трёх. Прежнее заявление о выигрыше планирования снято.
+Both search modes use the same subgoal index and one budget unit. A flat goal needs one construction; a nested goal needs three. The earlier claim that planning was cheaper is withdrawn.
 
-**Четыре плана — пожизненная граница одного bootstrap.** Завершение и abandon слот не освобождают. Эталон не обещает бесконечную самоэволюцию. Это ограничение сохранено и отдельно проверено.
+**Four plans are a lifetime bound of one bootstrap.** Completing or abandoning a slot does not free it. The reference does not promise unbounded self-evolution. This limit is kept and checked separately.
 
-Файлы:
+Files:
 
-- `SPEC.md` — нормативные правила и фактические релизные числа.
-- `AUDIT-CLOSURE.md` — ответы на шесть находок и замечание о сервисах.
-- `CHANGELOG.md` — совместимость и изменения 1.5.
-- `ahsl/` — исполнение, допуск, доверие и владелец D12.
-- `protocol-schemas.json`, `encoding-vectors.json` — фиксированные формы и векторы.
-- `reports/` — полный прогон, демо, фаззеры, обход K12 и проверки целевыми мутациями.
-- `history/` — ненормативные документы прежних версий.
+- `SPEC.md` — normative rules and actual release numbers.
+- `AUDIT-CLOSURE.md` — replies to the six findings and a note on services.
+- `CHANGELOG.md` — compatibility and 1.5 changes.
+- `src/` — execution, admission, trust, and the D12 owner.
+- `protocol-schemas.json`, `encoding-vectors.json` — frozen forms and vectors.
+- `reports/` — full run, demo, fuzzers, K12 walk, and targeted mutation checks.
+- `history/` — non-normative documents from earlier versions.
 
-Content IDs, снимки и ключи принадлежат версии 1.5. Автоматической миграции полномочий и свидетельств 1.4 нет. Здесь не запускались LLM API, обучение весов или внешние сервисы. Пакет эксперимента 0.3 остаётся отдельным воспроизводимым снимком на своём закреплённом ядре 1.4; его прошлые измерения не переписаны как результаты 1.5.
+Content IDs, snapshots, and keys belong to version 1.5. There is no automatic migration of 1.4 authorities or evidence. No LLM API, weight training, or external services were run here. Experiment package 0.3 remains a separate reproducible snapshot on its pinned 1.4 core; its earlier measurements are not rewritten as 1.5 results.
