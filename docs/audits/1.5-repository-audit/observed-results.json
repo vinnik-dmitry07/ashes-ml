@@ -1,0 +1,130 @@
+{
+  "python": "3.11.15",
+  "A_reproducibility": {
+    "repository_layout": {
+      "returncode": 1,
+      "last_line": "Manifest differs: changed, missing, or unlisted source",
+      "unlisted_files": 96,
+      "unlisted_top_level": [
+        "docs",
+        "experiments"
+      ]
+    },
+    "release_layout_readme_anchor": {
+      "returncode": 1,
+      "last_line": "External manifest anchor mismatch"
+    },
+    "release_layout_current_anchor": {
+      "returncode": 0,
+      "last_line": "}"
+    },
+    "documented_anchor": "01ada0969532bcc9db11d1f2968b2166ef76aa6866396195cccebc5398733430",
+    "current_manifest_sha256": "4eda0baa675e0a05a5b399091d2b6fc32f38cfcdf766d64220cdcecac64f7ced",
+    "committed_verification_manifest": "01ada0969532bcc9db11d1f2968b2166ef76aa6866396195cccebc5398733430",
+    "committed_replay_digest": "90ea111a7e3d620094762fe147538266185a4205b580efe63510e6348cc91884",
+    "current_replay_digest": "9f2537851bf1eeb25f08ff06dae9d52f5d8bd469075c2aad62640f6ea3b9934d"
+  },
+  "B1_recursion": {
+    "run_pure_lets_12": "OK",
+    "run_pure_lets_16": "SCHEMA",
+    "evaluate": "SCHEMA",
+    "jobs_after": {
+      "j0": "DONE",
+      "j1": "RUNNING"
+    },
+    "open_runs_after": 1,
+    "retry": "PHASE",
+    "propose_other": "PHASE"
+  },
+  "B2_fenced_reevaluation": {
+    "propose_second": "OK",
+    "reevaluate_abandoned": "PHASE",
+    "jobs_after": {
+      "j0": "RUNNING"
+    },
+    "open_runs_after": 1,
+    "free_after": 23,
+    "evaluate_second": "PHASE",
+    "admit_second": "PHASE"
+  },
+  "B3_fuel_versus_cpu": {
+    "single_call": [
+      {
+        "points": 512,
+        "request_bytes": 2316,
+        "code": "OK",
+        "fuel_used": 3,
+        "seconds": 0.18
+      },
+      {
+        "points": 1024,
+        "request_bytes": 4364,
+        "code": "OK",
+        "fuel_used": 3,
+        "seconds": 0.61
+      },
+      {
+        "points": 2048,
+        "request_bytes": 8460,
+        "code": "OK",
+        "fuel_used": 3,
+        "seconds": 2.48
+      },
+      {
+        "points": 4096,
+        "request_bytes": 16652,
+        "code": "OK",
+        "fuel_used": 3,
+        "seconds": 9.31
+      }
+    ],
+    "repeated_calls_n1024": [
+      {
+        "pareto_calls": 1,
+        "fuel_used": 10,
+        "seconds": 0.6
+      },
+      {
+        "pareto_calls": 4,
+        "fuel_used": 76,
+        "seconds": 2.4
+      }
+    ]
+  },
+  "C1_checker_totality": {
+    "var_name_list": "raw:TypeError",
+    "var_name_list_wire": "SCHEMA",
+    "call_name_dict": "raw:TypeError",
+    "call_name_dict_wire": "SCHEMA",
+    "get_field_list": "raw:TypeError",
+    "get_field_list_wire": "SCHEMA",
+    "entry_list": "raw:TypeError",
+    "entry_list_wire": "SCHEMA"
+  },
+  "C2_retain_then_improve": {
+    "releases": [
+      {
+        "mode": "retain",
+        "accept": true,
+        "cost_strict": false,
+        "parent_program_bytes": 1257,
+        "child_program_bytes": 3336
+      },
+      {
+        "mode": "improve",
+        "accept": true,
+        "cost_strict": true,
+        "parent_program_bytes": 3336,
+        "child_program_bytes": 1257
+      }
+    ],
+    "active_is_original": true,
+    "generation": 2,
+    "lifetime_plans_left": 2
+  },
+  "C3_documentation": {
+    "spec_lines_with_cost_1": [
+      318
+    ]
+  }
+}
