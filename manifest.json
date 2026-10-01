@@ -4,7 +4,7 @@
   "src/api.py": "3a1a09e737c78913929ad2a8bfd766c17277d611e8ec5d8d242de792697aff0d",
   "src/codec.py": "f2dabf022bb665cdc5529059b2dd56ea0e4d1df1d5fcdfa73e4e85528067e660",
   "src/decisions.py": "fd42e921b84ec5dd3239d583fdc2657d92cde7d2d3096a20b40b9496f8b3aa54",
-  "src/durable.py": "ae719de2b3057bd74c2e320d6f0d591a74b6578e0739a9a0f5d534e5ca1e103a",
+  "src/durable.py": "e7c3282e502809eb77a1321d4fbc9178b4b88297e05b89e6602525a0e8109f34",
   "src/environment.py": "fedb5130906ce7c821e1aef9c992870728ee3af400ca03bad984d1d5fe385356",
   "src/examples.py": "86f1ff35483d99020edca823d6795fc45d8b26d40c515e290fd83d2e29edde8b",
   "src/kernel.py": "5065235f7dbea5e4d1c60417037024441c305f651ff09ecf91030972a21467ec",
@@ -30,7 +30,7 @@
   "tests/test_recursion_boundary.py": "e7ca8a1f7356893df88164d31e2e991a5ecbc4cfbd985b4a1bb2b48ce1e1faae",
   "tests/test_reference.py": "0261dd8f74de364f59296b47c9caeb8f8c21c462c04b36580cfc919cfdfd889d",
   "tests/test_release_14.py": "e441879fea1355f1fb91dac2a94fe13cf3f7676d97d221ab8aa746ec93e87786",
-  "tests/test_release_15.py": "692638083e0ef2ed0931426f28344cd456990eca3b2a011711e7c2974a31ab12",
+  "tests/test_release_15.py": "43b7b911249481a8f1c1180458f165cac157a30e612807d8cc9a5b5f0c3e0ba7",
   "tests/test_threat_audit.py": "22c9ddca855ecba86f6c0a2a31d85d8b3b471881a0fc3acbbc1c79e3cd2d3dfa",
   "verify.py": "c57c2d638233425c2116f4a04a45d37ea24db82f8007873b346791cacf5b1556",
   "verify_mutations.py": "5735b7e1e4126490b60d0a56fb198534343b12acce85daa7490107c6c3ec06ef"

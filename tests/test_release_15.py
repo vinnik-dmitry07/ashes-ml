@@ -29,6 +29,11 @@ class Release15Tests(unittest.TestCase):
             action(*args)
         self.assertEqual(str(caught.exception), code)
 
+    def directory(self):
+        holder = tempfile.TemporaryDirectory()
+        self.addCleanup(holder.cleanup)
+        return holder.name
+
     def owner(self, directory):
         path = Path(directory) / 'checkpoint.sqlite'
         owner = DurableSession.create(path, corridor_agent('paint'), 8,
@@ -145,107 +150,107 @@ class Release15Tests(unittest.TestCase):
                                         mode)['status'], 'UNKNOWN')
 
     def test_old_snapshot_cannot_repeat_an_admission(self):
-        with tempfile.TemporaryDirectory() as directory:
-            owner, path = self.owner(directory)
-            command = self.prepare_evaluated(owner)
-            old, old_anchor = owner.checkpoint()
-            self.assertTrue(self.send(owner, command)['accept'])
-            for _ in range(4):
-                self.rejects('STALE', DurableSession.restore,
-                             path, old, KEY, old_anchor)
-            current, anchor = owner.checkpoint()
-            self.assertEqual(current['ledger']['state']['spent'], 2)
-            restored = DurableSession.restore(path, current, KEY, anchor)
-            self.addCleanup(restored.close)
-            self.rejects('STALE', owner.handle, canonical(command))
-            result = decode(restored.handle(canonical(command)))
-            self.assertEqual(result['code'], 'STALE')
-            final, _ = restored.checkpoint()
-            self.assertEqual(final['ledger']['state']['spent'], 2)
-            self.assertEqual(final['ledger']['state']['generation'], 1)
+        directory = self.directory()
+        owner, path = self.owner(directory)
+        command = self.prepare_evaluated(owner)
+        old, old_anchor = owner.checkpoint()
+        self.assertTrue(self.send(owner, command)['accept'])
+        for _ in range(4):
+            self.rejects('STALE', DurableSession.restore,
+                         path, old, KEY, old_anchor)
+        current, anchor = owner.checkpoint()
+        self.assertEqual(current['ledger']['state']['spent'], 2)
+        restored = DurableSession.restore(path, current, KEY, anchor)
+        self.addCleanup(restored.close)
+        self.rejects('STALE', owner.handle, canonical(command))
+        result = decode(restored.handle(canonical(command)))
+        self.assertEqual(result['code'], 'STALE')
+        final, _ = restored.checkpoint()
+        self.assertEqual(final['ledger']['state']['spent'], 2)
+        self.assertEqual(final['ledger']['state']['generation'], 1)
 
     def test_restore_claim_is_single_use_even_when_blob_has_not_changed(self):
-        with tempfile.TemporaryDirectory() as directory:
-            owner, path = self.owner(directory)
-            snapshot, anchor = owner.checkpoint()
-            recovered = DurableSession.restore(path, snapshot, KEY, anchor)
-            self.addCleanup(recovered.close)
-            same, newer = recovered.checkpoint()
-            self.assertEqual(same, snapshot)
-            self.assertGreater(newer['revision'], anchor['revision'])
-            self.rejects('STALE', DurableSession.restore,
-                         path, snapshot, KEY, anchor)
-            self.rejects('STALE', owner.checkpoint)
+        directory = self.directory()
+        owner, path = self.owner(directory)
+        snapshot, anchor = owner.checkpoint()
+        recovered = DurableSession.restore(path, snapshot, KEY, anchor)
+        self.addCleanup(recovered.close)
+        same, newer = recovered.checkpoint()
+        self.assertEqual(same, snapshot)
+        self.assertGreater(newer['revision'], anchor['revision'])
+        self.rejects('STALE', DurableSession.restore,
+                     path, snapshot, KEY, anchor)
+        self.rejects('STALE', owner.checkpoint)
 
     def test_open_recovers_commit_without_a_new_client_side_anchor(self):
-        with tempfile.TemporaryDirectory() as directory:
-            owner, path = self.owner(directory)
-            command = self.prepare_evaluated(owner)
-            old, anchor = owner.checkpoint()
-            owner.handle(canonical(command))
-            owner.close()
-            recovered = DurableSession.open(path, KEY)
-            self.addCleanup(recovered.close)
-            current, _ = recovered.checkpoint()
-            self.assertEqual(current['ledger']['state']['generation'], 1)
-            self.assertEqual(current['ledger']['state']['spent'], 2)
-            self.rejects('STALE', DurableSession.restore,
-                         path, old, KEY, anchor)
-            self.assertEqual(decode(recovered.handle(
-                canonical(command)))['code'], 'STALE')
+        directory = self.directory()
+        owner, path = self.owner(directory)
+        command = self.prepare_evaluated(owner)
+        old, anchor = owner.checkpoint()
+        owner.handle(canonical(command))
+        owner.close()
+        recovered = DurableSession.open(path, KEY)
+        self.addCleanup(recovered.close)
+        current, _ = recovered.checkpoint()
+        self.assertEqual(current['ledger']['state']['generation'], 1)
+        self.assertEqual(current['ledger']['state']['spent'], 2)
+        self.rejects('STALE', DurableSession.restore,
+                     path, old, KEY, anchor)
+        self.assertEqual(decode(recovered.handle(
+            canonical(command)))['code'], 'STALE')
 
     def test_competing_restores_have_exactly_one_owner(self):
-        with tempfile.TemporaryDirectory() as directory:
-            owner, path = self.owner(directory)
-            snapshot, anchor = owner.checkpoint()
-            barrier = threading.Barrier(2)
+        directory = self.directory()
+        owner, path = self.owner(directory)
+        snapshot, anchor = owner.checkpoint()
+        barrier = threading.Barrier(2)
 
-            def restore():
-                barrier.wait(timeout=5)
-                try:
-                    restored = DurableSession.restore(path, snapshot,
-                                                      KEY, anchor)
-                    restored.close()
-                    return 'OK'
-                except Rejected as error:
-                    return str(error)
+        def restore():
+            barrier.wait(timeout=5)
+            try:
+                restored = DurableSession.restore(path, snapshot,
+                                                  KEY, anchor)
+                restored.close()
+                return 'OK'
+            except Rejected as error:
+                return str(error)
 
-            with ThreadPoolExecutor(max_workers=2) as pool:
-                results = list(pool.map(lambda _: restore(), range(2)))
-            self.assertCountEqual(results, ['OK', 'STALE'])
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            results = list(pool.map(lambda _: restore(), range(2)))
+        self.assertCountEqual(results, ['OK', 'STALE'])
 
     def test_snapshot_integrity_and_root_authority_remain_required(self):
-        with tempfile.TemporaryDirectory() as directory:
-            owner, path = self.owner(directory)
-            snapshot, anchor = owner.checkpoint()
-            changed = deepcopy(snapshot)
-            changed['requests_used'] += 1
-            self.rejects('INTEGRITY', DurableSession.restore,
-                         path, changed, KEY, anchor)
-            self.rejects('AUTHORITY', DurableSession.restore,
-                         path, snapshot, b'wrong-root-key-at-least-32-bytesxx',
-                         anchor)
-            self.assertEqual(owner.checkpoint(), (snapshot, anchor))
+        directory = self.directory()
+        owner, path = self.owner(directory)
+        snapshot, anchor = owner.checkpoint()
+        changed = deepcopy(snapshot)
+        changed['requests_used'] += 1
+        self.rejects('INTEGRITY', DurableSession.restore,
+                     path, changed, KEY, anchor)
+        self.rejects('AUTHORITY', DurableSession.restore,
+                     path, snapshot, b'wrong-root-key-at-least-32-bytesxx',
+                     anchor)
+        self.assertEqual(owner.checkpoint(), (snapshot, anchor))
 
     def test_uncertain_operation_blocks_automatic_retry_after_reopen(self):
-        with tempfile.TemporaryDirectory() as directory:
-            owner, path = self.owner(directory)
-            command = self.prepare_evaluated(owner)
-            snapshot, anchor = owner.checkpoint()
+        directory = self.directory()
+        owner, path = self.owner(directory)
+        command = self.prepare_evaluated(owner)
+        snapshot, anchor = owner.checkpoint()
 
-            def crash_after_execution(session, request):
-                handle(session, request)
-                raise KeyboardInterrupt
+        def crash_after_execution(session, request):
+            handle(session, request)
+            raise KeyboardInterrupt
 
-            with patch('src.durable.handle',
-                       side_effect=crash_after_execution):
-                with self.assertRaises(KeyboardInterrupt):
-                    owner.handle(canonical(command))
-            self.rejects('PHASE', owner.checkpoint)
-            self.rejects('PHASE', owner.handle, canonical(command))
-            self.rejects('PHASE', DurableSession.restore,
-                         path, snapshot, KEY, anchor)
-            self.rejects('PHASE', DurableSession.open, path, KEY)
+        with patch('src.durable.handle',
+                   side_effect=crash_after_execution):
+            with self.assertRaises(KeyboardInterrupt):
+                owner.handle(canonical(command))
+        self.rejects('PHASE', owner.checkpoint)
+        self.rejects('PHASE', owner.handle, canonical(command))
+        self.rejects('PHASE', DurableSession.restore,
+                     path, snapshot, KEY, anchor)
+        self.rejects('PHASE', DurableSession.open, path, KEY)
 
     def test_completed_plans_keep_the_documented_lifetime_limit(self):
         owner = Session(corridor_agent('paint'), 24, KEY, MANIFEST, [1])
@@ -265,12 +270,12 @@ class Release15Tests(unittest.TestCase):
         self.assertEqual(len(owner.plans), 4)
 
     def test_outer_wire_rejection_does_not_advance_durable_checkpoint(self):
-        with tempfile.TemporaryDirectory() as directory:
-            owner, _ = self.owner(directory)
-            before = owner.checkpoint()
-            for request, code in (('not-bytes', 'SCHEMA'),
-                                  (b'x' * 131073, 'LIMIT')):
-                for _ in range(4):
-                    self.assertEqual(decode(owner.handle(request))['code'],
-                                     code)
-            self.assertEqual(owner.checkpoint(), before)
+        directory = self.directory()
+        owner, _ = self.owner(directory)
+        before = owner.checkpoint()
+        for request, code in (('not-bytes', 'SCHEMA'),
+                              (b'x' * 131073, 'LIMIT')):
+            for _ in range(4):
+                self.assertEqual(decode(owner.handle(request))['code'],
+                                 code)
+        self.assertEqual(owner.checkpoint(), before)

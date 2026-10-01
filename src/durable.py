@@ -9,6 +9,17 @@ from .api import check_request, handle
 from .codec import Rejected, canonical, cid, decode, fields, integer, need, ref
 
 
+def _sync_directory(path):
+    # Windows has no directory fsync; SQLite's Windows VFS skips it too.
+    if os.name != 'posix':
+        return
+    descriptor = os.open(path, os.O_RDONLY)
+    try:
+        os.fsync(descriptor)
+    finally:
+        os.close(descriptor)
+
+
 class DurableSession:
     '''One trusted database per session; candidate requests cannot pick it.'''
 
@@ -39,11 +50,7 @@ class DurableSession:
             connection.execute('INSERT INTO checkpoint VALUES (1,0,?,?,0)',
                                (digest, blob))
             connection.execute('COMMIT')
-            directory = os.open(path.parent, os.O_RDONLY)
-            try:
-                os.fsync(directory)
-            finally:
-                os.close(directory)
+            _sync_directory(path.parent)
         except BaseException:
             connection.close()
             raise

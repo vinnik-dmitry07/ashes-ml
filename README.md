@@ -2,7 +2,7 @@
 
 An executable reference for a harness language: Mission, parent guarantees, a separate evaluator, and checks on execution and admission. This version addresses the 1.4 audit findings: search controls, rename cost, resume from a stale snapshot, fuzzer reporting, and service-registry checks.
 
-Python 3.11+, standard library. The durable owner profile D12 uses SQLite and POSIX fsync. Release checks were run on the Python version in §20 of `SPEC.md`. A 1.4 reproduction on Python 3.11.15 was reported by a user; it is not an extra 1.5 run on 3.11.
+Python 3.11+, standard library. The durable owner profile D12 uses SQLite; on POSIX it also fsyncs the parent directory after creating the checkpoint. Release checks were run on the Python version in §20 of `SPEC.md`. A 1.4 reproduction on Python 3.11.15 was reported by a user; it is not an extra 1.5 run on 3.11.
 
 ```bash
 python3 verify.py
@@ -13,7 +13,7 @@ python3 verify_mutations.py
 `verify.py` does not update the manifest. To check against an external anchor:
 
 ```bash
-python3 verify.py --expected-manifest 029222c84efdcb9a70d9a2c21be3745ba0a19c2bf13f27d6162e9fc9409d16e5
+python3 verify.py --expected-manifest 5a61d25b1d6ded4de3d1326de8c4c38afb2e2074f4b0ab08f65aaefd5354267b
 ```
 
 `--write-manifest` and `build_fixtures.py` are for assembling a new release. They are not a provenance check. The manifest covers Python and JSON at the repository root and in `src/`, `tests/`, and `examples/`. `docs/`, `experiments/`, `history/`, and `reports/` are outside it; documents are protected by the archive hash.
