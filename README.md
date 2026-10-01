@@ -13,10 +13,10 @@ python3 verify_mutations.py
 `verify.py` does not update the manifest. To check against an external anchor:
 
 ```bash
-python3 verify.py --expected-manifest 63a23f23fbfa45b449c52963c7b80040bcadf90f4002714f94a8b41be007bca1
+python3 verify.py --expected-manifest 77548f7ecd794ed7619addaaa6a733935ec7e8825e3bbb5df01e2815ee123686
 ```
 
-`--write-manifest` and `build_fixtures.py` are for assembling a new release. They are not a provenance check. The manifest covers Python and JSON; documents are protected by the archive hash.
+`--write-manifest` and `build_fixtures.py` are for assembling a new release. They are not a provenance check. The manifest covers Python and JSON at the repository root and in `src/`, `tests/`, and `examples/`. `docs/`, `experiments/`, `history/`, and `reports/` are outside it; documents are protected by the archive hash.
 
 For a durable agent entry point, use `DurableSession`:
 

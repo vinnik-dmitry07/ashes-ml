@@ -19,17 +19,22 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parent
+RELEASE_DIRS = ('src', 'tests', 'examples')
 
 
 def source_files():
-    return sorted(path for path in ROOT.rglob('*')
+    '''Release sources only: top level plus src, tests, and examples.'''
+    candidates = list(ROOT.glob('*'))
+    for name in RELEASE_DIRS:
+        if (ROOT / name).is_dir():
+            candidates.extend((ROOT / name).rglob('*'))
+    return sorted(path for path in candidates
                   if path.is_file() and path.suffix in ('.py', '.json')
-                  and 'reports' not in path.relative_to(ROOT).parts
                   and path.name != 'manifest.json')
 
 
 def manifest():
-    return {str(path.relative_to(ROOT)): hashlib.sha256(
+    return {path.relative_to(ROOT).as_posix(): hashlib.sha256(
         path.read_bytes()).hexdigest() for path in source_files()}
 
 
