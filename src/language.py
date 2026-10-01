@@ -172,57 +172,99 @@ def execute(program, arguments, fuel, services=None):
     remaining = fuel
     functions = program['functions']
 
-    def invoke(key, args, depth):
-        need(depth <= 64, 'LIMIT')
-        function = functions[key]
-        need(len(args) == len(function['params']), 'TYPE')
-        keys = sorted(function['params'])
-        for value, tag in zip(args, [function['params'][key] for key in keys]):
-            value_ok(value, tag)
-        scope = dict(zip(keys, args))
-        result = evaluate(function['body'], scope, depth)
-        value_ok(result, function['result'])
-        return result
-
-    def evaluate(expr, scope, depth):
-        nonlocal remaining
-        need(remaining > 0, 'FUEL')
-        remaining -= 1
-        op = expr['op']
-        if op == 'lit':
-            return deepcopy(expr['value'])
-        if op == 'var':
-            return scope[expr['name']]
-        if op == 'record':
-            return {key: evaluate(expr['fields'][key], scope, depth)
-                    for key in sorted(expr['fields'])}
-        if op == 'some':
-            return evaluate(expr['value'], scope, depth)
-        if op == 'let':
-            value = evaluate(expr['value'], scope, depth)
-            return evaluate(
-                expr['body'], {**scope, expr['name']: value}, depth)
-        if op == 'if':
-            branch = 'yes' if evaluate(expr['test'], scope, depth) else 'no'
-            return evaluate(expr[branch], scope, depth)
-        if op == 'get':
-            return evaluate(expr['record'], scope, depth)[expr['field']]
-        if op == 'index':
-            values = evaluate(expr['list'], scope, depth)
-            index = evaluate(expr['index'], scope, depth)
-            integer(index, 0, len(values) - 1)
-            return values[index]
-        args = [evaluate(arg, scope, depth) for arg in expr['args']]
-        if op == 'call':
-            return invoke(expr['name'], args, depth + 1)
-        registry = OPERATORS if op == 'builtin' else services
-        _, result_type, function = registry[expr['name']]
-        result = function(*deepcopy(args))
-        value_ok(result, result_type)
-        canonical(result)
-        return result
-
     canonical(arguments)
     need(type(arguments) is list)
-    result = invoke(program['entry'], arguments, 1)
-    return {'result': result, 'fuel_used': fuel - remaining}
+    pending = [('invoke', program['entry'], arguments, 1)]
+    values = []
+
+    def collect(count):
+        result = values[-count:] if count else []
+        if count:
+            del values[-count:]
+        return result
+
+    # L12 call depth is a language limit, independent of the Python stack.
+    # Continuations preserve evaluation order and charge only AST visits.
+    while pending:
+        frame = pending.pop()
+        kind = frame[0]
+        if kind == 'invoke':
+            _, key, args, depth = frame
+            need(depth <= 64, 'LIMIT')
+            function = functions[key]
+            keys = sorted(function['params'])
+            need(len(args) == len(keys), 'TYPE')
+            for key, value in zip(keys, args):
+                value_ok(value, function['params'][key])
+            pending.append(('return', function['result']))
+            pending.append(('eval', function['body'], dict(zip(keys, args)),
+                            depth))
+        elif kind == 'return':
+            value_ok(values[-1], frame[1])
+        elif kind == 'bind':
+            _, name_, body, scope, depth = frame
+            pending.append(('eval', body, {**scope, name_: values.pop()},
+                            depth))
+        elif kind == 'branch':
+            _, expr, scope, depth = frame
+            branch = 'yes' if values.pop() else 'no'
+            pending.append(('eval', expr[branch], scope, depth))
+        elif kind == 'record':
+            keys = frame[1]
+            values.append(dict(zip(keys, collect(len(keys)))))
+        elif kind == 'get':
+            values.append(values.pop()[frame[1]])
+        elif kind == 'index':
+            index = values.pop()
+            items = values.pop()
+            integer(index, 0, len(items) - 1)
+            values.append(items[index])
+        elif kind == 'apply':
+            _, op, key, count, depth = frame
+            args = collect(count)
+            if op == 'call':
+                pending.append(('invoke', key, args, depth + 1))
+            else:
+                registry = OPERATORS if op == 'builtin' else services
+                _, result_type, function = registry[key]
+                result = function(*deepcopy(args))
+                value_ok(result, result_type)
+                canonical(result)
+                values.append(result)
+        else:
+            _, expr, scope, depth = frame
+            need(remaining > 0, 'FUEL')
+            remaining -= 1
+            op = expr['op']
+            if op == 'lit':
+                values.append(deepcopy(expr['value']))
+            elif op == 'var':
+                values.append(scope[expr['name']])
+            elif op == 'record':
+                keys = sorted(expr['fields'])
+                pending.append(('record', keys))
+                pending.extend(('eval', expr['fields'][key], scope, depth)
+                               for key in reversed(keys))
+            elif op == 'some':
+                pending.append(('eval', expr['value'], scope, depth))
+            elif op == 'let':
+                pending.append(('bind', expr['name'], expr['body'], scope,
+                                depth))
+                pending.append(('eval', expr['value'], scope, depth))
+            elif op == 'if':
+                pending.append(('branch', expr, scope, depth))
+                pending.append(('eval', expr['test'], scope, depth))
+            elif op == 'get':
+                pending.append(('get', expr['field']))
+                pending.append(('eval', expr['record'], scope, depth))
+            elif op == 'index':
+                pending.append(('index',))
+                pending.append(('eval', expr['index'], scope, depth))
+                pending.append(('eval', expr['list'], scope, depth))
+            else:
+                pending.append(('apply', op, expr['name'], len(expr['args']),
+                                depth))
+                pending.extend(('eval', arg, scope, depth)
+                               for arg in reversed(expr['args']))
+    need(len(values) == 1, 'INTEGRITY')
+    return {'result': values[0], 'fuel_used': fuel - remaining}

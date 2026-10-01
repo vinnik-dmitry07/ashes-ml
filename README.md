@@ -13,7 +13,7 @@ python3 verify_mutations.py
 `verify.py` does not update the manifest. To check against an external anchor:
 
 ```bash
-python3 verify.py --expected-manifest 01ada0969532bcc9db11d1f2968b2166ef76aa6866396195cccebc5398733430
+python3 verify.py --expected-manifest 63a23f23fbfa45b449c52963c7b80040bcadf90f4002714f94a8b41be007bca1
 ```
 
 `--write-manifest` and `build_fixtures.py` are for assembling a new release. They are not a provenance check. The manifest covers Python and JSON; documents are protected by the archive hash.

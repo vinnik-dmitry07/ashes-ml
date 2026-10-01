@@ -315,7 +315,7 @@ environment = ENVIRONMENT
 manifest = pinned Manifest ID
 levels = pinned required levels
 absolute_success = "ALL"
-improvement_profile = "SUCCESS_THEN_PARETO_COST_1"
+improvement_profile = "SUCCESS_THEN_PARETO_COST_2"
 floor = {require_ground_goal:true, max_actions:64,
          max_program_bytes:65536}
 observer = SHA256(observer_key)
