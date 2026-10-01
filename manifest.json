@@ -1,6 +1,6 @@
 {
   "src/__init__.py": "e0e48601d71da4da8b17eb3c79c8e1b58308bfc0d77132e630d0413db1c01107",
-  "src/admission.py": "a1293f3843173191ccedbda971e757aeae2bbf9855ec9fdbe86f18d8aea7542b",
+  "src/admission.py": "50b365b4af1f48393e55e28d68f74d754f79287e1ec829b02ca37b110e048a9f",
   "src/api.py": "3a1a09e737c78913929ad2a8bfd766c17277d611e8ec5d8d242de792697aff0d",
   "src/codec.py": "f2dabf022bb665cdc5529059b2dd56ea0e4d1df1d5fcdfa73e4e85528067e660",
   "src/decisions.py": "fd42e921b84ec5dd3239d583fdc2657d92cde7d2d3096a20b40b9496f8b3aa54",
@@ -26,6 +26,7 @@
   "examples/recursive_context.json": "3066815dd9a54560f3f9ac90a34c343769865d49a1b288293aac7de4aab37ac0",
   "protocol-schemas.json": "96830108bd068fe7b8407cf01b73c5e66ef5f69a23f9580a0f793b5797d7c553",
   "replay_fixture.py": "3015482031a88648a29d2ca04c633f6ed7f3bc21f944bf1df8e9eaa5a2e16827",
+  "tests/test_evaluate_precheck.py": "0c000d1b45e063a3a07b4c8f36dae25aafa57d44560344251fea595652de9d96",
   "tests/test_recursion_boundary.py": "e7ca8a1f7356893df88164d31e2e991a5ecbc4cfbd985b4a1bb2b48ce1e1faae",
   "tests/test_reference.py": "0261dd8f74de364f59296b47c9caeb8f8c21c462c04b36580cfc919cfdfd889d",
   "tests/test_release_14.py": "e441879fea1355f1fb91dac2a94fe13cf3f7676d97d221ab8aa746ec93e87786",

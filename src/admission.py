@@ -245,6 +245,18 @@ class Session:
             job for job in missing if job not in self.ledger.state['jobs']]
         need(self.ledger.state['free'] >= len(missing), 'BUDGET')
         need(self.active_plan in (None, plan_id), 'PHASE')
+        for assignment in assignments:
+            job = self.ledger.state['jobs'].get(
+                'j' + str(self.runner.issued[assignment]['sequence']))
+            phase = 'RESERVED' if job is None else job['phase']
+            need(phase not in ('SEALED', 'CANCELLED'), 'PHASE')
+            if phase == 'DONE':
+                continue
+            if assignment in self.runner.receipts:
+                self.runner.verify(self.runner.receipts[assignment])
+            else:
+                need(phase == 'RESERVED', 'PHASE')
+                need(assignment not in self.runner.fenced, 'PHASE')
         if self.active_plan is None:
             need(self.ledger.state['open_runs'] == 0, 'PHASE')
             self.ledger.apply('agent', {'op': 'start_run'})
